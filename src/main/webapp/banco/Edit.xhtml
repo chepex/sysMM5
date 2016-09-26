@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="BancoEditDlg" widgetVar="BancoEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditBancoTitle}">
+            <h:form id="BancoEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{bancoController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditBancoLabel_idbanco}" for="idbanco" />
+                        <p:inputText id="idbanco" value="#{bancoController.selected.idbanco}" title="#{bundle.EditBancoTitle_idbanco}" required="true" requiredMessage="#{bundle.EditBancoRequiredMessage_idbanco}"/>
+                        <p:outputLabel value="#{bundle.EditBancoLabel_nombre}" for="nombre" />
+                        <p:inputText id="nombre" value="#{bancoController.selected.nombre}" title="#{bundle.EditBancoTitle_nombre}" required="true" requiredMessage="#{bundle.EditBancoRequiredMessage_nombre}"/>
+                        <p:outputLabel value="#{bundle.EditBancoLabel_descripcion}" for="descripcion" />
+                        <p:inputText id="descripcion" value="#{bancoController.selected.descripcion}" title="#{bundle.EditBancoTitle_descripcion}" />
+                        <p:outputLabel value="#{bundle.EditBancoLabel_activo}" for="activo" />
+                        <p:selectBooleanCheckbox id="activo" value="#{bancoController.selected.activo}" required="true" requiredMessage="#{bundle.EditBancoRequiredMessage_activo}"/>
+                        <p:outputLabel value="#{bundle.EditBancoLabel_usuarioCreate}" for="usuarioCreate" />
+                        <p:inputText id="usuarioCreate" value="#{bancoController.selected.usuarioCreate}" title="#{bundle.EditBancoTitle_usuarioCreate}" />
+                        <p:outputLabel value="#{bundle.EditBancoLabel_fechaCreate}" for="fechaCreate" />
+                        <p:calendar id="fechaCreate" pattern="MM/dd/yyyy" value="#{bancoController.selected.fechaCreate}" title="#{bundle.EditBancoTitle_fechaCreate}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditBancoLabel_usuarioUpdate}" for="usuarioUpdate" />
+                        <p:inputText id="usuarioUpdate" value="#{bancoController.selected.usuarioUpdate}" title="#{bundle.EditBancoTitle_usuarioUpdate}" />
+                        <p:outputLabel value="#{bundle.EditBancoLabel_fechaUpdate}" for="fechaUpdate" />
+                        <p:calendar id="fechaUpdate" pattern="MM/dd/yyyy" value="#{bancoController.selected.fechaUpdate}" title="#{bundle.EditBancoTitle_fechaUpdate}"  showOn="button"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{bancoController.update}" value="#{bundle.Save}" update="display,:BancoListForm:datalist,:growl" oncomplete="handleSubmit(args, 'BancoEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="BancoEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

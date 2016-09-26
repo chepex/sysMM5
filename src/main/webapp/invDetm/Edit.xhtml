@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="InvDetmEditDlg" widgetVar="InvDetmEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditInvDetmTitle}">
+            <h:form id="InvDetmEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{invDetmController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditInvDetmLabel_idinvDetm}" for="idinvDetm" />
+                        <p:inputText id="idinvDetm" value="#{invDetmController.selected.idinvDetm}" title="#{bundle.EditInvDetmTitle_idinvDetm}" required="true" requiredMessage="#{bundle.EditInvDetmRequiredMessage_idinvDetm}"/>
+                        <p:outputLabel value="#{bundle.EditInvDetmLabel_cantidad}" for="cantidad" />
+                        <p:inputText id="cantidad" value="#{invDetmController.selected.cantidad}" title="#{bundle.EditInvDetmTitle_cantidad}" />
+                        <p:outputLabel value="#{bundle.EditInvDetmLabel_productoIdproducto}" for="productoIdproducto" />
+                        <p:selectOneMenu id="productoIdproducto" value="#{invDetmController.selected.productoIdproducto}" required="true" requiredMessage="#{bundle.EditInvDetmRequiredMessage_productoIdproducto}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{productoController.itemsAvailableSelectOne}"
+                                           var="productoIdproductoItem"
+                                           itemValue="#{productoIdproductoItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditInvDetmLabel_invMovIdinvMov}" for="invMovIdinvMov" />
+                        <p:selectOneMenu id="invMovIdinvMov" value="#{invDetmController.selected.invMovIdinvMov}" required="true" requiredMessage="#{bundle.EditInvDetmRequiredMessage_invMovIdinvMov}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{invMovController.itemsAvailableSelectOne}"
+                                           var="invMovIdinvMovItem"
+                                           itemValue="#{invMovIdinvMovItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{invDetmController.update}" value="#{bundle.Save}" update="display,:InvDetmListForm:datalist,:growl" oncomplete="handleSubmit(args, 'InvDetmEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="InvDetmEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

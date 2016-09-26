@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="CorrelativoEditDlg" widgetVar="CorrelativoEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditCorrelativoTitle}">
+            <h:form id="CorrelativoEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{correlativoController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditCorrelativoLabel_idcorrelativo}" for="idcorrelativo" />
+                        <p:inputText id="idcorrelativo" disabled="true" value="#{correlativoController.selected.idcorrelativo}" title="#{bundle.EditCorrelativoTitle_idcorrelativo}" required="true" requiredMessage="#{bundle.EditCorrelativoRequiredMessage_idcorrelativo}"/>
+                        <p:outputLabel value="#{bundle.EditCorrelativoLabel_nombre}" for="nombre" />
+                        <p:inputText id="nombre" value="#{correlativoController.selected.nombre}" title="#{bundle.EditCorrelativoTitle_nombre}" required="true" requiredMessage="#{bundle.EditCorrelativoRequiredMessage_nombre}"/>
+                        <p:outputLabel value="#{bundle.EditCorrelativoLabel_prefijo}" for="prefijo" />
+                        <p:inputText id="prefijo" value="#{correlativoController.selected.prefijo}" title="#{bundle.EditCorrelativoTitle_prefijo}" required="true" requiredMessage="#{bundle.EditCorrelativoRequiredMessage_prefijo}"/>
+                        <p:outputLabel value="#{bundle.EditCorrelativoLabel_valorActual}" for="valorActual" />
+                        <p:inputText id="valorActual" value="#{correlativoController.selected.valorActual}" title="#{bundle.EditCorrelativoTitle_valorActual}" required="true" requiredMessage="#{bundle.EditCorrelativoRequiredMessage_valorActual}"/>
+                        <p:outputLabel value="#{bundle.EditCorrelativoLabel_valorInicial}" for="valorInicial" />
+                        <p:inputText id="valorInicial" value="#{correlativoController.selected.valorInicial}" title="#{bundle.EditCorrelativoTitle_valorInicial}" required="true" requiredMessage="#{bundle.EditCorrelativoRequiredMessage_valorInicial}"/>
+                        <p:outputLabel value="#{bundle.EditCorrelativoLabel_valorFinal}" for="valorFinal" />
+                        <p:inputText id="valorFinal" value="#{correlativoController.selected.valorFinal}" title="#{bundle.EditCorrelativoTitle_valorFinal}" required="true" requiredMessage="#{bundle.EditCorrelativoRequiredMessage_valorFinal}"/>
+                        <p:outputLabel value="#{bundle.EditCorrelativoLabel_fecha}" for="fecha" />
+                        <p:calendar id="fecha" pattern="MM/dd/yyyy" value="#{correlativoController.selected.fecha}" title="#{bundle.EditCorrelativoTitle_fecha}" required="true" requiredMessage="#{bundle.EditCorrelativoRequiredMessage_fecha}" showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditCorrelativoLabel_activo}" for="activo" />
+                        <p:selectBooleanCheckbox id="activo" value="#{correlativoController.selected.activo}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{correlativoController.update}" value="#{bundle.Save}" update="display,:CorrelativoListForm:datalist,:growl" oncomplete="handleSubmit(args, 'CorrelativoEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="CorrelativoEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

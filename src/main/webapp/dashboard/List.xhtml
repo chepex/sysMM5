@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition   template="/WEB-INF/template.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="Dashboard"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+            
+            <script>
+                function skinChart() {
+                     this.cfg.legend= {
+             show: true,
+             location: 'ne',
+             placement: 'outsideGrid'
+           }    ;
+    
+ this.cfg.shadow = true;
+                this.cfg.title = '';
+                this.cfg.seriesColors = ['#2BB673', '#F15732','#EF3FF1'];
+                this.cfg.grid = {
+                    background: '#ffffff',
+                    borderColor: '#ffffff',
+                    gridLineColor: '#F5F5F5',
+                    shadow: false
+                };
+                this.cfg.axesDefaults = {
+                    rendererOptions: {
+                        textColor: '#666F77'
+                    }
+                };
+                this.cfg.legend.show =true;
+                this.cfg.seriesDefaults = {
+                    shadow: false,
+                    lineWidth: 1,
+                    renderer: $.jqplot.BarRenderer,
+                    markerOptions: {
+                        shadow: false,
+                        size: 7,
+                        style: 'circle'
+                    }
+                }
+            }            
+            
+           </script>
+            <h:form id="DashboardListForm">
+                <p:panelGrid columns="2"  layout="grid" >
+                    <p:chart type="bar" model="#{dashboardController.ventaModel}" style="height:300px; width: 100%;"/>
+                    <p:chart type="bar" model="#{dashboardController.compraModel}" style="height:300px; width: 100%;"/>                    
+                    <p:chart type="pie" model="#{dashboardController.existenciaCategoria}" style=" width: 100%;height:300px" />
+                    <p:chart type="pie" model="#{dashboardController.ventaUsuario}" style=" width: 100%;height:300px" />
+                </p:panelGrid>
+         
+                
+            </h:form>
+
+            
+        </ui:define>
+    </ui:composition>
+
+</html>
+

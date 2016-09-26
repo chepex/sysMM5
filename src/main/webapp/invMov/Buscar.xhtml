@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="BuscarDlg" widgetVar="BUscarDialog" modal="true" resizable="false" appendTo="@(body)" header="Buscar documento">
+            <h:form id="BuscarForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="8" >
+                <p:outputLabel value="Documento" for="documento" />
+                        <p:selectOneMenu id="documento" filter="true" filterMatchMode="contains" value="#{invMovController.documento}" required="true" >
+                            <f:selectItems value="#{documentoController.itemsAvailableSelectOne}"
+                                           var="documentoItem"
+                                           itemLabel="#{documentoItem.nombre}"
+                                           itemValue="#{documentoItem}"/>
+                        </p:selectOneMenu>
+                  
+                    <p:outputLabel value="Fecha Inicial" for="finicio" />                    
+                    <p:calendar id="finicio" pattern="dd-MM-yyyy"  value="#{invMovController.finicio}" showOn="button"/>                    
+                    
+                    <p:outputLabel value="Fecha Final" for="ffinal" />                    
+                    <p:calendar id="ffinal" pattern="dd-MM-yyyy"  value="#{invMovController.ffinal}" showOn="button"/>                                        
+                    
+                    <p:commandButton actionListener="#{invMovController.buscar}" value="Buscar"   icon="ui-icon-search" update="@form" />
+                    
+                        
+                    </p:panelGrid> 
+                      <p:dataTable id="datalist" value="#{invMovController.items}" var="item"
+                                 selectionMode="single" selection="#{invMovController.selected}"
+                                 paginator="true"
+                                 rowKey="#{item.idinvMov}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 > 
+                          <p:ajax event="rowSelect"   listener="#{invMovController.selecionar()}"
+                                update=":InvMovListForm" 
+                                onsuccess=" PF('BUscarDialog').hide()" />                          
+                        <p:column>                           
+                            <f:facet name="header">
+                                <h:outputText value="Documento"/>
+                            </f:facet>
+                            <h:outputText value="#{item.documentoIddocumento.nombre}"/>
+                        </p:column>                       
+                        <p:column>                           
+                            <f:facet name="header">                                
+                                <h:outputText value="Fecha" />
+                            </f:facet>
+                            <h:outputText  value="#{item.fecha}">
+                                <f:convertDateTime pattern="dd-MM-yyyy" />
+                            </h:outputText>
+                        </p:column>                       
+                        <p:column>                           
+                            <f:facet name="header">
+                                <h:outputText value="Usuario"/>
+                            </f:facet>
+                            <h:outputText value="#{item.usuarioIdusuario.usuario}"/>
+                        </p:column>  
+                        <p:column>                           
+                            <f:facet name="header">
+                                <h:outputText value="Cantidad"/>
+                            </f:facet>
+                            <h:outputText value="#{item.cantidad}"/>
+                        </p:column>                             
+                                                                            
+                    </p:dataTable>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

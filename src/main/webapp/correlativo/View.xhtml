@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="CorrelativoViewDlg" widgetVar="CorrelativoViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewCorrelativoTitle}">
+            <h:form id="CorrelativoViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{correlativoController.selected != null}">
+                        <h:outputText value="#{bundle.ViewCorrelativoLabel_idcorrelativo}"/>
+                        <h:outputText value="#{correlativoController.selected.idcorrelativo}" title="#{bundle.ViewCorrelativoTitle_idcorrelativo}"/>
+                        <h:outputText value="#{bundle.ViewCorrelativoLabel_nombre}"/>
+                        <h:outputText value="#{correlativoController.selected.nombre}" title="#{bundle.ViewCorrelativoTitle_nombre}"/>
+                        <h:outputText value="#{bundle.ViewCorrelativoLabel_prefijo}"/>
+                        <h:outputText value="#{correlativoController.selected.prefijo}" title="#{bundle.ViewCorrelativoTitle_prefijo}"/>
+                        <h:outputText value="#{bundle.ViewCorrelativoLabel_valorActual}"/>
+                        <h:outputText value="#{correlativoController.selected.valorActual}" title="#{bundle.ViewCorrelativoTitle_valorActual}"/>
+                        <h:outputText value="#{bundle.ViewCorrelativoLabel_valorInicial}"/>
+                        <h:outputText value="#{correlativoController.selected.valorInicial}" title="#{bundle.ViewCorrelativoTitle_valorInicial}"/>
+                        <h:outputText value="#{bundle.ViewCorrelativoLabel_valorFinal}"/>
+                        <h:outputText value="#{correlativoController.selected.valorFinal}" title="#{bundle.ViewCorrelativoTitle_valorFinal}"/>
+                        <h:outputText value="#{bundle.ViewCorrelativoLabel_fecha}"/>
+                        <h:outputText value="#{correlativoController.selected.fecha}" title="#{bundle.ViewCorrelativoTitle_fecha}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewCorrelativoLabel_activo}"/>
+                        <p:selectBooleanCheckbox value="#{correlativoController.selected.activo}" disabled="true"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="CorrelativoViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

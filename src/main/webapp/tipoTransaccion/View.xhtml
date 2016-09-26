@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TipoTransaccionViewDlg" widgetVar="TipoTransaccionViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewTipoTransaccionTitle}">
+            <h:form id="TipoTransaccionViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{tipoTransaccionController.selected != null}">
+                        <h:outputText value="#{bundle.ViewTipoTransaccionLabel_idtipoTransaccion}"/>
+                        <h:outputText value="#{tipoTransaccionController.selected.idtipoTransaccion}" title="#{bundle.ViewTipoTransaccionTitle_idtipoTransaccion}"/>
+                        <h:outputText value="#{bundle.ViewTipoTransaccionLabel_activo}"/>
+                        <p:selectBooleanCheckbox value="#{tipoTransaccionController.selected.activo}" disabled="true"/>
+                        <h:outputText value="#{bundle.ViewTipoTransaccionLabel_fechaCreate}"/>
+                        <h:outputText value="#{tipoTransaccionController.selected.fechaCreate}" title="#{bundle.ViewTipoTransaccionTitle_fechaCreate}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewTipoTransaccionLabel_fechaUpdate}"/>
+                        <h:outputText value="#{tipoTransaccionController.selected.fechaUpdate}" title="#{bundle.ViewTipoTransaccionTitle_fechaUpdate}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewTipoTransaccionLabel_nombre}"/>
+                        <h:outputText value="#{tipoTransaccionController.selected.nombre}" title="#{bundle.ViewTipoTransaccionTitle_nombre}"/>
+                        <h:outputText value="#{bundle.ViewTipoTransaccionLabel_sumaResta}"/>
+                        <h:outputText value="#{tipoTransaccionController.selected.sumaResta}" title="#{bundle.ViewTipoTransaccionTitle_sumaResta}"/>
+                        <h:outputText value="#{bundle.ViewTipoTransaccionLabel_usuarioCreate}"/>
+                        <h:outputText value="#{tipoTransaccionController.selected.usuarioCreate}" title="#{bundle.ViewTipoTransaccionTitle_usuarioCreate}"/>
+                        <h:outputText value="#{bundle.ViewTipoTransaccionLabel_usuarioUpdate}"/>
+                        <h:outputText value="#{tipoTransaccionController.selected.usuarioUpdate}" title="#{bundle.ViewTipoTransaccionTitle_usuarioUpdate}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="TipoTransaccionViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TransaccionBancoEditDlg" widgetVar="TransaccionBancoEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditTransaccionBancoTitle}">
+            <h:form id="TransaccionBancoEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{transaccionBancoController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditTransaccionBancoLabel_idtransaccionBanco}" for="idtransaccionBanco" />
+                        <p:inputText id="idtransaccionBanco" value="#{transaccionBancoController.selected.idtransaccionBanco}" title="#{bundle.EditTransaccionBancoTitle_idtransaccionBanco}" required="true" requiredMessage="#{bundle.EditTransaccionBancoRequiredMessage_idtransaccionBanco}"/>
+                        <p:outputLabel value="#{bundle.EditTransaccionBancoLabel_descripcion}" for="descripcion" />
+                        <p:inputText id="descripcion" value="#{transaccionBancoController.selected.descripcion}" title="#{bundle.EditTransaccionBancoTitle_descripcion}" />
+                        <p:outputLabel value="#{bundle.EditTransaccionBancoLabel_fecha}" for="fecha" />
+                        <p:calendar id="fecha" pattern="MM/dd/yyyy" value="#{transaccionBancoController.selected.fecha}" title="#{bundle.EditTransaccionBancoTitle_fecha}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditTransaccionBancoLabel_fechaCreate}" for="fechaCreate" />
+                        <p:calendar id="fechaCreate" pattern="MM/dd/yyyy" value="#{transaccionBancoController.selected.fechaCreate}" title="#{bundle.EditTransaccionBancoTitle_fechaCreate}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditTransaccionBancoLabel_fechaUpdate}" for="fechaUpdate" />
+                        <p:calendar id="fechaUpdate" pattern="MM/dd/yyyy" value="#{transaccionBancoController.selected.fechaUpdate}" title="#{bundle.EditTransaccionBancoTitle_fechaUpdate}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditTransaccionBancoLabel_referencia}" for="referencia" />
+                        <p:inputText id="referencia" value="#{transaccionBancoController.selected.referencia}" title="#{bundle.EditTransaccionBancoTitle_referencia}" />
+                        <p:outputLabel value="#{bundle.EditTransaccionBancoLabel_usuarioCreate}" for="usuarioCreate" />
+                        <p:inputText id="usuarioCreate" value="#{transaccionBancoController.selected.usuarioCreate}" title="#{bundle.EditTransaccionBancoTitle_usuarioCreate}" />
+                        <p:outputLabel value="#{bundle.EditTransaccionBancoLabel_usuarioUpdate}" for="usuarioUpdate" />
+                        <p:inputText id="usuarioUpdate" value="#{transaccionBancoController.selected.usuarioUpdate}" title="#{bundle.EditTransaccionBancoTitle_usuarioUpdate}" />
+                        <p:outputLabel value="#{bundle.EditTransaccionBancoLabel_valor}" for="valor" />
+                        <p:inputText id="valor" value="#{transaccionBancoController.selected.valor}" title="#{bundle.EditTransaccionBancoTitle_valor}" />
+                        <p:outputLabel value="#{bundle.EditTransaccionBancoLabel_cuentaBancoIdcuenta}" for="cuentaBancoIdcuenta" />
+                        <p:selectOneMenu id="cuentaBancoIdcuenta" value="#{transaccionBancoController.selected.cuentaBancoIdcuenta}" required="true" requiredMessage="#{bundle.EditTransaccionBancoRequiredMessage_cuentaBancoIdcuenta}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{cuentaBancoController.itemsAvailableSelectOne}"
+                                           var="cuentaBancoIdcuentaItem"
+                                           itemValue="#{cuentaBancoIdcuentaItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditTransaccionBancoLabel_bancoIdbanco}" for="bancoIdbanco" />
+                        <p:selectOneMenu id="bancoIdbanco" value="#{transaccionBancoController.selected.bancoIdbanco}" required="true" requiredMessage="#{bundle.EditTransaccionBancoRequiredMessage_bancoIdbanco}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{bancoController.itemsAvailableSelectOne}"
+                                           var="bancoIdbancoItem"
+                                           itemValue="#{bancoIdbancoItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditTransaccionBancoLabel_tipoTransaccionIdtipoTransaccion}" for="tipoTransaccionIdtipoTransaccion" />
+                        <p:selectOneMenu id="tipoTransaccionIdtipoTransaccion" value="#{transaccionBancoController.selected.tipoTransaccionIdtipoTransaccion}" required="true" requiredMessage="#{bundle.EditTransaccionBancoRequiredMessage_tipoTransaccionIdtipoTransaccion}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{tipoTransaccionController.itemsAvailableSelectOne}"
+                                           var="tipoTransaccionIdtipoTransaccionItem"
+                                           itemValue="#{tipoTransaccionIdtipoTransaccionItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{transaccionBancoController.update}" value="#{bundle.Save}" update="display,:TransaccionBancoListForm:datalist,:growl" oncomplete="handleSubmit(args, 'TransaccionBancoEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="TransaccionBancoEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

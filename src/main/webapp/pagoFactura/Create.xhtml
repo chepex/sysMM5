@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="PagoFacturaCreateDlg" widgetVar="PagoFacturaCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreatePagoFacturaTitle}">
+            <h:form id="PagoFacturaCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{pagoFacturaController.selected != null}">
+               <p:outputLabel value="Banco" for="idbanco" />
+                        <p:autoComplete id="idbanco" minQueryLength="3" 
+                                        value="#{pagoFacturaController.selected.bancoIdbanco}"                                         
+                                        var="banco"
+                                        itemLabel="#{banco.nombre}" 
+                                        itemValue="#{banco}"
+                                        completeMethod="#{bancoController.autoCompleteBanco}" 
+                                        converter="#{BancoControllerConverter}"                                                                                 
+                                        effect="fade" >
+                              <p:ajax  event="itemSelect"  listener="#{pagoFacturaController.consultaCuenta()}" update="@form :growl" />
+                        </p:autoComplete>                        
+                        
+                        <p:outputLabel value="Cuenta" for="bancoIdbanco" />
+                        <p:selectOneMenu id="bancoIdbanco" value="#{pagoFacturaController.selected.cuentaBancoIdcuenta}" required="true" requiredMessage="#{bundle.EditCuentaBancoRequiredMessage_bancoIdbanco}">
+                            <f:selectItems value="#{pagoFacturaController.lcuentaBanco}"
+                                           var="cuentaBancoItem"
+                                           itemLabel="#{cuentaBancoItem.numero}"
+                                           itemValue="#{cuentaBancoItem}"/>
+                        </p:selectOneMenu>                           
+
+
+                        <p:outputLabel value="#{bundle.CreatePagoFacturaLabel_valor}" for="valor" />
+                        <p:inputText id="valor" value="#{pagoFacturaController.selected.valor}" title="#{bundle.CreatePagoFacturaTitle_valor}" required="true" requiredMessage="#{bundle.CreatePagoFacturaRequiredMessage_valor}"/>
+                        
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{pagoFacturaController.create}" value="#{bundle.Save}" update="display,:PagoFacturaListForm:datalist,:growl" oncomplete="handleSubmit(args,'PagoFacturaCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="PagoFacturaCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

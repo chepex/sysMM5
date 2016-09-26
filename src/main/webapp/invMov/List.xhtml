@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition   template="/WEB-INF/template.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListInvMovTitle}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="content">
+            <h:form id="InvMovListForm">
+                <div style="position: absolute; right: 20px;">
+                    <p:commandButton id="buscarButton"   icon="ui-icon-search" value="Ctrl+B"  update=":BuscarForm" oncomplete="PF('BUscarDialog').show()" disabled="#{!empty invMovController.selected}"/>                
+                    <p:commandButton actionListener="#{invMovController.prepareCreate()}"   icon="ui-icon-plus" value="F6" update="@form" disabled="#{!empty invMovController.selected}"/>
+                    <p:commandButton actionListener="#{invMovController.create()}"   icon="ui-icon-disk" value="F7" update="InvMovListForm :growl" disabled="#{empty invMovController.selected}"/>
+                    <p:commandButton actionListener="#{invMovController.limpiar()}"   icon="ui-icon-closethick" value="F9" update="@form" disabled="#{empty invMovController.selected}"/>
+                </div> 
+                    <p:panel header="Transaccion Inventario" >
+                    <p:panelGrid columns="6"  style=" border-style: hidden !important;" rendered="#{invMovController.selected != null}">                        
+                        
+                      
+                        
+                        <p:outputLabel value="Bodega" for="bodega" />
+                        <p:selectOneMenu id="bodega" value="#{invMovController.selected.bodegaIdbodega}" required="true" >                            
+                        <f:selectItems value="#{bodegaController.itemsAvailableSelectOne}"
+                                           var="bodegaItem"
+                                           itemLabel="#{bodegaItem.nombre}"
+                                           itemValue="#{bodegaItem}"/>
+                        </p:selectOneMenu>                        
+                        
+                        
+                        <p:outputLabel value="Documenteo" for="docto" />
+                        <p:selectOneMenu id="docto" value="#{invMovController.selected.documentoIddocumento}" required="true" >                            
+                        <f:selectItems value="#{documentoController.itemsAvailableSelectOne}"
+                                           var="documentoItem"
+                                           itemLabel="#{documentoItem.nombre}"
+                                           itemValue="#{documentoItem}"/>
+                        </p:selectOneMenu>                        
+                         
+                        <p:outputLabel value="#{bundle.CreateFacturaLabel_documento}" for="documento" />    
+                        <p:inputText id="documento" value="#{invMovController.selected.numDocto}" title="#{bundle.CreateFacturaTitle_documento}" />
+                      
+                    </p:panelGrid> 
+                <p:panel>
+                    <p:panelGrid columns="9"  style=" border-style: hidden !important;" rendered="#{invMovController.selected != null}">
+                        <p:outputLabel value="Producto" for="producto" />                     
+                        <p:autoComplete id="producto" minQueryLength="3" 
+                                        value="#{invMovController.productoIdproducto}"                                         
+                                         var="producto"
+                                         itemLabel="#{producto.nombre}" 
+                                         itemValue="#{producto}"
+                                        completeMethod="#{productoController.autoCompleteProducto}" 
+                                        converter="#{ProductoControllerConverter}" 
+                                                                                
+                                        effect="fade" >
+                              <p:ajax  event="itemSelect"  listener="#{invMovController.updateExistencia}" update="existencia " />
+                        </p:autoComplete>  
+                        
+                        <p:outputLabel value="#{bundle.CreateCompraDetLabel_cantidad}" for="tcantidad" />
+                         <p:inputNumber id="tcantidad" value="#{invMovController.cantidad}"  minValue="1" maxValue="10000"/>  
+                        
+                     
+                        
+                        <p:outputLabel value="Existencia" for="existencia" /> 
+                        <p:inputNumber id="existencia" value="#{invMovController.existencia}"  disabled="true"  />                           
+                        
+                        <p:commandButton actionListener="#{invMovController.addDetalle()}"   icon="ui-icon-plus" style="margin-top: 0px !important;"  update="@form :growl"/>
+                    </p:panelGrid>
+                </p:panel>                      
+                    
+                </p:panel>   
+                <p:panel header="Detalle" >
+                    <p:dataTable id="datalist" value="#{invMovController.detInvmov}" var="item"
+                                 selectionMode="single" selection="#{invDetmController.selected}"
+                                  scrollable="true" scrollHeight="250"
+                                  rowKey="#{item.idinvDetm}"
+                                 rows="30"
+                                 
+                                 >
+                         <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Producto"/>
+                            </f:facet>
+                            <h:outputText value="#{item.productoIdproducto.nombre}"/>
+                        </p:column>
+                        
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListCompraDetTitle_cantidad}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.cantidad}"/>
+                        </p:column> 
+                        <p:columnGroup type="footer" >
+                            <p:row>
+                               
+                                <p:column colspan=""   class="derecha"   >
+                                <f:facet name="footer" >                                
+                                <h:outputText value="Sub-Total:" />                                  
+                                
+                                </f:facet>                                
+                            </p:column>
+                            <p:column  class="derecha">
+                                <f:facet name="footer" >
+                                    <h:outputText value="#{invMovController.selected.cantidad}"/>                                  
+                                </f:facet>
+                            </p:column>
+                            
+                            
+                            </p:row>
+                        </p:columnGroup>
+                        
+                    </p:dataTable>
+                    
+                     
+                </p:panel>                        
+            </h:form>
+
+           <ui:include src="Buscar.xhtml"/>
+        </ui:define>
+    </ui:composition>
+
+</html>

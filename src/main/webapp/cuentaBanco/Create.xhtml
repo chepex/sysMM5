@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="CuentaBancoCreateDlg" widgetVar="CuentaBancoCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateCuentaBancoTitle}">
+            <h:form id="CuentaBancoCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{cuentaBancoController.selected != null}">
+                        
+                        <p:outputLabel value="#{bundle.CreateCuentaBancoLabel_activo}" for="activo" />
+                        <p:selectBooleanCheckbox id="activo" value="#{cuentaBancoController.selected.activo}" />
+                        
+
+                        <p:outputLabel value="#{bundle.CreateCuentaBancoLabel_numero}" for="numero" />
+                        <p:inputText id="numero" value="#{cuentaBancoController.selected.numero}" title="#{bundle.CreateCuentaBancoTitle_numero}" />
+
+                        
+                        <p:outputLabel value="Banco" for="bancoIdbanco" />
+                        <p:selectOneMenu id="bancoIdbanco" value="#{cuentaBancoController.selected.bancoIdbanco}" required="true" requiredMessage="#{bundle.EditCuentaBancoRequiredMessage_bancoIdbanco}">
+                            <f:selectItems value="#{bancoController.itemsAvailableSelectOne}"
+                                           var="bancoIdbancoItem"
+                                           itemLabel="#{bancoIdbancoItem.nombre}"
+                                           itemValue="#{bancoIdbancoItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{cuentaBancoController.create}" value="#{bundle.Save}" update="display,:CuentaBancoListForm:datalist,:growl" oncomplete="handleSubmit(args,'CuentaBancoCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="CuentaBancoCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

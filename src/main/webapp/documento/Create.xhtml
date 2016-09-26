@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="DocumentoCreateDlg" widgetVar="DocumentoCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateDocumentoTitle}">
+            <h:form id="DocumentoCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{documentoController.selected != null}">
+                        
+                        <p:outputLabel value="#{bundle.CreateDocumentoLabel_nombre}" for="nombre" />
+                        <p:inputText id="nombre" value="#{documentoController.selected.nombre}" title="#{bundle.CreateDocumentoTitle_nombre}" />
+                        <p:outputLabel value="#{bundle.CreateDocumentoLabel_descripcion}" for="descripcion" />
+                        <p:inputText id="descripcion" value="#{documentoController.selected.descripcion}" title="#{bundle.CreateDocumentoTitle_descripcion}" />
+                        <p:outputLabel value="#{bundle.CreateDocumentoLabel_sumaResta}" for="sumaResta" />
+                        <p:inputText id="sumaResta" value="#{documentoController.selected.sumaResta}" title="#{bundle.CreateDocumentoTitle_sumaResta}" />
+                        <p:outputLabel value="#{bundle.CreateDocumentoLabel_activo}" for="activo" />
+                        <p:selectBooleanCheckbox id="activo" value="#{documentoController.selected.activo}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{documentoController.create}" value="#{bundle.Save}" update="display,:DocumentoListForm:datalist,:growl" oncomplete="handleSubmit(args,'DocumentoCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="DocumentoCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

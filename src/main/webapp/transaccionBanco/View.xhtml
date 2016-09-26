@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TransaccionBancoViewDlg" widgetVar="TransaccionBancoViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewTransaccionBancoTitle}">
+            <h:form id="TransaccionBancoViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{transaccionBancoController.selected != null}">
+                        <h:outputText value="#{bundle.ViewTransaccionBancoLabel_idtransaccionBanco}"/>
+                        <h:outputText value="#{transaccionBancoController.selected.idtransaccionBanco}" title="#{bundle.ViewTransaccionBancoTitle_idtransaccionBanco}"/>
+                        <h:outputText value="#{bundle.ViewTransaccionBancoLabel_descripcion}"/>
+                        <h:outputText value="#{transaccionBancoController.selected.descripcion}" title="#{bundle.ViewTransaccionBancoTitle_descripcion}"/>
+                        <h:outputText value="#{bundle.ViewTransaccionBancoLabel_fecha}"/>
+                        <h:outputText value="#{transaccionBancoController.selected.fecha}" title="#{bundle.ViewTransaccionBancoTitle_fecha}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewTransaccionBancoLabel_fechaCreate}"/>
+                        <h:outputText value="#{transaccionBancoController.selected.fechaCreate}" title="#{bundle.ViewTransaccionBancoTitle_fechaCreate}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewTransaccionBancoLabel_fechaUpdate}"/>
+                        <h:outputText value="#{transaccionBancoController.selected.fechaUpdate}" title="#{bundle.ViewTransaccionBancoTitle_fechaUpdate}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewTransaccionBancoLabel_referencia}"/>
+                        <h:outputText value="#{transaccionBancoController.selected.referencia}" title="#{bundle.ViewTransaccionBancoTitle_referencia}"/>
+                        <h:outputText value="#{bundle.ViewTransaccionBancoLabel_usuarioCreate}"/>
+                        <h:outputText value="#{transaccionBancoController.selected.usuarioCreate}" title="#{bundle.ViewTransaccionBancoTitle_usuarioCreate}"/>
+                        <h:outputText value="#{bundle.ViewTransaccionBancoLabel_usuarioUpdate}"/>
+                        <h:outputText value="#{transaccionBancoController.selected.usuarioUpdate}" title="#{bundle.ViewTransaccionBancoTitle_usuarioUpdate}"/>
+                        <h:outputText value="#{bundle.ViewTransaccionBancoLabel_valor}"/>
+                        <h:outputText value="#{transaccionBancoController.selected.valor}" title="#{bundle.ViewTransaccionBancoTitle_valor}"/>
+                        <h:outputText value="#{bundle.ViewTransaccionBancoLabel_cuentaBancoIdcuenta}"/>
+                        <h:outputText value="#{transaccionBancoController.selected.cuentaBancoIdcuenta}" title="#{bundle.ViewTransaccionBancoTitle_cuentaBancoIdcuenta}"/>
+                        <h:outputText value="#{bundle.ViewTransaccionBancoLabel_bancoIdbanco}"/>
+                        <h:outputText value="#{transaccionBancoController.selected.bancoIdbanco}" title="#{bundle.ViewTransaccionBancoTitle_bancoIdbanco}"/>
+                        <h:outputText value="#{bundle.ViewTransaccionBancoLabel_tipoTransaccionIdtipoTransaccion}"/>
+                        <h:outputText value="#{transaccionBancoController.selected.tipoTransaccionIdtipoTransaccion}" title="#{bundle.ViewTransaccionBancoTitle_tipoTransaccionIdtipoTransaccion}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="TransaccionBancoViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

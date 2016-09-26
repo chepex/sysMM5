@@ -1,0 +1,43 @@
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:po="http://primefaces.org/olympos">
+
+    <h:form id="menuform">
+        <po:menu>
+           
+           
+  <p:submenu label="Mantenimientos"  >
+                <p:menuitem value="Producto"   icon="icon-light85"   outcome="/producto/List.xhtml"    />
+                <p:menuitem value="Categoria"  icon="icon-users24"  outcome="/categoria/List.xhtml"   />                            
+                <p:menuitem value="Rol"  icon="icon-user106"   outcome="/rol/List.xhtml" />
+                <p:menuitem value="Usuario" icon="icon-user7"   outcome="/usuario/List.xhtml" />                            
+                <p:menuitem value="Correlativos" outcome="/correlativo/List.xhtml" icon="ui-icon-home" />
+            </p:submenu>
+            <p:submenu label="Compras">
+                <p:menuitem value="Proveedor" outcome="/proveedor/List.xhtml" icon="icon-businessman233" />
+                <p:menuitem value="Compra" outcome="/compra/List.xhtml" icon="icon-alarm28" />    
+                <p:menuitem value="Pago Proveedor" outcome="/pagoCompra/List.xhtml" icon="icon-cloud229"  />
+            </p:submenu>
+            <p:submenu label="Ventas">
+                <p:menuitem value="Cliente" outcome="/cliente/List.xhtml"   icon="icon-notebook32" />
+                <p:menuitem value="Factura" outcome="/factura/List.xhtml" icon="icon-smartphone55" />
+                <p:menuitem value="Pago Factura" outcome="/pagoFactura/List.xhtml" icon="icon-refresh47" />
+
+            </p:submenu>  
+            <p:submenu label="Inventario">
+                <p:menuitem value="Documento" outcome="/documento/List.xhtml" icon="icon-add20" />
+                <p:menuitem value="Bodega" outcome="/bodega/List.xhtml" icon="icon-archive24" />
+                <p:menuitem value="Movimiento" outcome="/invMov/List.xhtml"  icon="icon-clipboard88" />
+                <p:menuitem value="kardex" outcome="/invMov/kardex.xhtml" icon="icon-checking1" />
+            </p:submenu>        
+            <p:submenu label="Finanzas">
+                <p:menuitem value="Banco" outcome="/banco/List.xhtml" icon="icon-dollars27" />
+            </p:submenu>
+        </po:menu>
+    </h:form>
+
+</ui:composition>

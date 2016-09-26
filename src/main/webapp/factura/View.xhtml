@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="FacturaViewDlg" widgetVar="FacturaViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewFacturaTitle}">
+            <h:form id="FacturaViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{facturaController.selected != null}">
+                        <h:outputText value="#{bundle.ViewFacturaLabel_idfactura}"/>
+                        <h:outputText value="#{facturaController.selected.idfactura}" title="#{bundle.ViewFacturaTitle_idfactura}"/>
+                        <h:outputText value="#{bundle.ViewFacturaLabel_documento}"/>
+                        <h:outputText value="#{facturaController.selected.documento}" title="#{bundle.ViewFacturaTitle_documento}"/>
+                        <h:outputText value="#{bundle.ViewFacturaLabel_fecha}"/>
+                        <h:outputText value="#{facturaController.selected.fecha}" title="#{bundle.ViewFacturaTitle_fecha}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewFacturaLabel_cantidad}"/>
+                        <h:outputText value="#{facturaController.selected.cantidad}" title="#{bundle.ViewFacturaTitle_cantidad}"/>
+                        <h:outputText value="#{bundle.ViewFacturaLabel_iva}"/>
+                        <h:outputText value="#{facturaController.selected.iva}" title="#{bundle.ViewFacturaTitle_iva}"/>
+                        <h:outputText value="#{bundle.ViewFacturaLabel_retencion}"/>
+                        <h:outputText value="#{facturaController.selected.retencion}" title="#{bundle.ViewFacturaTitle_retencion}"/>
+                        <h:outputText value="#{bundle.ViewFacturaLabel_total}"/>
+                        <h:outputText value="#{facturaController.selected.total}" title="#{bundle.ViewFacturaTitle_total}"/>
+                        <h:outputText value="#{bundle.ViewFacturaLabel_usuarioIdusuario}"/>
+                        <h:outputText value="#{facturaController.selected.usuarioIdusuario}" title="#{bundle.ViewFacturaTitle_usuarioIdusuario}"/>
+                        <h:outputText value="#{bundle.ViewFacturaLabel_clienteIdcliente}"/>
+                        <h:outputText value="#{facturaController.selected.clienteIdcliente}" title="#{bundle.ViewFacturaTitle_clienteIdcliente}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="FacturaViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

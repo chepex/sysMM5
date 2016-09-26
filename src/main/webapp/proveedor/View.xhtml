@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ProveedorViewDlg" widgetVar="ProveedorViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewProveedorTitle}">
+            <h:form id="ProveedorViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{proveedorController.selected != null}">
+                        <h:outputText value="#{bundle.ViewProveedorLabel_idproveedor}"/>
+                        <h:outputText value="#{proveedorController.selected.idproveedor}" title="#{bundle.ViewProveedorTitle_idproveedor}"/>
+                        <h:outputText value="#{bundle.ViewProveedorLabel_nombre}"/>
+                        <h:outputText value="#{proveedorController.selected.nombre}" title="#{bundle.ViewProveedorTitle_nombre}"/>
+                        <h:outputText value="#{bundle.ViewProveedorLabel_descripcion}"/>
+                        <h:outputText value="#{proveedorController.selected.descripcion}" title="#{bundle.ViewProveedorTitle_descripcion}"/>
+                        <h:outputText value="#{bundle.ViewProveedorLabel_nit}"/>
+                        <h:outputText value="#{proveedorController.selected.nit}" title="#{bundle.ViewProveedorTitle_nit}"/>
+                        <h:outputText value="#{bundle.ViewProveedorLabel_tel}"/>
+                        <h:outputText value="#{proveedorController.selected.tel}" title="#{bundle.ViewProveedorTitle_tel}"/>
+                        <h:outputText value="#{bundle.ViewProveedorLabel_correo}"/>
+                        <h:outputText value="#{proveedorController.selected.correo}" title="#{bundle.ViewProveedorTitle_correo}"/>
+                        <h:outputText value="#{bundle.ViewProveedorLabel_direccion}"/>
+                        <h:outputText value="#{proveedorController.selected.direccion}" title="#{bundle.ViewProveedorTitle_direccion}"/>
+                        <h:outputText value="#{bundle.ViewProveedorLabel_activo}"/>
+                        <p:selectBooleanCheckbox value="#{proveedorController.selected.activo}" disabled="true"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="ProveedorViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

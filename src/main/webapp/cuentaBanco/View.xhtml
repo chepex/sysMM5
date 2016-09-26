@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="CuentaBancoViewDlg" widgetVar="CuentaBancoViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewCuentaBancoTitle}">
+            <h:form id="CuentaBancoViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{cuentaBancoController.selected != null}">
+                        <h:outputText value="#{bundle.ViewCuentaBancoLabel_idcuenta}"/>
+                        <h:outputText value="#{cuentaBancoController.selected.idcuenta}" title="#{bundle.ViewCuentaBancoTitle_idcuenta}"/>
+                        <h:outputText value="#{bundle.ViewCuentaBancoLabel_activo}"/>
+                        <p:selectBooleanCheckbox value="#{cuentaBancoController.selected.activo}" disabled="true"/>
+                        <h:outputText value="#{bundle.ViewCuentaBancoLabel_fechaCreate}"/>
+                        <h:outputText value="#{cuentaBancoController.selected.fechaCreate}" title="#{bundle.ViewCuentaBancoTitle_fechaCreate}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewCuentaBancoLabel_fechaUpdate}"/>
+                        <h:outputText value="#{cuentaBancoController.selected.fechaUpdate}" title="#{bundle.ViewCuentaBancoTitle_fechaUpdate}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewCuentaBancoLabel_numero}"/>
+                        <h:outputText value="#{cuentaBancoController.selected.numero}" title="#{bundle.ViewCuentaBancoTitle_numero}"/>
+                        <h:outputText value="#{bundle.ViewCuentaBancoLabel_usuarioCreate}"/>
+                        <h:outputText value="#{cuentaBancoController.selected.usuarioCreate}" title="#{bundle.ViewCuentaBancoTitle_usuarioCreate}"/>
+                        <h:outputText value="#{bundle.ViewCuentaBancoLabel_usuarioUpdate}"/>
+                        <h:outputText value="#{cuentaBancoController.selected.usuarioUpdate}" title="#{bundle.ViewCuentaBancoTitle_usuarioUpdate}"/>
+                        <h:outputText value="#{bundle.ViewCuentaBancoLabel_saldo}"/>
+                        <h:outputText value="#{cuentaBancoController.selected.saldo}" title="#{bundle.ViewCuentaBancoTitle_saldo}"/>
+                        <h:outputText value="#{bundle.ViewCuentaBancoLabel_bancoIdbanco}"/>
+                        <h:outputText value="#{cuentaBancoController.selected.bancoIdbanco}" title="#{bundle.ViewCuentaBancoTitle_bancoIdbanco}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="CuentaBancoViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

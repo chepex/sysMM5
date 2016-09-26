@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition   template="/WEB-INF/template.xhtml">
+
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListFacturaTitle}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="content">
+            <h:form id="FacturaListForm">
+                 <div style="position: absolute; right: 20px;">
+                <p:commandButton id="buscarButton"   icon="ui-icon-search" value="Ctrl+B"  update=":BuscarForm" oncomplete="PF('BUscarDialog').show()" disabled="#{!empty facturaController.selected}"/>                
+                <p:commandButton actionListener="#{facturaController.prepareCreate()}"   icon="ui-icon-plus" value="F6" update="@form" disabled="#{!empty facturaController.selected}"/>
+                <p:commandButton actionListener="#{facturaController.create()}"   icon="ui-icon-disk" value="F7" update="FacturaListForm :growl" disabled="#{empty facturaController.selected}"/>
+                <p:commandButton actionListener="#{facturaController.limpiar()}"   icon="ui-icon-closethick" value="F9" update="@form" disabled="#{empty facturaController.selected}"/>
+                </div>
+
+            <p:panel header="Ventas" >
+                    <p:panelGrid columns="6"  style=" border-style: hidden !important;" rendered="#{facturaController.selected != null}">
+                        
+                       
+                     
+                        <p:outputLabel value="#{bundle.CreateFacturaLabel_clienteIdcliente}" for="clienteIdcliente" />
+                        <p:selectOneMenu id="clienteIdcliente" value="#{facturaController.selected.clienteIdcliente}" required="true" requiredMessage="#{bundle.EditFacturaRequiredMessage_clienteIdcliente}">
+                            <f:selectItems value="#{clienteController.itemsAvailableSelectOne}"
+                                           var="clienteIdclienteItem"
+                                           itemLabel="#{clienteIdclienteItem.nombre}"
+                                           itemValue="#{clienteIdclienteItem}"/>
+                        </p:selectOneMenu>    
+                        
+                    <p:outputLabel value="Tipo Pago" for="tipoPagoIdtipoPago" />
+                        <p:selectOneMenu id="tipoPagoIdtipoPago" value="#{facturaController.selected.tipoPagoIdtipoPago}" required="true" requiredMessage="#{bundle.EditCompraRequiredMessage_tipoPagoIdtipoPago}">
+                            <f:selectItems value="#{tipoPagoController.itemsAvailableSelectOne}"
+                                           var="tipoPagoIdtipoPagoItem"
+                                           itemLabel="#{tipoPagoIdtipoPagoItem.nombre}"
+                                           itemValue="#{tipoPagoIdtipoPagoItem}"/>
+                        </p:selectOneMenu>                           
+                            
+                        <p:outputLabel value="#{bundle.CreateFacturaLabel_documento}" for="documento" />    
+                        <p:inputText id="documento" value="#{facturaController.selected.documento}" title="#{bundle.CreateFacturaTitle_documento}" />
+                        
+                      
+                       
+                        
+                                    
+                      
+                    </p:panelGrid>   
+                <p:panel>
+                    <p:panelGrid columns="9"  style=" border-style: hidden !important;" rendered="#{facturaController.selected != null}">
+                        <p:outputLabel value="Producto" for="producto" />
+                        <p:autoComplete id="producto" minQueryLength="3" 
+                                        value="#{facturaController.productoIdproducto}"                                         
+                                         var="producto"
+                                         itemLabel="#{producto.nombre}" 
+                                         itemValue="#{producto}"
+                                        completeMethod="#{productoController.autoCompleteProducto}" 
+                                        converter="#{ProductoControllerConverter}" 
+                                                                                
+                                        effect="fade" >
+                              <p:ajax  event="itemSelect"  listener="#{facturaController.updateExistencia}" update="existencia vprecio" />
+                        </p:autoComplete>                        
+                    
+                        
+                        <p:outputLabel value="#{bundle.CreateCompraDetLabel_cantidad}" for="tcantidad" class="derecha"/>
+                         <p:inputNumber id="tcantidad" value="#{facturaController.cantidad}"  minValue="1" maxValue="10000"/>  
+                        
+                        <p:outputLabel value="#{bundle.CreateCompraDetLabel_precio}" for="vprecio" class="derecha" /> 
+                        <p:inputNumber id="vprecio" value="#{facturaController.precio}"   />  
+                        
+                        <p:outputLabel value="Existencia" for="existencia" /> 
+                        <p:inputNumber id="existencia" value="#{facturaController.existencia}"  disabled="true"  />                         
+                        
+                        <p:commandButton actionListener="#{facturaController.addDetalle()}"   icon="ui-icon-plus" style="margin-top: 0px !important;"  update="@form :growl"/>
+                    </p:panelGrid>
+                </p:panel>  
+                <p:panel header="Detalle" >
+                    <p:dataTable id="datalist" value="#{facturaController.detFactura}" var="item"
+                                 selectionMode="single" selection="#{facturaDetController.selected}"
+                                  scrollable="true" scrollHeight="250"
+                                  rowKey="#{item.idfacturaDet}"
+                                 rows="30"
+                                 
+                                 >
+                         <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Producto"/>
+                            </f:facet>
+                            <h:outputText value="#{item.productoIdproducto.nombre}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListCompraDetTitle_precio}"/>
+                            </f:facet>
+                            
+                            <h:outputText value="#{item.precio}"/>
+                        </p:column>                       
+
+                        
+                        <p:column class="derecha">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListCompraDetTitle_cantidad}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.cantidad}"/>
+                        </p:column>
+                
+                        <p:column class="derecha">
+                            <f:facet name="header">
+                                <h:outputText value="Total"/>
+                            </f:facet>
+                            <h:outputText value="#{item.total}"/>
+                          
+                        </p:column>                        
+                       <p:columnGroup type="footer" >
+                            <p:row>
+                                <p:column colspan=""    >
+                                    1
+                                </p:column>
+                                <p:column colspan=""   class="derecha"   >
+                                <f:facet name="footer" >                                
+                                <h:outputText value="Sub-Total:" />                                  
+                                
+                                </f:facet>                                
+                            </p:column>
+                            <p:column  class="derecha">
+                                <f:facet name="footer" >
+                                <h:outputText value="#{facturaController.selected.cantidad}"/>                                  
+                                </f:facet>
+                            </p:column>
+                            <p:column class="derecha">
+                                <f:facet name="footer" >
+                                    <h:outputText value="#{facturaController.selected.subTotal}"  >
+                                         <f:convertNumber type="currency" currencySymbol="$"   />
+                                </h:outputText>
+                                    
+                                </f:facet>                                
+                            </p:column>
+                            
+                            </p:row>
+                            <p:row>
+                                <p:column colspan=""    >
+                                    1
+                                </p:column>
+                                <p:column colspan=""   class="derecha"   >
+                                <f:facet name="footer" >                                
+                                                                
+                                
+                                </f:facet>                                
+                            </p:column>
+                            <p:column  class="derecha">
+                                <f:facet name="footer" >
+                                 <h:outputText value="Iva:" /> 
+                                </f:facet>
+                            </p:column>
+                            <p:column class="derecha">
+                                <f:facet name="footer" >
+                                    <h:outputText value="#{facturaController.selected.iva}"  >
+                                         <f:convertNumber type="currency" currencySymbol="$"   />
+                                </h:outputText>
+                                    
+                                </f:facet>                                
+                            </p:column>
+                            
+                            </p:row> 
+                            <p:row>
+                                <p:column colspan=""    >
+                                    1
+                                </p:column>
+                                <p:column colspan=""   class="derecha"   >
+                                <f:facet name="footer" >                                
+                                                                
+                                
+                                </f:facet>                                
+                            </p:column>
+                            <p:column  class="derecha">
+                                <f:facet name="footer" >
+                                 <h:outputText value="Total" /> 
+                                </f:facet>
+                            </p:column>
+                            <p:column class="derecha">
+                                <f:facet name="footer"   >
+                                    <h:outputText value="#{facturaController.selected.total}"   >
+                                        <f:convertNumber type="currency" currencySymbol="$"   />
+                                    </h:outputText>                                    
+                                </f:facet>                                
+                            </p:column>
+                            
+                            </p:row>                            
+                       </p:columnGroup>                        
+                       
+                   
+                        
+                    </p:dataTable>
+                    
+                     
+                </p:panel>   
+              
+                
+                
+            </p:panel>
+            </h:form>
+            <ui:include src="Buscar.xhtml"/>
+        </ui:define>
+    </ui:composition>
+
+</html>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="FacturaCreateDlg" widgetVar="FacturaCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateFacturaTitle}">
+            <h:form id="FacturaCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{facturaController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateFacturaLabel_idfactura}" for="idfactura" />
+                        <p:inputText id="idfactura" value="#{facturaController.selected.idfactura}" title="#{bundle.CreateFacturaTitle_idfactura}" required="true" requiredMessage="#{bundle.CreateFacturaRequiredMessage_idfactura}"/>
+                        <p:outputLabel value="#{bundle.CreateFacturaLabel_documento}" for="documento" />
+                        <p:inputText id="documento" value="#{facturaController.selected.documento}" title="#{bundle.CreateFacturaTitle_documento}" />
+                        <p:outputLabel value="#{bundle.CreateFacturaLabel_fecha}" for="fecha" />
+                        <p:calendar id="fecha" pattern="MM/dd/yyyy" value="#{facturaController.selected.fecha}" title="#{bundle.EditFacturaTitle_fecha}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateFacturaLabel_cantidad}" for="cantidad" />
+                        <p:inputText id="cantidad" value="#{facturaController.selected.cantidad}" title="#{bundle.CreateFacturaTitle_cantidad}" />
+                        <p:outputLabel value="#{bundle.CreateFacturaLabel_iva}" for="iva" />
+                        <p:inputText id="iva" value="#{facturaController.selected.iva}" title="#{bundle.CreateFacturaTitle_iva}" />
+                        <p:outputLabel value="#{bundle.CreateFacturaLabel_retencion}" for="retencion" />
+                        <p:inputText id="retencion" value="#{facturaController.selected.retencion}" title="#{bundle.CreateFacturaTitle_retencion}" />
+                        <p:outputLabel value="#{bundle.CreateFacturaLabel_total}" for="total" />
+                        <p:inputText id="total" value="#{facturaController.selected.total}" title="#{bundle.CreateFacturaTitle_total}" />
+                        <p:outputLabel value="#{bundle.CreateFacturaLabel_usuarioIdusuario}" for="usuarioIdusuario" />
+                        <p:selectOneMenu id="usuarioIdusuario" value="#{facturaController.selected.usuarioIdusuario}" required="true" requiredMessage="#{bundle.EditFacturaRequiredMessage_usuarioIdusuario}">
+                            <f:selectItems value="#{usuarioController.itemsAvailableSelectOne}"
+                                           var="usuarioIdusuarioItem"
+                                           itemValue="#{usuarioIdusuarioItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateFacturaLabel_clienteIdcliente}" for="clienteIdcliente" />
+                        <p:selectOneMenu id="clienteIdcliente" value="#{facturaController.selected.clienteIdcliente}" required="true" requiredMessage="#{bundle.EditFacturaRequiredMessage_clienteIdcliente}">
+                            <f:selectItems value="#{clienteController.itemsAvailableSelectOne}"
+                                           var="clienteIdclienteItem"
+                                           itemValue="#{clienteIdclienteItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{facturaController.create}" value="#{bundle.Save}" update="display,:FacturaListForm:datalist,:growl" oncomplete="handleSubmit(args,'FacturaCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="FacturaCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

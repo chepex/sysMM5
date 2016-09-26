@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition   template="/WEB-INF/template.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListClienteTitle}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="content">
+            <h:form id="ClienteListForm">
+                <p:panelGrid  columns="4">
+                    <p:outputLabel>Nombre</p:outputLabel>
+                    <p:inputText value="#{clienteController.valorBuscar}"></p:inputText>
+                    <p:commandButton actionListener="#{clienteController.buscar()}" update="@form"  value="Consultar"/>
+                    <p:commandButton actionListener="#{clienteController.limpiar()}" update="@form"  value="Limpiar"/>
+                </p:panelGrid>
+                <p:panel header="Clientes">
+                    <p:dataTable id="datalist" value="#{clienteController.items}" var="item"
+                                 selectionMode="single" selection="#{clienteController.selected}"
+                                 paginator="true"
+                                 rowKey="#{item.idcliente}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 >
+
+                        <p:ajax event="rowSelect"   update="@form "/>
+                        <p:ajax event="rowUnselect" update="@form "/>
+
+                       
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListClienteTitle_nombre}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nombre}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListClienteTitle_descripcion}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.descripcion}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListClienteTitle_tel}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.tel}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListClienteTitle_correo}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.correo}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Limite"/>
+                            </f:facet>
+                            <h:outputText value="#{item.limite}"/>
+                        </p:column> 
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Saldo"/>
+                            </f:facet>
+                            <h:outputText value="#{item.saldo}"/>
+                        </p:column>                          
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListClienteTitle_activo}"/>
+                            </f:facet>
+                            <p:selectBooleanCheckbox value="#{item.activo}" disabled="true"/>
+                        </p:column>
+                        <f:facet name="footer">
+                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{clienteController.prepareCreate}" update=":ClienteCreateForm" oncomplete="PF('ClienteCreateDialog').show()"/>
+                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":ClienteViewForm" oncomplete="PF('ClienteViewDialog').show()" disabled="#{empty clienteController.selected}"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":ClienteEditForm" oncomplete="PF('ClienteEditDialog').show()" disabled="#{empty clienteController.selected}"/>
+                            
+                        </f:facet>
+                    </p:dataTable>
+                </p:panel>
+                <p:panel header="Ventas" id="panelCompra" rendered="#{!empty clienteController.selected}">
+                    <p:dataTable id="datalistCompra"  value="#{clienteController.selected.facturaList}" var="item"
+                                 selectionMode="single" selection="#{facturaController.selected}"
+                                 paginator="true"
+                                 rowKey="#{item.idfactura}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 >
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Documento"/>
+                            </f:facet>
+                            <h:outputText value="#{item.documento}"/>
+                        </p:column>
+                        <p:column   >
+                            <f:facet name="header" >
+                                <h:outputText value="Fecha"/>
+                            </f:facet>
+                              <h:outputText value="#{item.fecha}">
+                                <f:convertDateTime pattern="dd-MM-yyyy" />
+                            </h:outputText>
+                           
+                        </p:column>                         
+                       
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Cantidad"/>
+                            </f:facet>
+                            <h:outputText value="#{item.cantidad}"/>
+                        </p:column>  
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="subtotal"/>
+                            </f:facet>
+                            <h:outputText value="#{item.subTotal}"/>
+                        </p:column>  
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="iva"/>
+                            </f:facet>
+                            <h:outputText value="#{item.iva}"/>
+                        </p:column>        
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="total"/>
+                            </f:facet>
+                            <h:outputText value="#{item.total}"/>
+                        </p:column>                         
+                      </p:dataTable>
+                    
+                </p:panel>                
+            </h:form>
+
+            <ui:include src="Create.xhtml"/>
+            <ui:include src="Edit.xhtml"/>
+            <ui:include src="View.xhtml"/>
+        </ui:define>
+    </ui:composition>
+
+</html>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="InvMovCreateDlg" widgetVar="InvMovCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateInvMovTitle}">
+            <h:form id="InvMovCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{invMovController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateInvMovLabel_idinvMov}" for="idinvMov" />
+                        <p:inputText id="idinvMov" value="#{invMovController.selected.idinvMov}" title="#{bundle.CreateInvMovTitle_idinvMov}" required="true" requiredMessage="#{bundle.CreateInvMovRequiredMessage_idinvMov}"/>
+                        <p:outputLabel value="#{bundle.CreateInvMovLabel_numDocto}" for="numDocto" />
+                        <p:inputText id="numDocto" value="#{invMovController.selected.numDocto}" title="#{bundle.CreateInvMovTitle_numDocto}" />
+                        <p:outputLabel value="#{bundle.CreateInvMovLabel_fecha}" for="fecha" />
+                        <p:calendar id="fecha" pattern="MM/dd/yyyy" value="#{invMovController.selected.fecha}" title="#{bundle.EditInvMovTitle_fecha}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateInvMovLabel_estado}" for="estado" />
+                        <p:inputText id="estado" value="#{invMovController.selected.estado}" title="#{bundle.CreateInvMovTitle_estado}" />
+                        <p:outputLabel value="#{bundle.CreateInvMovLabel_cantidad}" for="cantidad" />
+                        <p:inputText id="cantidad" value="#{invMovController.selected.cantidad}" title="#{bundle.CreateInvMovTitle_cantidad}" />
+                        <p:outputLabel value="#{bundle.CreateInvMovLabel_idProveedor}" for="idProveedor" />
+                        <p:inputText id="idProveedor" value="#{invMovController.selected.idProveedor}" title="#{bundle.CreateInvMovTitle_idProveedor}" />
+                        <p:outputLabel value="#{bundle.CreateInvMovLabel_numReferencia}" for="numReferencia" />
+                        <p:inputText id="numReferencia" value="#{invMovController.selected.numReferencia}" title="#{bundle.CreateInvMovTitle_numReferencia}" />
+                        <p:outputLabel value="#{bundle.CreateInvMovLabel_usuarioIdusuario}" for="usuarioIdusuario" />
+                        <p:selectOneMenu id="usuarioIdusuario" value="#{invMovController.selected.usuarioIdusuario}" required="true" requiredMessage="#{bundle.EditInvMovRequiredMessage_usuarioIdusuario}">
+                            <f:selectItems value="#{usuarioController.itemsAvailableSelectOne}"
+                                           var="usuarioIdusuarioItem"
+                                           itemValue="#{usuarioIdusuarioItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateInvMovLabel_documentoIddocumento}" for="documentoIddocumento" />
+                        <p:selectOneMenu id="documentoIddocumento" value="#{invMovController.selected.documentoIddocumento}" required="true" requiredMessage="#{bundle.EditInvMovRequiredMessage_documentoIddocumento}">
+                            <f:selectItems value="#{documentoController.itemsAvailableSelectOne}"
+                                           var="documentoIddocumentoItem"
+                                           itemValue="#{documentoIddocumentoItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateInvMovLabel_bodegaIdbodega}" for="bodegaIdbodega" />
+                        <p:selectOneMenu id="bodegaIdbodega" value="#{invMovController.selected.bodegaIdbodega}" required="true" requiredMessage="#{bundle.EditInvMovRequiredMessage_bodegaIdbodega}">
+                            <f:selectItems value="#{bodegaController.itemsAvailableSelectOne}"
+                                           var="bodegaIdbodegaItem"
+                                           itemValue="#{bodegaIdbodegaItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{invMovController.create}" value="#{bundle.Save}" update="display,:InvMovListForm:datalist,:growl" oncomplete="handleSubmit(args,'InvMovCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="InvMovCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ProductoEditDlg" widgetVar="ProductoEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditProductoTitle}">
+            <h:form id="ProductoEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{productoController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditProductoLabel_idproducto}" for="idproducto" />
+                        <p:inputText id="idproducto" disabled="true" value="#{productoController.selected.idproducto}" title="#{bundle.EditProductoTitle_idproducto}" required="true" requiredMessage="#{bundle.EditProductoRequiredMessage_idproducto}"/>
+                        <p:outputLabel value="#{bundle.EditProductoLabel_nombre}" for="nombre" />
+                        <p:inputText id="nombre" value="#{productoController.selected.nombre}" title="#{bundle.EditProductoTitle_nombre}" />
+                        <p:outputLabel value="#{bundle.EditProductoLabel_descripion}" for="descripion" />
+                        <p:inputText id="descripion" value="#{productoController.selected.descripion}" title="#{bundle.EditProductoTitle_descripion}" />
+                        <p:outputLabel value="#{bundle.EditProductoLabel_costo}" for="costo" />
+                        <p:inputText id="costo" value="#{productoController.selected.costo}" title="#{bundle.EditProductoTitle_costo}" />
+                        <p:outputLabel value="#{bundle.EditProductoLabel_precio}" for="precio" />
+                        <p:inputText id="precio" value="#{productoController.selected.precio}" title="#{bundle.EditProductoTitle_precio}" />
+                        <p:outputLabel value="#{bundle.EditProductoLabel_min}" for="min" />
+                        <p:inputText id="min" value="#{productoController.selected.min}" title="#{bundle.EditProductoTitle_min}" />
+                        <p:outputLabel value="#{bundle.EditProductoLabel_max}" for="max" />
+                        <p:inputText id="max" value="#{productoController.selected.max}" title="#{bundle.EditProductoTitle_max}" />
+                        <p:outputLabel value="#{bundle.EditProductoLabel_existencia}" for="existencia" />
+                        <p:inputText id="existencia" value="#{productoController.selected.existencia}" title="#{bundle.EditProductoTitle_existencia}" />
+                        <p:outputLabel value="#{bundle.EditProductoLabel_activo}" for="activo" />
+                        <p:selectBooleanCheckbox id="activo" value="#{productoController.selected.activo}" />
+                        <p:outputLabel value="#{bundle.EditProductoLabel_categoriaIdcategoria}" for="categoriaIdcategoria" />
+                        <p:selectOneMenu id="categoriaIdcategoria" value="#{productoController.selected.categoriaIdcategoria}" required="true" requiredMessage="#{bundle.EditProductoRequiredMessage_categoriaIdcategoria}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{categoriaController.itemsAvailableSelectOne}"
+                                           var="categoriaIdcategoriaItem"
+                                            itemLabel="#{categoriaIdcategoriaItem.nombre}"
+                                           itemValue="#{categoriaIdcategoriaItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{productoController.update}" value="#{bundle.Save}" update="display,:ProductoListForm:datalist,:growl" oncomplete="handleSubmit(args, 'ProductoEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="ProductoEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

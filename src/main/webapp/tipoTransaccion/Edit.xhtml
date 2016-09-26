@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TipoTransaccionEditDlg" widgetVar="TipoTransaccionEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditTipoTransaccionTitle}">
+            <h:form id="TipoTransaccionEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{tipoTransaccionController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditTipoTransaccionLabel_idtipoTransaccion}" for="idtipoTransaccion" />
+                        <p:inputText id="idtipoTransaccion" value="#{tipoTransaccionController.selected.idtipoTransaccion}" title="#{bundle.EditTipoTransaccionTitle_idtipoTransaccion}" required="true" requiredMessage="#{bundle.EditTipoTransaccionRequiredMessage_idtipoTransaccion}"/>
+                        <p:outputLabel value="#{bundle.EditTipoTransaccionLabel_activo}" for="activo" />
+                        <p:selectBooleanCheckbox id="activo" value="#{tipoTransaccionController.selected.activo}" />
+                        <p:outputLabel value="#{bundle.EditTipoTransaccionLabel_fechaCreate}" for="fechaCreate" />
+                        <p:calendar id="fechaCreate" pattern="MM/dd/yyyy" value="#{tipoTransaccionController.selected.fechaCreate}" title="#{bundle.EditTipoTransaccionTitle_fechaCreate}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditTipoTransaccionLabel_fechaUpdate}" for="fechaUpdate" />
+                        <p:calendar id="fechaUpdate" pattern="MM/dd/yyyy" value="#{tipoTransaccionController.selected.fechaUpdate}" title="#{bundle.EditTipoTransaccionTitle_fechaUpdate}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditTipoTransaccionLabel_nombre}" for="nombre" />
+                        <p:inputText id="nombre" value="#{tipoTransaccionController.selected.nombre}" title="#{bundle.EditTipoTransaccionTitle_nombre}" />
+                        <p:outputLabel value="#{bundle.EditTipoTransaccionLabel_sumaResta}" for="sumaResta" />
+                        <p:inputText id="sumaResta" value="#{tipoTransaccionController.selected.sumaResta}" title="#{bundle.EditTipoTransaccionTitle_sumaResta}" />
+                        <p:outputLabel value="#{bundle.EditTipoTransaccionLabel_usuarioCreate}" for="usuarioCreate" />
+                        <p:inputText id="usuarioCreate" value="#{tipoTransaccionController.selected.usuarioCreate}" title="#{bundle.EditTipoTransaccionTitle_usuarioCreate}" />
+                        <p:outputLabel value="#{bundle.EditTipoTransaccionLabel_usuarioUpdate}" for="usuarioUpdate" />
+                        <p:inputText id="usuarioUpdate" value="#{tipoTransaccionController.selected.usuarioUpdate}" title="#{bundle.EditTipoTransaccionTitle_usuarioUpdate}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{tipoTransaccionController.update}" value="#{bundle.Save}" update="display,:TipoTransaccionListForm:datalist,:growl" oncomplete="handleSubmit(args, 'TipoTransaccionEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="TipoTransaccionEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

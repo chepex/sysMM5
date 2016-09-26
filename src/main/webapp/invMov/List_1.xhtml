@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition   template="/WEB-INF/template.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListInvMovTitle}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+            <h:form id="InvMovListForm">
+                <p:panel header="#{bundle.ListInvMovTitle}">
+                    <p:dataTable id="datalist" value="#{invMovController.items}" var="item"
+                                 selectionMode="single" selection="#{invMovController.selected}"
+                                 paginator="true"
+                                 rowKey="#{item.idinvMov}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 >
+
+                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListInvMovTitle_idinvMov}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idinvMov}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListInvMovTitle_numDocto}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.numDocto}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListInvMovTitle_fecha}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.fecha}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListInvMovTitle_estado}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.estado}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListInvMovTitle_cantidad}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.cantidad}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListInvMovTitle_idProveedor}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idProveedor}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListInvMovTitle_numReferencia}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.numReferencia}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListInvMovTitle_usuarioIdusuario}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.usuarioIdusuario}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListInvMovTitle_documentoIddocumento}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.documentoIddocumento}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListInvMovTitle_bodegaIdbodega}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.bodegaIdbodega}"/>
+                        </p:column>
+                        <f:facet name="footer">
+                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{invMovController.prepareCreate}" update=":InvMovCreateForm" oncomplete="PF('InvMovCreateDialog').show()"/>
+                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":InvMovViewForm" oncomplete="PF('InvMovViewDialog').show()" disabled="#{empty invMovController.selected}"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":InvMovEditForm" oncomplete="PF('InvMovEditDialog').show()" disabled="#{empty invMovController.selected}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{invMovController.destroy}" update=":growl,datalist" disabled="#{empty invMovController.selected}"/>
+                        </f:facet>
+                    </p:dataTable>
+                </p:panel>
+            </h:form>
+
+            <ui:include src="Create.xhtml"/>
+            <ui:include src="Edit.xhtml"/>
+            <ui:include src="View.xhtml"/>
+        </ui:define>
+    </ui:composition>
+
+</html>

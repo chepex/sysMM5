@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ProductoCreateDlg" widgetVar="ProductoCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateProductoTitle}">
+            <h:form id="ProductoCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{productoController.selected != null}">
+                      
+                        <p:outputLabel value="#{bundle.CreateProductoLabel_nombre}" for="nombre" />
+                        <p:inputText id="nombre" value="#{productoController.selected.nombre}" title="#{bundle.CreateProductoTitle_nombre}" />
+                        <p:outputLabel value="#{bundle.CreateProductoLabel_descripion}" for="descripion" />
+                        <p:inputText id="descripion" value="#{productoController.selected.descripion}" title="#{bundle.CreateProductoTitle_descripion}" />
+                        <p:outputLabel value="#{bundle.CreateProductoLabel_costo}" for="costo" />
+                        <p:inputText id="costo" value="#{productoController.selected.costo}" title="#{bundle.CreateProductoTitle_costo}" />
+                        <p:outputLabel value="#{bundle.CreateProductoLabel_precio}" for="precio" />
+                        <p:inputText id="precio" value="#{productoController.selected.precio}" title="#{bundle.CreateProductoTitle_precio}" />
+                        <p:outputLabel value="#{bundle.CreateProductoLabel_min}" for="min" />
+                        <p:inputText id="min" value="#{productoController.selected.min}" title="#{bundle.CreateProductoTitle_min}" />
+                        <p:outputLabel value="#{bundle.CreateProductoLabel_max}" for="max" />
+                        <p:inputText id="max" value="#{productoController.selected.max}" title="#{bundle.CreateProductoTitle_max}" />
+                        <p:outputLabel value="#{bundle.CreateProductoLabel_existencia}" for="existencia" />
+                        <p:inputText id="existencia" value="#{productoController.selected.existencia}" title="#{bundle.CreateProductoTitle_existencia}" />
+                        <p:outputLabel value="#{bundle.CreateProductoLabel_activo}" for="activo" />
+                        <p:selectBooleanCheckbox id="activo" value="#{productoController.selected.activo}" />
+                        <p:outputLabel value="#{bundle.CreateProductoLabel_categoriaIdcategoria}" for="categoriaIdcategoria" />
+                        <p:selectOneMenu id="categoriaIdcategoria" value="#{productoController.selected.categoriaIdcategoria}" required="true" requiredMessage="#{bundle.EditProductoRequiredMessage_categoriaIdcategoria}">
+                            <f:selectItems value="#{categoriaController.itemsAvailableSelectOne}"
+                                           var="categoriaIdcategoriaItem"
+                                           itemLabel="#{categoriaIdcategoriaItem.nombre}"
+                                           itemValue="#{categoriaIdcategoriaItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{productoController.create}" value="#{bundle.Save}" update="display,:ProductoListForm:datalist,:growl" oncomplete="handleSubmit(args,'ProductoCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="ProductoCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

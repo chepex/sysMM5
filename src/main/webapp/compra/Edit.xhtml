@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="CompraEditDlg" widgetVar="CompraEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditCompraTitle}">
+            <h:form id="CompraEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{compraController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditCompraLabel_idcompra}" for="idcompra" />
+                        <p:inputText id="idcompra" value="#{compraController.selected.idcompra}" title="#{bundle.EditCompraTitle_idcompra}" required="true" requiredMessage="#{bundle.EditCompraRequiredMessage_idcompra}"/>
+                        <p:outputLabel value="#{bundle.EditCompraLabel_documento}" for="documento" />
+                        <p:inputText id="documento" value="#{compraController.selected.documento}" title="#{bundle.EditCompraTitle_documento}" />
+                        <p:outputLabel value="#{bundle.EditCompraLabel_fecha}" for="fecha" />
+                        <p:calendar id="fecha" pattern="MM/dd/yyyy" value="#{compraController.selected.fecha}" title="#{bundle.EditCompraTitle_fecha}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditCompraLabel_cantidad}" for="cantidad" />
+                        <p:inputText id="cantidad" value="#{compraController.selected.cantidad}" title="#{bundle.EditCompraTitle_cantidad}" />
+                        <p:outputLabel value="#{bundle.EditCompraLabel_total}" for="total" />
+                        <p:inputText id="total" value="#{compraController.selected.total}" title="#{bundle.EditCompraTitle_total}" />
+                        <p:outputLabel value="#{bundle.EditCompraLabel_usuarioIdusuario}" for="usuarioIdusuario" />
+                        <p:selectOneMenu id="usuarioIdusuario" value="#{compraController.selected.usuarioIdusuario}" required="true" requiredMessage="#{bundle.EditCompraRequiredMessage_usuarioIdusuario}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{usuarioController.itemsAvailableSelectOne}"
+                                           var="usuarioIdusuarioItem"
+                                           itemValue="#{usuarioIdusuarioItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditCompraLabel_proveedorIdproveedor}" for="proveedorIdproveedor" />
+                        <p:selectOneMenu id="proveedorIdproveedor" value="#{compraController.selected.proveedorIdproveedor}" required="true" requiredMessage="#{bundle.EditCompraRequiredMessage_proveedorIdproveedor}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{proveedorController.itemsAvailableSelectOne}"
+                                           var="proveedorIdproveedorItem"
+                                           itemValue="#{proveedorIdproveedorItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{compraController.update}" value="#{bundle.Save}" update="display,:CompraListForm:datalist,:growl" oncomplete="handleSubmit(args, 'CompraEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="CompraEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

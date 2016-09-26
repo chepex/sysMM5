@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition   template="/WEB-INF/template.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="Kardex"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+            <h:form id="InvDetmListForm">
+                <p:panelGrid columns="3"  >
+                        <p:outputLabel value="Producto" for="productoIdproducto" />
+                        <p:selectOneMenu id="productoIdproducto" value="#{invDetmController.producto}" filter="true" filterMatchMode="contains"   requiredMessage="#{bundle.EditCompraDetRequiredMessage_productoIdproducto}">
+                            <f:selectItem itemLabel="Seleciona una producto" itemValue="" />
+                            <f:selectItems value="#{productoController.itemsAvailableSelectOne}"
+                                           var="productoIdproductoItem"
+                                           itemValue="#{productoIdproductoItem}"
+                                           itemLabel="#{productoIdproductoItem.nombre}"
+                                           />                            
+                        </p:selectOneMenu>
+                        <p:commandButton id="createButton" icon="ui-icon-plus"   value="Consultar" actionListener="#{invDetmController.consulta}" update="@form" />
+                </p:panelGrid>
+                
+                
+                <p:panel header="#{bundle.ListInvDetmTitle}">
+                    <p:dataTable id="datalist" value="#{invDetmController.items}" var="item"
+                                 selectionMode="single" selection="#{invDetmController.selected}"
+                                 paginatorTemplate="{Exporters}"
+                                 paginator="true"
+                                 rowKey="#{item.idinvDetm}"
+                                  scrollable="true" scrollHeight="350"
+                                 >
+                        <f:facet name="{Exporters}">
+                            <h:commandLink>
+                                <p:graphicImage library="img" name="excel.png" width="24"/>                
+                                <p:dataExporter type="csv" target="datalist" fileName="items" />
+                            </h:commandLink>
+                        </f:facet>
+
+                        <p:column  >
+                            <f:facet name="header" >
+                                <h:outputText value="Documento"/>
+                            </f:facet>
+                            <h:outputText value="#{item.invMovIdinvMov.numDocto}"/>
+                        </p:column>
+                        <p:column   >
+                            <f:facet name="header" >
+                                <h:outputText value="Referencia"/>
+                            </f:facet>
+                            <h:outputText value="#{item.invMovIdinvMov.numReferencia}"/>
+                        </p:column>                        
+                        <p:column   >
+                            <f:facet name="header" >
+                                <h:outputText value="Movimiento"/>
+                            </f:facet>
+                            <h:outputText value="#{item.invMovIdinvMov.documentoIddocumento.nombre}"/>
+                        </p:column>  
+                        <p:column   >
+                            <f:facet name="header" >
+                                <h:outputText value="Fecha"/>
+                            </f:facet>
+                              <h:outputText value="#{item.invMovIdinvMov.fecha}">
+                                <f:convertDateTime pattern="dd-MM-yyyy" />
+                            </h:outputText>
+                           
+                        </p:column> 
+                        <p:column   >
+                            <f:facet name="header" >
+                                <h:outputText value="Usuario"/>
+                            </f:facet>
+                            <h:outputText value="#{item.invMovIdinvMov.usuarioIdusuario.usuario}"/>
+                        </p:column>                          
+                        <p:column>
+                            <f:facet name="header" >
+                                <h:outputText value="Cantidad"/>
+                            </f:facet>
+                            <h:outputText value="#{item.cantidad}"/>
+                        </p:column>  
+                        <p:column>
+                            <f:facet name="header" >
+                                <h:outputText value="Existencia"/>
+                            </f:facet>
+                            <h:outputText value="#{invDetmController.addExistencia(item)}"/>
+                        </p:column>                         
+                       
+                    </p:dataTable>
+                </p:panel>
+                
+       
+            </h:form>
+
+
+        </ui:define>
+    </ui:composition>
+
+</html>

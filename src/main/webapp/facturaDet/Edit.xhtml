@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="FacturaDetEditDlg" widgetVar="FacturaDetEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditFacturaDetTitle}">
+            <h:form id="FacturaDetEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{facturaDetController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditFacturaDetLabel_idfacturaDet}" for="idfacturaDet" />
+                        <p:inputText id="idfacturaDet" value="#{facturaDetController.selected.idfacturaDet}" title="#{bundle.EditFacturaDetTitle_idfacturaDet}" required="true" requiredMessage="#{bundle.EditFacturaDetRequiredMessage_idfacturaDet}"/>
+                        <p:outputLabel value="#{bundle.EditFacturaDetLabel_cantidad}" for="cantidad" />
+                        <p:inputText id="cantidad" value="#{facturaDetController.selected.cantidad}" title="#{bundle.EditFacturaDetTitle_cantidad}" />
+                        <p:outputLabel value="#{bundle.EditFacturaDetLabel_precio}" for="precio" />
+                        <p:inputText id="precio" value="#{facturaDetController.selected.precio}" title="#{bundle.EditFacturaDetTitle_precio}" />
+                        <p:outputLabel value="#{bundle.EditFacturaDetLabel_productoIdproducto}" for="productoIdproducto" />
+                        <p:selectOneMenu id="productoIdproducto" value="#{facturaDetController.selected.productoIdproducto}" required="true" requiredMessage="#{bundle.EditFacturaDetRequiredMessage_productoIdproducto}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{productoController.itemsAvailableSelectOne}"
+                                           var="productoIdproductoItem"
+                                           itemValue="#{productoIdproductoItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditFacturaDetLabel_facturaIdfactura}" for="facturaIdfactura" />
+                        <p:selectOneMenu id="facturaIdfactura" value="#{facturaDetController.selected.facturaIdfactura}" required="true" requiredMessage="#{bundle.EditFacturaDetRequiredMessage_facturaIdfactura}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{facturaController.itemsAvailableSelectOne}"
+                                           var="facturaIdfacturaItem"
+                                           itemValue="#{facturaIdfacturaItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{facturaDetController.update}" value="#{bundle.Save}" update="display,:FacturaDetListForm:datalist,:growl" oncomplete="handleSubmit(args, 'FacturaDetEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="FacturaDetEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
