@@ -35,11 +35,11 @@ public class ProductoFacade extends AbstractFacade<Producto> {
         Query q  = null;
         List<Object[]> lo = null;  
        
-        String query=" SELECT  DATE_FORMAT(f.fecha, '%m') fecha, sum(d.total)  total " +
-                    " FROM sysmmx.factura f  ,sysmmx.factura_det d " +
-                    " where f.idfactura = d.factura_idfactura " +
-                    " group by DATE_FORMAT(fecha, '%m') " +
-                    " order by DATE_FORMAT(fecha, '%m') ";                             
+        String query="SELECT  DATE_FORMAT(f.fecha, '%Y-%m-%d') fecha, sum(d.total)  total \n" +
+"                    FROM sysmmx.factura f  ,sysmmx.factura_det d \n" +
+"                     where f.idfactura = d.factura_idfactura \n" +
+"                     group by DATE_FORMAT(fecha, '%Y-%m-%d') \n" +
+"                     order by DATE_FORMAT(fecha, '%Y-%m-%d')";                             
         try{            
             q=  em.createNativeQuery(query);  
             

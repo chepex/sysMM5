@@ -157,12 +157,15 @@ public class FacturaController implements Serializable {
            return "error";
            
        }
+        /*si es pago al credito*/
+        if(selected.getTipoPagoIdtipoPago().getIdtipoPago()!=1){        
         
-        String vlimite = sb_Cliente.validaLimite(selected.getClienteIdcliente(), this.selected.getTotal());
-        System.out.println("vlimite"+vlimite);
-        if(!vlimite.equals("ok")){
-           JsfUtil.addErrorMessage("El valor de la compra ha sobre pasado el limite de credito del cliente");
-           return "error";
+            String vlimite = sb_Cliente.validaLimite(selected.getClienteIdcliente(), this.selected.getTotal());
+            System.out.println("vlimite"+vlimite);
+            if(!vlimite.equals("ok")){
+               JsfUtil.addErrorMessage("El valor de la compra ha sobre pasado el limite de credito del cliente");
+               return "error";
+            }
         }
         
         List<Correlativo> lcort = correlativoFacade.findByNombre("Factura");

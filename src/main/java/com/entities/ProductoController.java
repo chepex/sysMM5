@@ -274,30 +274,31 @@ public class ProductoController implements Serializable {
      
        
     }
-    
     public void geneararGrafica(){
         
         if(selected!=null){
             chartVentaCompra = initLinearModel();
             chartVentaCompra.setTitle("Linear Chart");
-            chartVentaCompra.setLegendPosition("e");
-            Axis yAxis = chartVentaCompra.getAxis(AxisType.Y);
-            chartVentaCompra.setExtender("skinChart");
-            yAxis.setMin(0);
-            yAxis.setMax(1000);
-            DateAxis axis = new DateAxis("");
-            axis.setTickAngle(-50);        
-            SimpleDateFormat formateador = new SimpleDateFormat("MM");
-            axis.setMax(formateador.format(new Date()));
-            axis.setTickFormat("%b");
-            chartVentaCompra.getAxes().put(AxisType.X, axis);
-            chartVentaCompra.setAnimate(true);
-            chartVentaCompra.setZoom(true);
+           
+        //    chartVentaCompra.setExtender("skinChart");
+            
+      chartVentaCompra.setTitle("Zoom for Details");
+        chartVentaCompra.setZoom(true);
+        chartVentaCompra.getAxis(AxisType.Y).setLabel("Values");
+        DateAxis axis = new DateAxis("Dates");
+        axis.setTickAngle(-50);
+        axis.setMax("2016-10-31");
+        axis.setTickFormat("%b %#d, %y");
+        
+              chartVentaCompra.getAxes().put(AxisType.X, axis);            
+           
+       
         }
         
            
     }
     
+ 
     private LineChartModel initLinearModel() {
         LineChartModel model = new LineChartModel();
  
