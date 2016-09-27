@@ -278,21 +278,17 @@ public class ProductoController implements Serializable {
         
         if(selected!=null){
             chartVentaCompra = initLinearModel();
-            chartVentaCompra.setTitle("Linear Chart");
-           
-        //    chartVentaCompra.setExtender("skinChart");
-            
-      chartVentaCompra.setTitle("Zoom for Details");
-        chartVentaCompra.setZoom(true);
-        chartVentaCompra.getAxis(AxisType.Y).setLabel("Values");
-        DateAxis axis = new DateAxis("Dates");
-        axis.setTickAngle(-50);
-        axis.setMax("2016-10-31");
-        axis.setTickFormat("%b %#d, %y");
-        
-              chartVentaCompra.getAxes().put(AxisType.X, axis);            
-           
-       
+            chartVentaCompra.setTitle("Linear Chart");           
+            chartVentaCompra.setExtender("skinChart");            
+            chartVentaCompra.setTitle("Zoom for Details");
+            chartVentaCompra.setZoom(true);
+             chartVentaCompra.setLegendPosition("ne");
+            chartVentaCompra.getAxis(AxisType.Y).setLabel(" ");
+            DateAxis axis = new DateAxis(" ");
+            axis.setTickAngle(-50);
+            axis.setMax("2016-10-31");
+            axis.setTickFormat("%b %#d, %y");        
+            chartVentaCompra.getAxes().put(AxisType.X, axis);            
         }
         
            
@@ -300,12 +296,10 @@ public class ProductoController implements Serializable {
     
  
     private LineChartModel initLinearModel() {
-        LineChartModel model = new LineChartModel();
- 
+        LineChartModel model = new LineChartModel(); 
         LineChartSeries series1 = new LineChartSeries();
         series1.setLabel("Ventas");
-        List<Object[]> lv =this.ejbFacade.ventaProducto();
-        
+        List<Object[]> lv =this.ejbFacade.ventaProducto(selected.getIdproducto());        
         if(!lv.isEmpty()){
             Iterator<Object[]>itr = lv.iterator();                           
             while(itr.hasNext()) {                       
@@ -315,13 +309,28 @@ public class ProductoController implements Serializable {
                 series1.set(element[0].toString(), valor); 
                 
             }
-        }        
+               model.addSeries(series1);
+        }     
+        
+        LineChartSeries series2 = new LineChartSeries();
+        series2.setLabel("Compras");
+        List<Object[]> lv2 =this.ejbFacade.compraProducto(selected.getIdproducto());        
+        if(!lv2.isEmpty()){
+            Iterator<Object[]>itr = lv2.iterator();                           
+            while(itr.hasNext()) {                       
+                Object[] element = itr.next();            
+                BigDecimal valor =new BigDecimal( element[1].toString());
+                System.out.println("DEPTO--->"+nombre+"codigo-->"+element[0].toString()+"valor-->"+valor);
+                series2.set(element[0].toString(), valor);
+            }
+              model.addSeries(series2);
+        }         
                     
        
   
  
-        model.addSeries(series1);
-       // model.addSeries(series2);
+     
+      
          
         return model;
     }    

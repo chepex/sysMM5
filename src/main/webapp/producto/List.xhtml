@@ -139,7 +139,7 @@
                 <p:panel>
                     <p:tabView rendered="#{!empty productoController.selected}">
                         <p:tab title="Grafica">
-                            <p:chart type="line" model="#{productoController.chartVentaCompra}" style="height:300px;"/>
+                            <p:chart rendered="#{productoController.selected.compraDetList.size()>0}" type="line" model="#{productoController.chartVentaCompra}" style="height:300px;"/>
                         </p:tab>
                         <p:tab title="Compras">
                             <h:panelGrid columns="2" cellpadding="10" rendered="#{productoController.lcompras!=null}">

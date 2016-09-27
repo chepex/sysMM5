@@ -30,21 +30,48 @@ public class ProductoFacade extends AbstractFacade<Producto> {
         super(Producto.class);
     }
     
-    
-    public List<Object[]> ventaProducto( ){
+    public List<Object[]> compraProducto( int producto){
         Query q  = null;
         List<Object[]> lo = null;  
        
-        String query="SELECT  DATE_FORMAT(f.fecha, '%Y-%m-%d') fecha, sum(d.total)  total \n" +
-"                    FROM sysmmx.factura f  ,sysmmx.factura_det d \n" +
-"                     where f.idfactura = d.factura_idfactura \n" +
-"                     group by DATE_FORMAT(fecha, '%Y-%m-%d') \n" +
+        String query="	SELECT  DATE_FORMAT(c.fecha, '%Y-%m-%d') fecha, sum(d.total)  total" +
+        "	FROM sysmmx.compra c  ,sysmmx.compra_det d" +
+        "	where c.idcompra = d.compra_idcompra" +
+        "       and d.producto_idproducto = ?" +
+        "	group by DATE_FORMAT(fecha, '%Y-%m-%d')" +
+        "	order by DATE_FORMAT(fecha, '%Y-%m-%d')";                             
+        try{            
+            q=  em.createNativeQuery(query);  
+            
+            q.setParameter(1, producto);            
+            /*q.setParameter(2, unidad);  */          
+            lo= q.getResultList();
+        }catch(Exception ex){
+            lo= null;
+            System.out.println("::::"+ex);
+        }
+            
+       return lo;        
+              
+               
+    }  
+        
+    
+    public List<Object[]> ventaProducto( int producto){
+        Query q  = null;
+        List<Object[]> lo = null;  
+       
+        String query=" SELECT  DATE_FORMAT(f.fecha, '%Y-%m-%d') fecha, sum(d.total)  total " +
+"                    FROM sysmmx.factura f  ,sysmmx.factura_det d " +
+"                     where f.idfactura = d.factura_idfactura "+
+"                     and d.producto_idproducto = ?" +
+"                     group by DATE_FORMAT(fecha, '%Y-%m-%d') " +
 "                     order by DATE_FORMAT(fecha, '%Y-%m-%d')";                             
         try{            
             q=  em.createNativeQuery(query);  
             
-            /*q.setParameter(1, plan);            
-            q.setParameter(2, unidad);  */          
+            q.setParameter(1, producto);            
+            /*q.setParameter(2, unidad);  */          
             lo= q.getResultList();
         }catch(Exception ex){
             lo= null;
