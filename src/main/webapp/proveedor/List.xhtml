@@ -18,10 +18,9 @@
                 <p:panel header="Lista Proveedores">
                     <p:dataTable id="datalist" value="#{proveedorController.items}" var="item"
                                  selectionMode="single" selection="#{proveedorController.selected}"
-                                 paginator="true"
-                                 rowKey="#{item.idproveedor}"
-                                 rows="10"
-                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 scrollable="true" 
+                                 scrollHeight="250"
+                                 rowKey="#{item.idproveedor}"                                 
                                  >
 
                         <p:ajax event="rowSelect"   update="@form"/>
@@ -78,13 +77,19 @@
                         </f:facet>
                     </p:dataTable>
                 </p:panel>
-                <p:panel header="Compras" id="panelCompra" rendered="#{!empty proveedorController.selected}">
+                
+                  <p:tabView  id="panelCompra" rendered="#{!empty proveedorController.selected}">
+                         <p:tab title="Grafica"> 
+                         </p:tab>
+                    <p:tab title="Compras"> 
+                        
+                
                     <p:dataTable id="datalistCompra"  value="#{proveedorController.selected.compraList}" var="item"
                                  selectionMode="single" selection="#{comprasController.selected}"
-                                 paginator="true"
+                                
                                  rowKey="#{item.idcompra}"
-                                 rows="10"
-                                 rowsPerPageTemplate="10,20,30,40,50"
+                                   scrollable="true" 
+                                 scrollHeight="250"
                                  >
                         <p:column>
                             <f:facet name="header">
@@ -127,8 +132,9 @@
                             <h:outputText value="#{item.total}"/>
                         </p:column>                         
                       </p:dataTable>
-                    
-                </p:panel>
+                       </p:tab>
+                  </p:tabView>
+               
             </h:form>
 
             <ui:include src="Create.xhtml"/>

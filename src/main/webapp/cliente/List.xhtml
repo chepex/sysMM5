@@ -24,10 +24,10 @@
                 <p:panel header="Clientes">
                     <p:dataTable id="datalist" value="#{clienteController.items}" var="item"
                                  selectionMode="single" selection="#{clienteController.selected}"
-                                 paginator="true"
+                               
                                  rowKey="#{item.idcliente}"
-                                 rows="10"
-                                 rowsPerPageTemplate="10,20,30,40,50"
+                                   scrollable="true" 
+                                 scrollHeight="250"
                                  >
 
                         <p:ajax event="rowSelect"   update="@form "/>
@@ -84,13 +84,16 @@
                         </f:facet>
                     </p:dataTable>
                 </p:panel>
-                <p:panel header="Ventas" id="panelCompra" rendered="#{!empty clienteController.selected}">
+                
+                    <p:tabView  rendered="#{!empty clienteController.selected}">
+                         <p:tab title="Grafica"> 
+                         </p:tab>
+                    <p:tab title="Ventas"> 
                     <p:dataTable id="datalistCompra"  value="#{clienteController.selected.facturaList}" var="item"
                                  selectionMode="single" selection="#{facturaController.selected}"
-                                 paginator="true"
                                  rowKey="#{item.idfactura}"
-                                 rows="10"
-                                 rowsPerPageTemplate="10,20,30,40,50"
+                                  scrollable="true" 
+                                 scrollHeight="250"
                                  >
                         <p:column>
                             <f:facet name="header">
@@ -133,8 +136,10 @@
                             <h:outputText value="#{item.total}"/>
                         </p:column>                         
                       </p:dataTable>
-                    
-                </p:panel>                
+                    </p:tab>
+                        
+                    </p:tabView>
+                             
             </h:form>
 
             <ui:include src="Create.xhtml"/>
