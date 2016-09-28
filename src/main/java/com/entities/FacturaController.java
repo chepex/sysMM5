@@ -180,6 +180,8 @@ public class FacturaController implements Serializable {
         }else{
             selected.setDocumento("No corelt");
         }
+        
+        
        /* for(FacturaDet detalle :detFactura){
             BigDecimal vid= facturaDetFacade.finById();
             System.out.println(" id-->"+vid);
@@ -188,7 +190,10 @@ public class FacturaController implements Serializable {
             p.setExistencia(p.getExistencia()-detalle.getCantidad()); 
             
         }*/
-       
+         for(FacturaDet detalle :detFactura){
+             detalle.setIdfacturaDet(0);
+            System.out.println("idDetakke--->"+detalle.getIdfacturaDet());
+        }
         selected.setFacturaDetList(detFactura);  
         
         
@@ -203,6 +208,8 @@ public class FacturaController implements Serializable {
         selected = this.getFacade().auditCreate(selected);
         sb_Cliente.actualizaSaldo(selected.getClienteIdcliente(), selected.getTotal());
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("FacturaCreated"));
+      
+        
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
         }

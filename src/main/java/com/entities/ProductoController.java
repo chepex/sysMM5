@@ -150,6 +150,8 @@ public class ProductoController implements Serializable {
 
     public void create() {
         selected.setExistencia(0);
+        selected.setCosto(BigDecimal.ZERO);
+        selected.setPrecio(BigDecimal.ZERO);
          selected = this.getFacade().auditCreate(selected);
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("ProductoCreated"));
         if (!JsfUtil.isValidationFailed()) {

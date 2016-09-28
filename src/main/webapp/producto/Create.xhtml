@@ -17,16 +17,12 @@
                         <p:inputText id="nombre" value="#{productoController.selected.nombre}" title="#{bundle.CreateProductoTitle_nombre}" />
                         <p:outputLabel value="#{bundle.CreateProductoLabel_descripion}" for="descripion" />
                         <p:inputText id="descripion" value="#{productoController.selected.descripion}" title="#{bundle.CreateProductoTitle_descripion}" />
-                        <p:outputLabel value="#{bundle.CreateProductoLabel_costo}" for="costo" />
-                        <p:inputText id="costo" value="#{productoController.selected.costo}" title="#{bundle.CreateProductoTitle_costo}" />
-                        <p:outputLabel value="#{bundle.CreateProductoLabel_precio}" for="precio" />
-                        <p:inputText id="precio" value="#{productoController.selected.precio}" title="#{bundle.CreateProductoTitle_precio}" />
+                       
                         <p:outputLabel value="#{bundle.CreateProductoLabel_min}" for="min" />
                         <p:inputText id="min" value="#{productoController.selected.min}" title="#{bundle.CreateProductoTitle_min}" />
                         <p:outputLabel value="#{bundle.CreateProductoLabel_max}" for="max" />
-                        <p:inputText id="max" value="#{productoController.selected.max}" title="#{bundle.CreateProductoTitle_max}" />
-                        <p:outputLabel value="#{bundle.CreateProductoLabel_existencia}" for="existencia" />
-                        <p:inputText id="existencia" value="#{productoController.selected.existencia}" title="#{bundle.CreateProductoTitle_existencia}" />
+                        <p:inputText id="max" value="#{productoController.selected.max}" title="#{bundle.CreateProductoTitle_min}" />
+                        
                         <p:outputLabel value="#{bundle.CreateProductoLabel_activo}" for="activo" />
                         <p:selectBooleanCheckbox id="activo" value="#{productoController.selected.activo}" />
                         <p:outputLabel value="#{bundle.CreateProductoLabel_categoriaIdcategoria}" for="categoriaIdcategoria" />

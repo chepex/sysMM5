@@ -165,17 +165,27 @@ public class CompraController implements Serializable {
     }
 
     public String create() {
-   
-       if(detCompra.isEmpty()){
-           JsfUtil.addErrorMessage("Agregue un producto");
-           return "error";
-           
-       }
+        
+        if(selected.getProveedorIdproveedor()==null){
+                JsfUtil.addErrorMessage("Selecione un proveedor");
+                return "error";
+        }
+        
+        if(detCompra.isEmpty()){
+            JsfUtil.addErrorMessage("Agregue un producto");
+            return "error";
+
+        }
        
-       if(this.selected.getDocumento().isEmpty()){
-            JsfUtil.addErrorMessage("Agregue un numero de factura");
-           return "error";
-       }
+        if(this.selected.getDocumento().isEmpty()){
+             JsfUtil.addErrorMessage("Agregue un numero de factura");
+            return "error";
+        }
+       
+        for(CompraDet detalle :detCompra){
+             detalle.setIdcompraDet(0);
+            System.out.println("idDetakke--->"+detalle.getIdcompraDet());
+        }
         selected.setCompraDetList(detCompra);
         sb_Compra.actualizaCosto(selected);
         List<Object[]>  lobjt =  sb_inventario.compraToList(detCompra);
@@ -393,8 +403,7 @@ public class CompraController implements Serializable {
 
    public void updateExistencia(){
        this.existencia =  this.productoIdproducto.getExistencia();
-       this.precio = this.productoIdproducto.getCosto();
-        
+       this.precio = this.productoIdproducto.getCosto();        
    }    
 
 }

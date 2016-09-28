@@ -7,7 +7,8 @@ package com.ejb;
 
 import com.entities.Compra;
 import com.entities.CompraDet;
-import java.util.List;
+import com.entities.Producto;
+import java.math.BigDecimal;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
@@ -22,11 +23,38 @@ public class SB_Compra {
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")
     public String actualizaCosto(Compra compra){
+        
+        
         String msg = "error";
         
         for(CompraDet cd:compra.getCompraDetList()){
-            cd.getProductoIdproducto().setCosto(cd.getPrecio());
-            productoFacade.edit(cd.getProductoIdproducto());
+          
+            Producto p  =productoFacade.find(cd.getProductoIdproducto().getIdproducto());
+            
+            BigDecimal existenciaNueva = new BigDecimal(cd.getCantidad() );
+            BigDecimal existenciaAnterior = new BigDecimal(p.getExistencia());
+            if(existenciaAnterior.compareTo(BigDecimal.ZERO)==0){
+            p.setCosto(cd.getPrecio());
+            p.setExistencia(cd.getCantidad());
+                
+            }else{
+            BigDecimal vtatalExistencia = existenciaAnterior.add(existenciaNueva);
+            
+            System.out.println("Total existencia:"+vtatalExistencia);
+            BigDecimal totalCostoAnterio = p.getCosto().multiply( existenciaAnterior);
+            BigDecimal totalCostoNuevo = cd.getPrecio().multiply(existenciaNueva);
+            
+            System.out.println("totalCostoAnterio:"+totalCostoAnterio);
+            System.out.println("totalCostoNuevo:"+totalCostoNuevo);
+            
+            double nuevoCosto= totalCostoAnterio.doubleValue()+totalCostoNuevo.doubleValue();
+            System.out.println("nuevoCosto:"+nuevoCosto);
+            nuevoCosto = nuevoCosto/ vtatalExistencia.doubleValue();
+            System.out.println("nuevoCosto:"+nuevoCosto);
+            p.setCosto(new BigDecimal(nuevoCosto));
+            }
+            
+            productoFacade.edit(p);
         }
         msg ="ok";
         
