@@ -98,7 +98,8 @@ public class SB_inventario {
        1- idProducto 
        2- cantidad       
        */
-       
+       System.out.println("referencia-->"+numReferencia);
+       System.out.println("documento-->"+documento);
    
             List<InvDetm> detInv = new ArrayList<InvDetm>(); 
 
@@ -174,6 +175,8 @@ public class SB_inventario {
     }
     
     public String validaSalida(Producto p, int cantidad){
+        
+        
       if(cantidad>p.getExistencia()){
                 
                 return "La cantidad no puede ser mayor a la existencia";

@@ -33,16 +33,16 @@ public class FacturaDetFacade extends AbstractFacade<FacturaDet> {
     
   public BigDecimal finById(){
         BigDecimal val=new BigDecimal("0");
-        Query q =  em.createNativeQuery("SELECT max(idfactura_det) FROM  factura_det" );  
+       
         
         
         try{           
-            
+             Query q =  em.createNativeQuery("SELECT IFNULL( max(idfactura_det) ,1) FROM  factura_det" );  
             val = (BigDecimal)q.getSingleResult();
             
         }catch(Exception ex){
             
-            val = new BigDecimal("0");
+            val = new BigDecimal("1");
             
         }               
        

@@ -180,11 +180,14 @@ public class FacturaController implements Serializable {
         }else{
             selected.setDocumento("No corelt");
         }
-        for(FacturaDet detalle :detFactura){
+       /* for(FacturaDet detalle :detFactura){
             BigDecimal vid= facturaDetFacade.finById();
-            detalle.setIdfacturaDet(vid.intValue());
+            System.out.println(" id-->"+vid);
+            detalle.setIdfacturaDet(vid.intValue()+1);
+          Producto p = detalle.getProductoIdproducto();
+            p.setExistencia(p.getExistencia()-detalle.getCantidad()); 
             
-        }
+        }*/
        
         selected.setFacturaDetList(detFactura);  
         
@@ -192,7 +195,11 @@ public class FacturaController implements Serializable {
         List<Object[]>  lobjt =  sb_inventario.facturaToList(detFactura);
         
         //Registrar Salida
-        sb_inventario.createDocumento(selected.getDocumento(), lobjt, "2");
+        if (!sb_inventario.createDocumento(selected.getDocumento(), lobjt, "2").equals("ok")){
+             JsfUtil.addErrorMessage("Favor definir un documento de salida");
+            
+        return "error";
+        }
         selected = this.getFacade().auditCreate(selected);
         sb_Cliente.actualizaSaldo(selected.getClienteIdcliente(), selected.getTotal());
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("FacturaCreated"));
