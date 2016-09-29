@@ -33,6 +33,8 @@ public class ProductoController implements Serializable {
     @EJB
     private com.entities.ProductoFacade ejbFacade;
     @EJB
+    private com.ejb.Sb_Grafica sb_Grafica;    
+    @EJB
     private com.entities.CompraFacade compraFacade;    
     @EJB
     private com.entities.FacturaFacade facturaFacade;     
@@ -145,6 +147,7 @@ public class ProductoController implements Serializable {
     public Producto prepareCreate() {
         selected = new Producto();
         initializeEmbeddableKey();
+        selected.setMargen(1);
         return selected;
     }
 
@@ -152,16 +155,25 @@ public class ProductoController implements Serializable {
         selected.setExistencia(0);
         selected.setCosto(BigDecimal.ZERO);
         selected.setPrecio(BigDecimal.ZERO);
-         selected = this.getFacade().auditCreate(selected);
-        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("ProductoCreated"));
-        if (!JsfUtil.isValidationFailed()) {
-            items = null;    // Invalidate list of items to trigger re-query.
-        }
+        
+       
+            selected = this.getFacade().auditCreate(selected);
+            persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("ProductoCreated"));
+            if (!JsfUtil.isValidationFailed()) {
+                items = null;    // Invalidate list of items to trigger re-query.
+            }
+        
+        
     }
 
     public void update() {
-         selected = this.getFacade().auditUpdate(selected);
-        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("ProductoUpdated"));
+        if(selected.getMargen()==0){
+              JsfUtil.addErrorMessage("El margen debe ser mayor a cero ");
+        }else{
+            selected = this.getFacade().auditUpdate(selected);
+            persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("ProductoUpdated"));
+        }
+        
     }
 
     public void destroy() {
@@ -279,62 +291,12 @@ public class ProductoController implements Serializable {
     public void geneararGrafica(){
         
         if(selected!=null){
-            chartVentaCompra = initLinearModel();
-            chartVentaCompra.setTitle("Linear Chart");           
-            chartVentaCompra.setExtender("skinChart");            
-            chartVentaCompra.setTitle("Zoom for Details");
-            chartVentaCompra.setZoom(true);
-             chartVentaCompra.setLegendPosition("ne");
-            chartVentaCompra.getAxis(AxisType.Y).setLabel(" ");
-            DateAxis axis = new DateAxis(" ");
-            axis.setTickAngle(-50);
-            axis.setMax("2016-10-31");
-            axis.setTickFormat("%b %#d, %y");        
-            chartVentaCompra.getAxes().put(AxisType.X, axis);            
+          chartVentaCompra =  sb_Grafica.graficaVentas(selected )   ;
         }
         
            
     }
     
- 
-    private LineChartModel initLinearModel() {
-        LineChartModel model = new LineChartModel(); 
-        LineChartSeries series1 = new LineChartSeries();
-        series1.setLabel("Ventas");
-        List<Object[]> lv =this.ejbFacade.ventaProducto(selected.getIdproducto());        
-        if(!lv.isEmpty()){
-            Iterator<Object[]>itr = lv.iterator();                           
-            while(itr.hasNext()) {                       
-                Object[] element = itr.next();            
-                BigDecimal valor =new BigDecimal( element[1].toString());
-                System.out.println("DEPTO--->"+nombre+"codigo-->"+element[0].toString()+"valor-->"+valor);
-                series1.set(element[0].toString(), valor); 
-                
-            }
-               model.addSeries(series1);
-        }     
-        
-        LineChartSeries series2 = new LineChartSeries();
-        series2.setLabel("Compras");
-        List<Object[]> lv2 =this.ejbFacade.compraProducto(selected.getIdproducto());        
-        if(!lv2.isEmpty()){
-            Iterator<Object[]>itr = lv2.iterator();                           
-            while(itr.hasNext()) {                       
-                Object[] element = itr.next();            
-                BigDecimal valor =new BigDecimal( element[1].toString());
-                System.out.println("DEPTO--->"+nombre+"codigo-->"+element[0].toString()+"valor-->"+valor);
-                series2.set(element[0].toString(), valor);
-            }
-              model.addSeries(series2);
-        }         
-                    
-       
-  
- 
      
-      
-         
-        return model;
-    }    
 
 }

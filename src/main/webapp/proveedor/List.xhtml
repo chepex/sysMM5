@@ -14,17 +14,65 @@
         </ui:define>
 
         <ui:define name="content">
+            
+                    <script type="text/javascript">
+            // Blue : #3E98D3  |  Red : #EF3F61  |  Green : #2BB673  |  Orange : #F15732
+
+            function skinChart() {
+                this.cfg.shadow = false;
+                this.cfg.title = '';
+                this.cfg.seriesColors = ['#3E98D3', '#EF3F61', '#2BB673', '#F15732'];
+                this.cfg.grid = {
+                    background: '#ffffff',
+                    borderColor: '#ffffff',
+                    gridLineColor: '#F5F5F5',
+                    shadow: false
+                };
+                this.cfg.axesDefaults = {
+                    rendererOptions: {
+                        textColor: '#666F77'
+                    }
+                };
+                this.cfg.seriesDefaults = {
+                    shadow: false,
+                    lineWidth: 1,
+                    markerOptions: {
+                        shadow: false,
+                        size: 7,
+                        style: 'circle'
+                    }
+                }
+            }
+                    </script>            
             <h:form id="ProveedorListForm">
+                <p:panelGrid columns="6"  style=" border-style: hidden !important;" >
+                <p:outputLabel value="Nombre" for="nombre" />
+                <p:inputText value="#{proveedorController.nombre}" id="nombre" />
+                <p:commandButton actionListener="#{proveedorController.consultaProveedor}" value="Consultar" update="@form :growl"  />
+                <p:commandButton actionListener="#{proveedorController.limpiar}" value="Limpiar" update="@form :growl"  />
+                </p:panelGrid>
+                <p:fieldset legend="Lista Proveedores" toggleable="true" toggleSpeed="500">
                 <p:panel header="Lista Proveedores">
                     <p:dataTable id="datalist" value="#{proveedorController.items}" var="item"
-                                 selectionMode="single" selection="#{proveedorController.selected}"
+                                             selectionMode="single" selection="#{proveedorController.selected}"
                                  scrollable="true" 
                                  scrollHeight="250"
-                                 rowKey="#{item.idproveedor}"                                 
+                                 rowKey="#{item.idproveedor}" 
+                                     paginator="true" 
+                                 paginatorTemplate="{Exporters}"
                                  >
-
-                        <p:ajax event="rowSelect"   update="@form"/>
-                        <p:ajax event="rowUnselect" update="@form"/>
+                        <f:facet name="{Exporters}" >
+                            <h:commandLink>
+                                <p:graphicImage library="img" name="excel.png" width="24"/>                
+                                <p:dataExporter type="csv" target="datalist" fileName="items" />
+                            </h:commandLink>
+                             <h:commandLink>
+                                <p:graphicImage library="img" name="pdf.png" width="24"/>                
+                                <p:dataExporter type="pdf" target="datalist" fileName="items" />
+                            </h:commandLink>
+                        </f:facet>                        
+                        <p:ajax event="rowSelect"  listener="#{proveedorController.generaGrafica()}"  update="@form"/>
+                        <p:ajax event="rowUnselect" listener="#{proveedorController.generaGrafica()}"  update="@form"/>
 
                       
                         <p:column>
@@ -77,17 +125,19 @@
                         </f:facet>
                     </p:dataTable>
                 </p:panel>
-                
+                </p:fieldset>
                   <p:tabView  id="panelCompra" rendered="#{!empty proveedorController.selected}">
                          <p:tab title="Grafica"> 
+                             grafica
+                             <p:chart rendered="#{proveedorController.selected.compraList.size()>0}" type="line" model="#{proveedorController.chartCompra}" style="height:300px;"/>
                          </p:tab>
                     <p:tab title="Compras"> 
                         
                 
                     <p:dataTable id="datalistCompra"  value="#{proveedorController.selected.compraList}" var="item"
-                                 selectionMode="single" selection="#{comprasController.selected}"
+                             
                                 
-                                 rowKey="#{item.idcompra}"
+                                
                                    scrollable="true" 
                                  scrollHeight="250"
                                  >
@@ -144,3 +194,4 @@
     </ui:composition>
 
 </html>
+

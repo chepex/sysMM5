@@ -76,6 +76,8 @@ public class Producto implements Serializable {
     private Integer min;
     @Column(name = "max")
     private Integer max;
+    @Column(name = "margen")
+    private Integer margen;    
     @Column(name = "existencia")
     private Integer existencia;
     @Column(name = "activo")
@@ -105,6 +107,15 @@ public class Producto implements Serializable {
     public Producto() {
     }
 
+    public Integer getMargen() {
+        return margen;
+    }
+
+    public void setMargen(Integer margen) {
+        this.margen = margen;
+    }
+
+    
     public Producto(Integer idproducto) {
         this.idproducto = idproducto;
     }

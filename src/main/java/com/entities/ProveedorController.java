@@ -16,6 +16,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import org.primefaces.model.chart.LineChartModel;
 
 @ManagedBean(name = "proveedorController")
 @SessionScoped
@@ -25,9 +26,31 @@ public class ProveedorController implements Serializable {
     private com.entities.ProveedorFacade ejbFacade;
     private List<Proveedor> items = null;
     private Proveedor selected;
-
+    private String nombre;
+    private LineChartModel chartCompra;   
+    @EJB
+    private com.ejb.Sb_Grafica sb_Grafica;     
     public ProveedorController() {
     }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public LineChartModel getChartCompra() {
+        return chartCompra;
+    }
+
+    public void setChartCompra(LineChartModel chartCompra) {
+        this.chartCompra = chartCompra;
+    }
+    
+    
+    
 
     public Proveedor getSelected() {
         return selected;
@@ -76,9 +99,9 @@ public class ProveedorController implements Serializable {
     }
 
     public List<Proveedor> getItems() {
-        if (items == null) {
+       /* if (items == null) {
             items = getFacade().findAll();
-        }
+        }*/
         return items;
     }
 
@@ -164,5 +187,37 @@ public class ProveedorController implements Serializable {
         return getFacade().findByNombreCodigo(valor);
         
     }       
+    
+    public void consultaProveedor(){
+        items = null;
+        if(!"".equals(nombre)){
+            this.items = this.ejbFacade.findByNombreCodigo(nombre);
+            if(items.isEmpty()){
+             JsfUtil.addErrorMessage("No se encontraron registros");
+            }
+        }else{
+           JsfUtil.addErrorMessage("Digite un valor para consultar");
+        }
+        
+     this.selected= null;
+ 
+     
+       
+    }    
+    
+    public void generaGrafica(){
+        System.out.println("char--->"+chartCompra);
+        this.chartCompra = sb_Grafica.graficaProveedor(selected);
+        System.out.println("char--->"+chartCompra);
+            
+    }
+    
+    public void limpiar(){
+        selected= null;
+        items = null;
+        chartCompra = null;
+        nombre= null;
+    
+    }
 
 }

@@ -13,7 +13,7 @@
             <h:outputText value="Kardex"></h:outputText>
         </ui:define>
 
-        <ui:define name="body">
+        <ui:define name="content">
             <h:form id="InvDetmListForm">
                 <p:panelGrid columns="3"  >
                         <p:outputLabel value="Producto" for="productoIdproducto" />
@@ -35,7 +35,8 @@
                                  paginatorTemplate="{Exporters}"
                                  paginator="true"
                                  rowKey="#{item.idinvDetm}"
-                                  scrollable="true" scrollHeight="350"
+                                 scrollable="true" 
+                                 scrollHeight="350"
                                  >
                         <f:facet name="{Exporters}">
                             <h:commandLink>

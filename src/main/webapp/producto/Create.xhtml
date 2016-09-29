@@ -17,7 +17,8 @@
                         <p:inputText id="nombre" value="#{productoController.selected.nombre}" title="#{bundle.CreateProductoTitle_nombre}" />
                         <p:outputLabel value="#{bundle.CreateProductoLabel_descripion}" for="descripion" />
                         <p:inputText id="descripion" value="#{productoController.selected.descripion}" title="#{bundle.CreateProductoTitle_descripion}" />
-                       
+                        <h:outputLabel for="margen" value="Margen:" />
+                        <p:spinner id="margen" value="#{productoController.selected.margen}" min="1" max="100" />
                         <p:outputLabel value="#{bundle.CreateProductoLabel_min}" for="min" />
                         <p:inputText id="min" value="#{productoController.selected.min}" title="#{bundle.CreateProductoTitle_min}" />
                         <p:outputLabel value="#{bundle.CreateProductoLabel_max}" for="max" />

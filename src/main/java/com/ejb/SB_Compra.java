@@ -9,6 +9,7 @@ import com.entities.Compra;
 import com.entities.CompraDet;
 import com.entities.Producto;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
@@ -29,32 +30,44 @@ public class SB_Compra {
         
         for(CompraDet cd:compra.getCompraDetList()){
           
-            Producto p  =productoFacade.find(cd.getProductoIdproducto().getIdproducto());
-            
-            BigDecimal existenciaNueva = new BigDecimal(cd.getCantidad() );
-            BigDecimal existenciaAnterior = new BigDecimal(p.getExistencia());
+                Producto p  =productoFacade.find(cd.getProductoIdproducto().getIdproducto());
+
+                BigDecimal existenciaNueva = new BigDecimal(cd.getCantidad() );
+                BigDecimal existenciaAnterior = new BigDecimal(p.getExistencia());
+                
             if(existenciaAnterior.compareTo(BigDecimal.ZERO)==0){
-            p.setCosto(cd.getPrecio());
-            p.setExistencia(cd.getCantidad());
+                p.setCosto(cd.getPrecio());
+                p.setExistencia(cd.getCantidad());
                 
             }else{
-            BigDecimal vtatalExistencia = existenciaAnterior.add(existenciaNueva);
-            
-            System.out.println("Total existencia:"+vtatalExistencia);
-            BigDecimal totalCostoAnterio = p.getCosto().multiply( existenciaAnterior);
-            BigDecimal totalCostoNuevo = cd.getPrecio().multiply(existenciaNueva);
-            
-            System.out.println("totalCostoAnterio:"+totalCostoAnterio);
-            System.out.println("totalCostoNuevo:"+totalCostoNuevo);
-            
-            double nuevoCosto= totalCostoAnterio.doubleValue()+totalCostoNuevo.doubleValue();
-            System.out.println("nuevoCosto:"+nuevoCosto);
-            nuevoCosto = nuevoCosto/ vtatalExistencia.doubleValue();
-            System.out.println("nuevoCosto:"+nuevoCosto);
-            p.setCosto(new BigDecimal(nuevoCosto));
+                BigDecimal vtatalExistencia = existenciaAnterior.add(existenciaNueva);
+
+                System.out.println("Total existencia:"+vtatalExistencia);
+                BigDecimal totalCostoAnterio = p.getCosto().multiply( existenciaAnterior);
+                BigDecimal totalCostoNuevo = cd.getPrecio().multiply(existenciaNueva);
+
+                System.out.println("totalCostoAnterio:"+totalCostoAnterio);
+                System.out.println("totalCostoNuevo:"+totalCostoNuevo);
+
+                double nuevoCosto= totalCostoAnterio.doubleValue()+totalCostoNuevo.doubleValue();
+                System.out.println("nuevoCosto:"+nuevoCosto);
+                nuevoCosto = nuevoCosto/ vtatalExistencia.doubleValue();
+                System.out.println("nuevoCosto:"+nuevoCosto);
+                BigDecimal vcosto = new BigDecimal(nuevoCosto);
+                vcosto = vcosto.setScale(2, RoundingMode.CEILING);
+                p.setCosto(vcosto);
             }
             
+            
+            double vprecio = (p.getCosto().doubleValue()*p.getMargen()/100)+p.getCosto().doubleValue();
+            BigDecimal value = new BigDecimal(vprecio);
+            value = value.setScale(2, RoundingMode.CEILING);
+
+
+            p.setPrecio(value);
             productoFacade.edit(p);
+            
+            
         }
         msg ="ok";
         

@@ -51,7 +51,7 @@
                 <p:panel header="Productos">
                     <p:panelGrid columns="6"  style=" border-style: hidden !important;" >
                         <p:outputLabel value="Categoria" for="categoriaIdcategoria" />
-                        <p:selectOneMenu id="categoriaIdcategoria" value="#{productoController.categoria}" required="true" requiredMessage="#{bundle.EditProductoRequiredMessage_categoriaIdcategoria}">
+                        <p:selectOneMenu id="categoriaIdcategoria" filter="true" filterMatchMode="startsWith"  value="#{productoController.categoria}" required="true" requiredMessage="#{bundle.EditProductoRequiredMessage_categoriaIdcategoria}">
                             <f:selectItems value="#{categoriaController.itemsAvailableSelectOne}"
                                            var="categoriaIdcategoriaItem"
                                            itemLabel="#{categoriaIdcategoriaItem.nombre}"
@@ -64,21 +64,32 @@
                     </p:panelGrid>
                     
                     <p:dataTable id="datalist" value="#{productoController.items}" var="item"
-                                 selectionMode="single" selection="#{productoController.selected}"
-                                 
+                                 selectionMode="single" selection="#{productoController.selected}"                                 
                                  rowKey="#{item.idproducto}"
+                                                              
                                  scrollable="true" 
                                  scrollHeight="250"
-                                
+                                  paginator="true" 
+                                 paginatorTemplate="{Exporters}"
+                                 style="margin-bottom:20px"
                                  >
-
+                        <f:facet name="{Exporters}" >
+                            <h:commandLink>
+                                <p:graphicImage library="img" name="excel.png" width="24"/>                
+                                <p:dataExporter type="csv" target="datalist" fileName="items" />
+                            </h:commandLink>
+                             <h:commandLink>
+                                <p:graphicImage library="img" name="pdf.png" width="24"/>                
+                                <p:dataExporter type="pdf" target="datalist" fileName="items" />
+                            </h:commandLink>
+                        </f:facet>
                         <p:ajax event="rowSelect" listener="#{productoController.geneararGrafica()}"   update="@form"/>
                         <p:ajax event="rowUnselect" listener="#{productoController.geneararGrafica()}" update="@form"/>
 
 
                         <p:column  sortBy="#{item.nombre}"   >
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListProductoTitle_nombre}"/>
+                                <h:outputText value="Name"/>
                             </f:facet>
                             <h:outputText value="#{item.nombre}"/>
                         </p:column>
@@ -139,7 +150,7 @@
                 <p:panel>
                     <p:tabView rendered="#{!empty productoController.selected}">
                         <p:tab title="Grafica">
-                            <p:chart rendered="#{productoController.selected.compraDetList.size()>0}" type="line" model="#{productoController.chartVentaCompra}" style="height:300px;"/>
+                            <p:chart   type="line" model="#{productoController.chartVentaCompra}" style="height:300px;"/>
                         </p:tab>
                         <p:tab title="Compras">
                             <h:panelGrid columns="2" cellpadding="10" rendered="#{productoController.lcompras!=null}">

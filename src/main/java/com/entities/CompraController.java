@@ -184,8 +184,10 @@ public class CompraController implements Serializable {
        
         for(CompraDet detalle :detCompra){
              detalle.setIdcompraDet(0);
+             
             System.out.println("idDetakke--->"+detalle.getIdcompraDet());
         }
+        
         selected.setCompraDetList(detCompra);
         sb_Compra.actualizaCosto(selected);
         List<Object[]>  lobjt =  sb_inventario.compraToList(detCompra);
