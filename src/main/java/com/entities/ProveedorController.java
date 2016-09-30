@@ -190,14 +190,12 @@ public class ProveedorController implements Serializable {
     
     public void consultaProveedor(){
         items = null;
-        if(!"".equals(nombre)){
+       
             this.items = this.ejbFacade.findByNombreCodigo(nombre);
             if(items.isEmpty()){
              JsfUtil.addErrorMessage("No se encontraron registros");
             }
-        }else{
-           JsfUtil.addErrorMessage("Digite un valor para consultar");
-        }
+       
         
      this.selected= null;
  

@@ -39,7 +39,7 @@
                                            itemValue="#{categoriaIdcategoriaItem}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{productoController.update}" value="#{bundle.Save}" update="display,:ProductoListForm:datalist,:growl" oncomplete="handleSubmit(args, 'ProductoEditDialog');"/>
+                    <p:commandButton actionListener="#{productoController.update}" value="#{bundle.Save}" update="display,:ProductoListForm2:datalist,:growl" oncomplete="handleSubmit(args, 'ProductoEditDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="ProductoEditDialog.hide()"/>
                 </h:panelGroup>
             </h:form>

@@ -14,6 +14,12 @@
         </ui:define>
 
         <ui:define name="content">
+           <style>
+                .ui-paginator {
+text-align: left ! important
+}
+            </style>            
+            
             <h:form id="ClienteListForm">
                 <p:panelGrid  columns="4">
                     <p:outputLabel>Nombre</p:outputLabel>
@@ -28,11 +34,23 @@
                                  rowKey="#{item.idcliente}"
                                    scrollable="true" 
                                  scrollHeight="250"
+                                   paginator="true" 
+                                 paginatorTemplate="{Exporters}"
+                                 paginatorPosition="bottom"
                                  >
 
-                        <p:ajax event="rowSelect"   update="@form "/>
-                        <p:ajax event="rowUnselect" update="@form "/>
-
+                        <p:ajax event="rowSelect"   update="@form "  listener="#{clienteController.generaGrafica()}" />
+                        <p:ajax event="rowUnselect" update="@form " listener="#{clienteController.generaGrafica()}" />
+                        <f:facet name="{Exporters}" >
+                            <h:commandLink>
+                                <p:graphicImage library="img" name="excel.png" width="24"/>                
+                                <p:dataExporter type="csv" target="datalist" fileName="items" />
+                            </h:commandLink>
+                             <h:commandLink>
+                                <p:graphicImage library="img" name="pdf.png" width="24"/>                
+                                <p:dataExporter type="pdf" target="datalist" fileName="items" />
+                            </h:commandLink>
+                        </f:facet>  
                        
                         <p:column>
                             <f:facet name="header">
@@ -84,9 +102,10 @@
                         </f:facet>
                     </p:dataTable>
                 </p:panel>
-                
+                <p:panel header="Detalle" id="detalle"  rendered="#{!empty proveedorController.selected}">
                     <p:tabView  rendered="#{!empty clienteController.selected}">
                          <p:tab title="Grafica"> 
+                             <p:chart rendered="#{clienteController.selected.facturaList.size()>0}" type="line" model="#{clienteController.chartCompra}" style="height:300px;"/>
                          </p:tab>
                     <p:tab title="Ventas"> 
                     <p:dataTable id="datalistCompra"  value="#{clienteController.selected.facturaList}" var="item"
@@ -94,7 +113,21 @@
                                  rowKey="#{item.idfactura}"
                                   scrollable="true" 
                                  scrollHeight="250"
+                                 paginator="true" 
+                                 paginatorTemplate="{Exporters}"
+                                 paginatorPosition="bottom"
                                  >
+                        <f:facet name="{Exporters}" >
+                            <h:commandLink>
+                                <p:graphicImage library="img" name="excel.png" width="24"/>                
+                                <p:dataExporter type="csv" target="datalistCompra" fileName="items" />
+                            </h:commandLink>
+                             <h:commandLink>
+                                <p:graphicImage library="img" name="pdf.png" width="24"/>                
+                                <p:dataExporter type="pdf" target="datalistCompra" fileName="items" />
+                            </h:commandLink>
+                        </f:facet>  
+                                               
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="Documento"/>
@@ -139,7 +172,7 @@
                     </p:tab>
                         
                     </p:tabView>
-                             
+                   </p:panel>          
             </h:form>
 
             <ui:include src="Create.xhtml"/>

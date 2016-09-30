@@ -165,6 +165,9 @@ public class FacturaController implements Serializable {
             if(!vlimite.equals("ok")){
                JsfUtil.addErrorMessage("El valor de la compra ha sobre pasado el limite de credito del cliente");
                return "error";
+            }else{            
+                sb_Cliente.actualizaSaldo(selected.getClienteIdcliente(), selected.getTotal());
+                selected.setSaldo(selected.getTotal());
             }
         }
         
@@ -206,7 +209,7 @@ public class FacturaController implements Serializable {
         return "error";
         }
         selected = this.getFacade().auditCreate(selected);
-        sb_Cliente.actualizaSaldo(selected.getClienteIdcliente(), selected.getTotal());
+        
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("FacturaCreated"));
       
         

@@ -19,6 +19,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import org.primefaces.model.chart.LineChartModel;
 
 
 @ManagedBean(name = "clienteController")
@@ -31,11 +32,23 @@ public class ClienteController implements Serializable {
     private Cliente selected;
     private Double porcentajeLimite;
     private String valorBuscar;
-    
+    private LineChartModel chartCompra;   
+    @EJB
+    private com.ejb.Sb_Grafica sb_Grafica;        
 
     public ClienteController() {
     }
 
+    public LineChartModel getChartCompra() {
+        return chartCompra;
+    }
+
+    public void setChartCompra(LineChartModel chartCompra) {
+        this.chartCompra = chartCompra;
+    }
+
+    
+    
     public String getValorBuscar() {
         return valorBuscar;
     }
@@ -217,6 +230,13 @@ public class ClienteController implements Serializable {
      //   this.items = new ArrayList<>();
         selected = null;
     }
+    
+    public void generaGrafica(){
+        System.out.println("char--->"+chartCompra);
+        this.chartCompra = sb_Grafica.graficaCliente(selected);
+        System.out.println("char--->"+chartCompra);
+            
+    }    
     
 }
 

@@ -56,6 +56,32 @@ public class ProductoFacade extends AbstractFacade<Producto> {
                
     }  
     
+    public List<Object[]> ventaCliente( int cliente){
+        Query q  = null;
+        List<Object[]> lo = null;  
+       
+        String query="	 SELECT  DATE_FORMAT(f.fecha, '%Y-%m-%d') fecha, sum(d.total)  total " +
+"                    FROM sysmmx.factura f  ,sysmmx.factura_det d " +
+"                     where f.idfactura = d.factura_idfactura "+
+"                     and f.cliente_idcliente = ?" +
+"                     group by DATE_FORMAT(fecha, '%Y-%m-%d') " +
+"                     order by DATE_FORMAT(fecha, '%Y-%m-%d')";                             
+        try{            
+            q=  em.createNativeQuery(query);  
+            
+            q.setParameter(1, cliente);            
+            /*q.setParameter(2, unidad);  */          
+            lo= q.getResultList();
+        }catch(Exception ex){
+            lo= null;
+            System.out.println("::::"+ex);
+        }
+            
+       return lo;        
+              
+               
+    }    
+
 public List<Object[]> compraProveedor( int proveedor){
         Query q  = null;
         List<Object[]> lo = null;  

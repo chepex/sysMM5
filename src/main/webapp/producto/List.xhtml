@@ -14,41 +14,15 @@
         </ui:define>
 
         <ui:define name="content">
-            
-                    <script type="text/javascript">
-            // Blue : #3E98D3  |  Red : #EF3F61  |  Green : #2BB673  |  Orange : #F15732
-
-            function skinChart() {
-                this.cfg.shadow = false;
-                this.cfg.title = '';
-                this.cfg.seriesColors = ['#3E98D3', '#EF3F61', '#2BB673', '#F15732'];
-                this.cfg.grid = {
-                    background: '#ffffff',
-                    borderColor: '#ffffff',
-                    gridLineColor: '#F5F5F5',
-                    shadow: false
-                };
-                this.cfg.axesDefaults = {
-                    rendererOptions: {
-                        textColor: '#666F77'
-                    }
-                };
-                this.cfg.seriesDefaults = {
-                    shadow: false,
-                    lineWidth: 1,
-                    markerOptions: {
-                        shadow: false,
-                        size: 7,
-                        style: 'circle'
-                    }
-                }
-            }
-                    </script>
+            <style>
+                .ui-paginator {
+text-align: left ! important
+}
+            </style>
+           
             <h:form id="ProductoListForm">
                 
-                <p:fieldset legend="Lista Productos" toggleable="true" toggleSpeed="500">
-                       
-                <p:panel header="Productos">
+               
                     <p:panelGrid columns="6"  style=" border-style: hidden !important;" >
                         <p:outputLabel value="Categoria" for="categoriaIdcategoria" />
                         <p:selectOneMenu id="categoriaIdcategoria" filter="true" filterMatchMode="startsWith"  value="#{productoController.categoria}" required="true" requiredMessage="#{bundle.EditProductoRequiredMessage_categoriaIdcategoria}">
@@ -59,19 +33,22 @@
                         </p:selectOneMenu>
                         <p:outputLabel value="nombre" for="nombre" />
                         <p:inputText value="#{productoController.nombre}" id="nombre" />
-                        <p:commandButton actionListener="#{productoController.consultaCategoria}" value="Consultar" update="@form :growl"  />
+                        <p:commandButton actionListener="#{productoController.consultaCategoria}" value="Consultar" update=":ProductoListForm2 :growl"  />
                         
                     </p:panelGrid>
-                    
+                    </h:form>
+               <h:form id="ProductoListForm2">
+                     <p:fieldset legend="Lista Productos" toggleable="true" toggleSpeed="500">
+                       
+                <p:panel header="Productos">      
                     <p:dataTable id="datalist" value="#{productoController.items}" var="item"
                                  selectionMode="single" selection="#{productoController.selected}"                                 
-                                 rowKey="#{item.idproducto}"
-                                                              
+                                 rowKey="#{item.idproducto}"                                                              
                                  scrollable="true" 
                                  scrollHeight="250"
-                                  paginator="true" 
-                                 paginatorTemplate="{Exporters}"
-                                 style="margin-bottom:20px"
+                                 paginator="true" 
+                                 paginatorTemplate="{Exporters}"                                 
+                                 paginatorPosition="bottom"
                                  >
                         <f:facet name="{Exporters}" >
                             <h:commandLink>
@@ -83,10 +60,15 @@
                                 <p:dataExporter type="pdf" target="datalist" fileName="items" />
                             </h:commandLink>
                         </f:facet>
-                        <p:ajax event="rowSelect" listener="#{productoController.geneararGrafica()}"   update="@form"/>
-                        <p:ajax event="rowUnselect" listener="#{productoController.geneararGrafica()}" update="@form"/>
-
-
+                        <p:ajax event="rowSelect" listener="#{productoController.geneararGrafica()}"   update=":ProductoListForm3"/>
+                        
+                        <p:column  sortBy="#{item.nombre}"   >
+                            <f:facet name="header">
+                                <h:outputText value="Name"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idproducto}"/>
+                        </p:column>
+                            
                         <p:column  sortBy="#{item.nombre}"   >
                             <f:facet name="header">
                                 <h:outputText value="Name"/>
@@ -147,21 +129,36 @@
                 </p:panel>
                     
                     </p:fieldset>
-                <p:panel>
-                    <p:tabView rendered="#{!empty productoController.selected}">
-                        <p:tab title="Grafica">
-                            <p:chart   type="line" model="#{productoController.chartVentaCompra}" style="height:300px;"/>
+               </h:form>
+                      <h:form id="ProductoListForm3">
+                   <p:panel header="Detalle" id="detalle"  rendered="#{productoController.selected!=null    }">
+                                         
+                        <p:tabView rendered="#{productoController.lcompras.size()>0}" >
+                        <p:tab title="Grafica" >
+                            .
+                            <p:chart id="grafica"   type="line"  model="#{productoController.chartVentaCompra}" style="height:300px;"/>
                         </p:tab>
                         <p:tab title="Compras">
-                            <h:panelGrid columns="2" cellpadding="10" rendered="#{productoController.lcompras!=null}">
+                            <h:panelGrid columns="2" cellpadding="10" >
                                 <p:dataTable id="datalistCompra"  value="#{productoController.lcompras}" var="item"
                                              selectionMode="single" selection="#{productoController.selectedCompra}"
                                  scrollable="true" 
                                  scrollHeight="250"
                                  rowKey="#{item.idcompra}"
-                               
-                               
+                                 paginator="true" 
+                                 paginatorTemplate="{Exporters}"
+                               paginatorPosition="bottom"
                                  >
+                         <f:facet name="{Exporters}" >
+                            <h:commandLink>
+                                <p:graphicImage library="img" name="excel.png" width="24"/>                
+                                <p:dataExporter type="csv" target="datalistCompra" fileName="items" />
+                            </h:commandLink>
+                             <h:commandLink>
+                                <p:graphicImage library="img" name="pdf.png" width="24"/>                
+                                <p:dataExporter type="pdf" target="datalistCompra" fileName="items" />
+                            </h:commandLink>
+                        </f:facet>
                                   <p:ajax event="rowDblselect" 
                                     update=":detCompraForm"   oncomplete="PF('detCompraDialog').show()" />   
                                 <p:column>
@@ -217,7 +214,20 @@
                             rowKey="#{item.idfactura}"
                              scrollable="true" 
                                  scrollHeight="250"
+                                   paginator="true" 
+                                 paginatorTemplate="{Exporters}"
+                                 paginatorPosition="bottom"
                             >
+                    <f:facet name="{Exporters}" >
+                            <h:commandLink>
+                                <p:graphicImage library="img" name="excel.png" width="24"/>                
+                                <p:dataExporter type="csv" target="datalistFactura" fileName="items" />
+                            </h:commandLink>
+                             <h:commandLink>
+                                <p:graphicImage library="img" name="pdf.png" width="24"/>                
+                                <p:dataExporter type="pdf" target="datalistFactura" fileName="items" />
+                            </h:commandLink>
+                        </f:facet>
                       <p:ajax event="rowDblselect" 
                                     update=":detFacturaForm"   oncomplete="PF('detFacturaDialog').show()" />       
                    <p:column>
@@ -267,6 +277,7 @@
         </p:tab>
         
     </p:tabView>
+
                 </p:panel>
             </h:form>
 

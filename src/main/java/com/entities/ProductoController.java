@@ -163,7 +163,7 @@ public class ProductoController implements Serializable {
                 items = null;    // Invalidate list of items to trigger re-query.
             }
         
-        
+        consultaCategoria();
     }
 
     public void update() {
@@ -173,6 +173,7 @@ public class ProductoController implements Serializable {
             selected = this.getFacade().auditUpdate(selected);
             persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("ProductoUpdated"));
         }
+        consultaCategoria();
         
     }
 
@@ -289,7 +290,7 @@ public class ProductoController implements Serializable {
        
     }
     public void geneararGrafica(){
-        
+        System.out.println("generar grafica");
         if(selected!=null){
           chartVentaCompra =  sb_Grafica.graficaVentas(selected )   ;
         }

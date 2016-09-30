@@ -5,6 +5,7 @@
  */
 package com.ejb;
 
+import com.entities.Cliente;
 import com.entities.Producto;
 import com.entities.Proveedor;
 import java.math.BigDecimal;
@@ -61,6 +62,15 @@ public class Sb_Grafica {
        return model;
     }      
     
+    
+    private LineChartModel initGraficaCliente(Cliente c) {
+       LineChartModel model = new LineChartModel(); 
+       model.addSeries(ventasCliente(c));
+       
+         
+       return model;
+    }     
+    
     public LineChartSeries compras(Producto p){
         LineChartSeries series2 = new LineChartSeries();
            series2.setLabel("Compras");
@@ -79,6 +89,27 @@ public class Sb_Grafica {
     
     } 
     
+    
+    public LineChartSeries ventasCliente(Cliente c){
+        LineChartSeries series2 = new LineChartSeries();
+           series2.setLabel("Compras");
+           List<Object[]> lv2 =this.ejbFacade.ventaCliente(c.getIdcliente());   
+           System.out.println("lista"+lv2);
+           if(!lv2.isEmpty()){
+               Iterator<Object[]>itr = lv2.iterator();                           
+               while(itr.hasNext()) {   
+                  
+                   Object[] element = itr.next();            
+                   BigDecimal valor =new BigDecimal( element[1].toString());
+                   System.out.println("dia "+element[0].toString()+" valor:"+valor);
+                   series2.set(element[0].toString(), valor);
+               }
+               
+           }    
+           return series2;
+    
+    } 
+
     public LineChartSeries comprasProveedor(Proveedor p){
         LineChartSeries series2 = new LineChartSeries();
            series2.setLabel("Compras");
@@ -134,5 +165,24 @@ public class Sb_Grafica {
             chartVentaCompra.getAxes().put(AxisType.X, axis);            
         return chartVentaCompra;
     }    
+    
+    
+    public LineChartModel graficaCliente(Cliente c ){
+        
+            chartVentaCompra = initGraficaCliente(c);
+            chartVentaCompra.setTitle("Linear Chart");           
+            chartVentaCompra.setExtender("skinChart");            
+            chartVentaCompra.setTitle("Zoom for Details");
+            chartVentaCompra.setZoom(true);
+            chartVentaCompra.setLegendPosition("ne");
+            chartVentaCompra.getAxis(AxisType.Y).setLabel(" ");
+            DateAxis axis = new DateAxis(" ");
+            axis.setTickAngle(-50);
+            axis.setMax("2016-10-31");
+            axis.setTickFormat("%b %#d, %y");        
+            chartVentaCompra.getAxes().put(AxisType.X, axis);            
+        return chartVentaCompra;
+    }    
+          
       
 }
