@@ -60,7 +60,7 @@ text-align: left ! important
                                 <p:dataExporter type="pdf" target="datalist" fileName="items" />
                             </h:commandLink>
                         </f:facet>
-                        <p:ajax event="rowSelect" listener="#{productoController.geneararGrafica()}"   update=":ProductoListForm3"/>
+                        <p:ajax event="rowSelect" listener="#{productoController.geneararGrafica()}"   update="editButton viewButton :ProductoListForm3"/>
                         
                         <p:column  sortBy="#{item.nombre}"   >
                             <f:facet name="header">

@@ -34,7 +34,7 @@
                                            itemValue="#{categoriaIdcategoriaItem}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{productoController.create}" value="#{bundle.Save}"  update="display,:ProductoListForm2:datalist,:growl" onclick="ProductoCreateDialog.hide()"/>
+                    <p:commandButton actionListener="#{productoController.create}" value="#{bundle.Save}"  update="display,:ProductoListForm2:datalist,:growl" oncomplete="PF('ProductoCreateDialog').hide();"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="ProductoCreateDialog.hide()"/>
                 </h:panelGroup>
             </h:form>
