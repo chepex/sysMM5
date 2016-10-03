@@ -294,6 +294,8 @@ public class ProductoController implements Serializable {
         if(selected!=null){
           chartVentaCompra =  sb_Grafica.graficaVentas(selected )   ;
         }
+        this.selectedCompra = null;
+        this.selectedFactura = null;
         
            
     }

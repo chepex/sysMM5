@@ -29,7 +29,7 @@
                         <p:outputLabel value="#{bundle.CreateBancoLabel_fechaUpdate}" for="fechaUpdate" />
                         <p:calendar id="fechaUpdate" pattern="MM/dd/yyyy" value="#{bancoController.selected.fechaUpdate}" title="#{bundle.EditBancoTitle_fechaUpdate}"  showOn="button"/>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{bancoController.create}" value="#{bundle.Save}" update="display,:BancoListForm:datalist,:growl" oncomplete="handleSubmit(args,'BancoCreateDialog');"/>
+                    <p:commandButton actionListener="#{bancoController.create}" value="#{bundle.Save}" update="display,:BancoListForm:datalist,:growl" oncomplete="PF('BancoCreateDialog').hide();"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="BancoCreateDialog.hide()"/>
                 </h:panelGroup>
             </h:form>

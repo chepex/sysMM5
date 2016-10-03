@@ -49,7 +49,7 @@
                                            itemValue="#{tipoTransaccionIdtipoTransaccionItem}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{transaccionBancoController.create}" value="#{bundle.Save}" update="display,:TransaccionBancoListForm:datalist,:growl" oncomplete="handleSubmit(args,'TransaccionBancoCreateDialog');"/>
+                    <p:commandButton actionListener="#{transaccionBancoController.create}" value="#{bundle.Save}" update="display,:TransaccionBancoListForm:datalist,:growl" oncomplete="PF('TransaccionBancoCreateDialog').hide();"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="TransaccionBancoCreateDialog.hide()"/>
                 </h:panelGroup>
             </h:form>

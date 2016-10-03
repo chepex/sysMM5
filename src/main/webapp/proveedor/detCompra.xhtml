@@ -10,40 +10,39 @@
 
         <p:dialog id="detCompraDlg" widgetVar="detCompraDialog" modal="true" resizable="false" appendTo="@(body)" header="Detalle Compra">
             <h:form id="detCompraForm">
-                <h:panelGroup id="display" rendered="#{productoController.selected != null}" >
+                <h:panelGroup id="display" rendered="#{proveedorController.selected != null}" >
                      <p:accordionPanel  activeIndex="-1"  >
-                         <p:tab title="Proveedor #{productoController.selectedCompra.proveedorIdproveedor.nombre}" >
+                         <p:tab title="Proveedor #{proveedorController.selectedCompra.proveedorIdproveedor.nombre}" >
                             <h:panelGrid columns="12" cellpadding="10">
                                
                                 <p:outputLabel value="Descripcion" for="descripcion" />
-                                <p:outputLabel value="#{productoController.selectedCompra.proveedorIdproveedor.descripcion}" id="descripcion"/>
+                                <p:outputLabel value="#{proveedorController.selectedCompra.proveedorIdproveedor.descripcion}" id="descripcion"/>
                                 <p:outputLabel value="Telefono" for="telefono" />
-                                <p:outputLabel value="#{productoController.selectedCompra.proveedorIdproveedor.tel}" id="telefono"/>  
+                                <p:outputLabel value="#{proveedorController.selectedCompra.proveedorIdproveedor.tel}" id="telefono"/>  
                                 <p:outputLabel value="Correo" for="correo" />
-                                <p:outputLabel value="#{productoController.selectedCompra.proveedorIdproveedor.correo}" id="correo"/>   
+                                <p:outputLabel value="#{proveedorController.selectedCompra.proveedorIdproveedor.correo}" id="correo"/>   
                                 <p:outputLabel value="Activo" for="activo" />
-                                <p:selectBooleanCheckbox value="#{productoController.selectedCompra.proveedorIdproveedor.activo}" disabled="true" id="activo"/>                               
+                                <p:selectBooleanCheckbox value="#{proveedorController.selectedCompra.proveedorIdproveedor.activo}" disabled="true" id="activo"/>                               
                                 <p:outputLabel value="Dias Credito" for="diasCredito" />
-                                <p:outputLabel value="#{productoController.selectedCompra.proveedorIdproveedor.diasCredito}" id="diasCredito"/> 
+                                <p:outputLabel value="#{proveedorController.selectedCompra.proveedorIdproveedor.diasCredito}" id="diasCredito"/> 
                                 <p:outputLabel value="Saldo" for="saldo" />
-                                <p:outputLabel value="#{productoController.selectedCompra.proveedorIdproveedor.saldo}" id="saldo"/> 
+                                <p:outputLabel value="#{proveedorController.selectedCompra.proveedorIdproveedor.saldo}" id="saldo"/> 
                                 
                                  
                             </h:panelGrid>
                         
                         </p:tab>                           
                     </p:accordionPanel>
-                   
-                    <p:dataTable id="datalistCompraDet" value="#{productoController.selectedCompra.compraDetList}" var="item"
-                                 selectionMode="single" selection="#{compraDetController.selected}"
-                               
+                    <p:dataTable id="datalistCompraDet" value="#{proveedorController.selectedCompra.compraDetList}" var="item"
+                                 
+                                         
                                  rowKey="#{item.idcompraDet}"
                                   scrollable="true" 
-                                 scrollHeight="250"
+                            scrollHeight="250"
                                  >
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="Nombre"/>
+                                <h:outputText value="#{bundle.ListCompraDetTitle_productoIdproducto}"/>
                             </f:facet>
                             <h:outputText value="#{item.productoIdproducto.nombre}"/>
                         </p:column>    
@@ -68,7 +67,6 @@
                                        
                       
                   </p:dataTable>
-               
                 </h:panelGroup>
             </h:form>
         </p:dialog>

@@ -22,7 +22,7 @@
                         <p:outputLabel value="#{bundle.EditRolLabel_activo}" for="activo" />
                         <p:selectBooleanCheckbox id="activo" value="#{rolController.selected.activo}" />
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{rolController.update}" value="#{bundle.Save}" update="display,:RolListForm:datalist,:growl" oncomplete="handleSubmit(args, 'RolEditDialog');"/>
+                    <p:commandButton actionListener="#{rolController.update}" value="#{bundle.Save}" update="display,:RolListForm:datalist,:growl" oncomplete="PF('RolEditDialog').hide();"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="RolEditDialog.hide()"/>
                 </h:panelGroup>
             </h:form>

@@ -29,7 +29,7 @@
                         <p:outputLabel value="#{bundle.CreateCorrelativoLabel_activo}" for="activo" />
                         <p:selectBooleanCheckbox id="activo" value="#{correlativoController.selected.activo}" />
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{correlativoController.create}" value="#{bundle.Save}" update="display,:CorrelativoListForm:datalist,:growl" oncomplete="handleSubmit(args,'CorrelativoCreateDialog');"/>
+                    <p:commandButton actionListener="#{correlativoController.create}" value="#{bundle.Save}" update="display,:CorrelativoListForm:datalist,:growl" oncomplete="PF('CorrelativoCreateDialog').hide();"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="CorrelativoCreateDialog.hide()"/>
                 </h:panelGroup>
             </h:form>

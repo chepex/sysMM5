@@ -20,14 +20,16 @@ text-align: left ! important
 }
             </style>            
             
-            <h:form id="ClienteListForm">
+            <h:form id="ClienteListForm2">
                 <p:panelGrid  columns="4">
                     <p:outputLabel>Nombre</p:outputLabel>
                     <p:inputText value="#{clienteController.valorBuscar}"></p:inputText>
-                    <p:commandButton actionListener="#{clienteController.buscar()}" update="@form"  value="Consultar"/>
-                    <p:commandButton actionListener="#{clienteController.limpiar()}" update="@form"  value="Limpiar"/>
+                    <p:commandButton actionListener="#{clienteController.buscar()}" update=":ClienteListForm :ClienteListForm3"  value="Consultar"/>
+                    <p:commandButton actionListener="#{clienteController.limpiar()}" update=":ClienteListForm :ClienteListForm3"  value="Limpiar"/>
                 </p:panelGrid>
-                <p:panel header="Clientes">
+            </h:form>  
+                <h:form id="ClienteListForm">
+                <p:panel header="Clientes"  toggleable="true">
                     <p:dataTable id="datalist" value="#{clienteController.items}" var="item"
                                  selectionMode="single" selection="#{clienteController.selected}"
                                
@@ -39,8 +41,8 @@ text-align: left ! important
                                  paginatorPosition="bottom"
                                  >
 
-                        <p:ajax event="rowSelect"   update="@form "  listener="#{clienteController.generaGrafica()}" />
-                        <p:ajax event="rowUnselect" update="@form " listener="#{clienteController.generaGrafica()}" />
+                        <p:ajax event="rowSelect"   update=":ClienteListForm3 viewButton createButton"  listener="#{clienteController.generaGrafica()}" />
+                        <p:ajax event="rowUnselect" update=":ClienteListForm3 viewButton createButton" listener="#{clienteController.generaGrafica()}" />
                         <f:facet name="{Exporters}" >
                             <h:commandLink>
                                 <p:graphicImage library="img" name="excel.png" width="24"/>                
@@ -102,7 +104,9 @@ text-align: left ! important
                         </f:facet>
                     </p:dataTable>
                 </p:panel>
-                <p:panel header="Detalle" id="detalle"  rendered="#{!empty proveedorController.selected}">
+                </h:form>
+                <h:form id="ClienteListForm3">
+                <p:panel header="Detalle" id="detalle"   toggleable="true" rendered="#{!empty clienteController.selected}">
                     <p:tabView  rendered="#{!empty clienteController.selected}">
                          <p:tab title="Grafica"> 
                              <p:chart rendered="#{clienteController.selected.facturaList.size()>0}" type="line" model="#{clienteController.chartCompra}" style="height:300px;"/>
@@ -172,8 +176,9 @@ text-align: left ! important
                     </p:tab>
                         
                     </p:tabView>
-                   </p:panel>          
-            </h:form>
+                   </p:panel>    
+                </h:form>   
+          
 
             <ui:include src="Create.xhtml"/>
             <ui:include src="Edit.xhtml"/>

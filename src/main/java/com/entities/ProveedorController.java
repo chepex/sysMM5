@@ -27,10 +27,20 @@ public class ProveedorController implements Serializable {
     private List<Proveedor> items = null;
     private Proveedor selected;
     private String nombre;
+    private Compra selectedCompra;
     private LineChartModel chartCompra;   
     @EJB
-    private com.ejb.Sb_Grafica sb_Grafica;     
+    private com.ejb.Sb_Grafica sb_Grafica;   
+    
     public ProveedorController() {
+    }
+
+    public Compra getSelectedCompra() {
+        return selectedCompra;
+    }
+
+    public void setSelectedCompra(Compra selectedCompra) {
+        this.selectedCompra = selectedCompra;
     }
 
     public String getNombre() {
@@ -78,8 +88,9 @@ public class ProveedorController implements Serializable {
     }
 
     public void create() {
-         selected = this.getFacade().auditCreate(selected);
-        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("ProveedorCreated"));
+        selected = this.getFacade().auditCreate(selected);
+        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("ProveedorCreated"));        
+        this.consultaProveedor();
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
         }
@@ -88,6 +99,7 @@ public class ProveedorController implements Serializable {
     public void update() {
          selected = this.getFacade().auditUpdate(selected);
         persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("ProveedorUpdated"));
+           this.consultaProveedor();
     }
 
     public void destroy() {
@@ -207,6 +219,8 @@ public class ProveedorController implements Serializable {
         System.out.println("char--->"+chartCompra);
         this.chartCompra = sb_Grafica.graficaProveedor(selected);
         System.out.println("char--->"+chartCompra);
+        
+        this.selectedCompra =null;
             
     }
     

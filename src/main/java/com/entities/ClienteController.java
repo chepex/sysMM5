@@ -101,11 +101,15 @@ public class ClienteController implements Serializable {
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
         }
+        
+        buscar();
     }
 
     public void update() {
         selected= getFacade().auditUpdate(selected);
         persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("CategoriaUpdated"));
+        
+        buscar();
     }
 
     public void destroy() {
@@ -227,7 +231,7 @@ public class ClienteController implements Serializable {
     
     public void limpiar(){
     
-     //   this.items = new ArrayList<>();
+    this.items = null;
         selected = null;
     }
     

@@ -45,7 +45,7 @@
                                            itemValue="#{bodegaIdbodegaItem}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{invMovController.create}" value="#{bundle.Save}" update="display,:InvMovListForm:datalist,:growl" oncomplete="handleSubmit(args,'InvMovCreateDialog');"/>
+                    <p:commandButton actionListener="#{invMovController.create}" value="#{bundle.Save}" update="display,:InvMovListForm:datalist,:growl" oncomplete="PF('InvMovCreateDialog').hide();"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="InvMovCreateDialog.hide()"/>
                 </h:panelGroup>
             </h:form>

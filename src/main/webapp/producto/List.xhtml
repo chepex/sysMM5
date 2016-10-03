@@ -38,9 +38,9 @@ text-align: left ! important
                     </p:panelGrid>
                     </h:form>
                <h:form id="ProductoListForm2">
-                     <p:fieldset legend="Lista Productos" toggleable="true" toggleSpeed="500">
+                   
                        
-                <p:panel header="Productos">      
+                         <p:panel header="Productos"  toggleable="true" >      
                     <p:dataTable id="datalist" value="#{productoController.items}" var="item"
                                  selectionMode="single" selection="#{productoController.selected}"                                 
                                  rowKey="#{item.idproducto}"                                                              
@@ -128,10 +128,10 @@ text-align: left ! important
                     
                 </p:panel>
                     
-                    </p:fieldset>
+                  
                </h:form>
                       <h:form id="ProductoListForm3">
-                   <p:panel header="Detalle" id="detalle"  rendered="#{productoController.selected!=null    }">
+                          <p:panel header="Detalle" id="detalle"  toggleable="true" rendered="#{productoController.selected!=null    }">
                                          
                         <p:tabView rendered="#{productoController.lcompras.size()>0}" >
                         <p:tab title="Grafica" >
@@ -141,7 +141,7 @@ text-align: left ! important
                         <p:tab title="Compras">
                             <h:panelGrid columns="2" cellpadding="10" >
                                 <p:dataTable id="datalistCompra"  value="#{productoController.lcompras}" var="item"
-                                             selectionMode="single" selection="#{productoController.selectedCompra}"
+                                  selectionMode="single" selection="#{productoController.selectedCompra}"
                                  scrollable="true" 
                                  scrollHeight="250"
                                  rowKey="#{item.idcompra}"
@@ -159,8 +159,8 @@ text-align: left ! important
                                 <p:dataExporter type="pdf" target="datalistCompra" fileName="items" />
                             </h:commandLink>
                         </f:facet>
-                                  <p:ajax event="rowDblselect" 
-                                    update=":detCompraForm"   oncomplete="PF('detCompraDialog').show()" />   
+                                    <p:ajax event="rowSelect" update="detalleCompra" />
+                                  <p:ajax event="rowDblselect"   update=":detCompraForm"   oncomplete="PF('detCompraDialog').show()" />   
                                 <p:column>
                                     <f:facet name="header">
                                         <h:outputText value="Documento"/>
@@ -200,7 +200,12 @@ text-align: left ! important
                                         <h:outputText value="total"/>
                                     </f:facet>
                                     <h:outputText value="#{item.total}"/>
-                                </p:column>                         
+                                </p:column> 
+                                <f:facet name="footer">                                    
+                                    <p:commandButton id="detalleCompra" icon="fa  fa-align-justify " value="Detalle"  disabled="#{productoController.selectedCompra==null}" update=":detCompraForm"   oncomplete="PF('detCompraDialog').show()"  />                                    
+                                </f:facet>   
+                                    
+                                  
                               </p:dataTable>
                               
                             </h:panelGrid>
@@ -209,14 +214,13 @@ text-align: left ! important
         <p:tab title="Ventas">
             <h:panelGrid columns="2" cellpadding="10" rendered="#{productoController.lfactura!=null}">
                     <p:dataTable id="datalistFactura"  value="#{productoController.lfactura}" var="item"
-                                 selectionMode="single" selection="#{productoController.selectedFactura}"
-                           
-                            rowKey="#{item.idfactura}"
-                             scrollable="true" 
-                                 scrollHeight="250"
-                                   paginator="true" 
-                                 paginatorTemplate="{Exporters}"
-                                 paginatorPosition="bottom"
+                                selectionMode="single" selection="#{productoController.selectedFactura}"                           
+                                rowKey="#{item.idfactura}"
+                                scrollable="true" 
+                                scrollHeight="250"
+                                paginator="true" 
+                                paginatorTemplate="{Exporters}"
+                                paginatorPosition="bottom"
                             >
                     <f:facet name="{Exporters}" >
                             <h:commandLink>
@@ -228,8 +232,8 @@ text-align: left ! important
                                 <p:dataExporter type="pdf" target="datalistFactura" fileName="items" />
                             </h:commandLink>
                         </f:facet>
-                      <p:ajax event="rowDblselect" 
-                                    update=":detFacturaForm"   oncomplete="PF('detFacturaDialog').show()" />       
+                        <p:ajax event="rowSelect" update="detalleFactura" />
+                      <p:ajax event="rowDblselect"  update=":detFacturaForm "   oncomplete="PF('detFacturaDialog').show()" />       
                    <p:column>
                        <f:facet name="header">
                            <h:outputText value="Documento"/>
@@ -269,7 +273,10 @@ text-align: left ! important
                            <h:outputText value="total"/>
                        </f:facet>
                        <h:outputText value="#{item.total}"/>
-                   </p:column>                         
+                   </p:column> 
+                    <f:facet name="footer">                                    
+                        <p:commandButton id="detalleFactura" icon="fa  fa-align-justify " value="Detalle"  disabled="#{productoController.selectedFactura==null}" update=":detFacturaForm"  oncomplete="PF('detFacturaDialog').show()"  />                                    
+                    </f:facet>   
                  </p:dataTable>        
                
             </h:panelGrid>

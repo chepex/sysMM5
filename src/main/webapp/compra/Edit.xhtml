@@ -37,7 +37,7 @@
                                            itemValue="#{proveedorIdproveedorItem}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{compraController.update}" value="#{bundle.Save}" update="display,:CompraListForm:datalist,:growl" oncomplete="handleSubmit(args, 'CompraEditDialog');"/>
+                    <p:commandButton actionListener="#{compraController.update}" value="#{bundle.Save}" update="display,:CompraListForm:datalist,:growl" oncomplete="PF('CompraEditDialog').hide();"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="CompraEditDialog.hide()"/>
                 </h:panelGroup>
             </h:form>

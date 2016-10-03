@@ -31,7 +31,7 @@
                                            itemValue="#{invMovIdinvMovItem}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{invDetmController.update}" value="#{bundle.Save}" update="display,:InvDetmListForm:datalist,:growl" oncomplete="handleSubmit(args, 'InvDetmEditDialog');"/>
+                    <p:commandButton actionListener="#{invDetmController.update}" value="#{bundle.Save}" update="display,:InvDetmListForm:datalist,:growl" oncomplete="PF('InvDetmEditDialog').hide();"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="InvDetmEditDialog.hide()"/>
                 </h:panelGroup>
             </h:form>

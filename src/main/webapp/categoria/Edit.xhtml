@@ -19,7 +19,7 @@
                         <p:outputLabel value="#{bundle.EditCategoriaLabel_activo}" for="activo" />
                         <p:selectBooleanCheckbox id="activo" value="#{categoriaController.selected.activo}" />
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{categoriaController.update}" value="#{bundle.Save}" update="display,:CategoriaListForm:datalist,:growl" oncomplete="handleSubmit(args, 'CategoriaEditDialog');"/>
+                    <p:commandButton actionListener="#{categoriaController.update}" value="#{bundle.Save}" update="display,:CategoriaListForm:datalist,:growl" oncomplete="PF('CategoriaEditDialog').hide();"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="CategoriaEditDialog.hide()"/>
                 </h:panelGroup>
             </h:form>

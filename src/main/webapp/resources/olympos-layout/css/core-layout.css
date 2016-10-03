@@ -7,6 +7,15 @@
 body{height:100%; width:100%;}
 
 
+.RedTable{
+    background-color: #f2dede !important;
+    color: #ffffff;
+}
+.GreenTable{
+    background-color: #dff0d8  !important;
+    color: #ffffff;
+}
+
 /* CORE LAYOUT STANDART STYLES ********************************************************************************************************** */
 
 a, div, span, input, textarea, li, strong, button{ outline:none; text-decoration:none;

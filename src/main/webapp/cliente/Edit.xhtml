@@ -27,7 +27,7 @@
                         <p:outputLabel value="#{bundle.EditClienteLabel_activo}" for="activo" />
                         <p:selectBooleanCheckbox id="activo" value="#{clienteController.selected.activo}" />
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{clienteController.update}" value="#{bundle.Save}" update="display,:ClienteListForm:datalist,:growl" oncomplete="handleSubmit(args, 'ClienteEditDialog');"/>
+                    <p:commandButton actionListener="#{clienteController.update}" value="#{bundle.Save}" update="display,:ClienteListForm:datalist,:growl" oncomplete="PF('ClienteEditDialog').hide();"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="ClienteEditDialog.hide()"/>
                 </h:panelGroup>
             </h:form>

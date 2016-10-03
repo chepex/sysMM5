@@ -37,7 +37,7 @@
                         <p:outputLabel value="#{bundle.CreatePagoCompraLabel_valor}" for="valor" />
                         <p:inputText id="valor" value="#{pagoCompraController.selected.valor}" title="#{bundle.CreatePagoCompraTitle_valor}" required="true" requiredMessage="#{bundle.CreatePagoCompraRequiredMessage_valor}"/>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{pagoCompraController.create}" value="#{bundle.Save}" update="display,:PagoCompraListForm:datalist, :PagoCompraListForm:datalistPagos,growl" oncomplete="handleSubmit(args,'PagoCompraCreateDialog');"/>
+                    <p:commandButton actionListener="#{pagoCompraController.create}" value="#{bundle.Save}" update="display,:PagoCompraListForm:datalist, :PagoCompraListForm:datalistPagos,growl" oncomplete="PF('PagoCompraCreateDialog').hide();"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="PagoCompraCreateDialog.hide()"/>
                 </h:panelGroup>
             </h:form>

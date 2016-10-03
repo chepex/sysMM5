@@ -37,7 +37,7 @@
                         <p:inputText id="valor" value="#{pagoFacturaController.selected.valor}" title="#{bundle.CreatePagoFacturaTitle_valor}" required="true" requiredMessage="#{bundle.CreatePagoFacturaRequiredMessage_valor}"/>
                         
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{pagoFacturaController.create}" value="#{bundle.Save}" update="display,:PagoFacturaListForm:datalist,:growl" oncomplete="handleSubmit(args,'PagoFacturaCreateDialog');"/>
+                    <p:commandButton actionListener="#{pagoFacturaController.create}" value="#{bundle.Save}" update="display,:PagoFacturaListForm:datalist,:growl" oncomplete="PF('PagoFacturaCreateDialog').hide();"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="PagoFacturaCreateDialog.hide()"/>
                 </h:panelGroup>
             </h:form>

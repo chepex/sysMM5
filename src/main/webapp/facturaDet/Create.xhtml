@@ -31,7 +31,7 @@
                                            itemValue="#{facturaIdfacturaItem}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{facturaDetController.create}" value="#{bundle.Save}" update="display,:FacturaDetListForm:datalist,:growl" oncomplete="handleSubmit(args,'FacturaDetCreateDialog');"/>
+                    <p:commandButton actionListener="#{facturaDetController.create}" value="#{bundle.Save}" update="display,:FacturaDetListForm:datalist,:growl" oncomplete="PF('FacturaDetCreateDialog').hide();"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="FacturaDetCreateDialog.hide()"/>
                 </h:panelGroup>
             </h:form>

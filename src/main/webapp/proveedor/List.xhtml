@@ -20,15 +20,16 @@
             }
              </style>              
                              
-            <h:form id="ProveedorListForm">
+            <h:form id="ProveedorListForm2">
                 <p:panelGrid columns="6"  style=" border-style: hidden !important;" >
                 <p:outputLabel value="Nombre" for="nombre" />
                 <p:inputText value="#{proveedorController.nombre}" id="nombre" />
-                <p:commandButton actionListener="#{proveedorController.consultaProveedor}" value="Consultar" update="@form :growl"  />
-                <p:commandButton actionListener="#{proveedorController.limpiar}" value="Limpiar" update="@form :growl"  />
+                <p:commandButton actionListener="#{proveedorController.consultaProveedor}" value="Consultar" update="ProveedorListForm ProveedorListForm3 :growl"  />
+                <p:commandButton actionListener="#{proveedorController.limpiar}" value="Limpiar" update="ProveedorListForm ProveedorListForm3 :growl"  />
                 </p:panelGrid>
-                <p:fieldset legend="Lista Proveedores" toggleable="true" toggleSpeed="500">
-                <p:panel header="Lista Proveedores">
+            </h:form>
+            <h:form id="ProveedorListForm">
+                    <p:panel header="Lista Proveedores" toggleable="true">
                     <p:dataTable id="datalist" value="#{proveedorController.items}" var="item"
                                  selectionMode="single" selection="#{proveedorController.selected}"
                                  scrollable="true" 
@@ -48,8 +49,8 @@
                                 <p:dataExporter type="pdf" target="datalist" fileName="items" />
                             </h:commandLink>
                         </f:facet>                        
-                        <p:ajax event="rowSelect"  listener="#{proveedorController.generaGrafica()}"  update="@form"/>
-                        <p:ajax event="rowUnselect" listener="#{proveedorController.generaGrafica()}"  update="@form"/>
+                        <p:ajax event="rowSelect"  listener="#{proveedorController.generaGrafica()}"  update="createButton viewButton editButton  ProveedorListForm3"/>
+                        <p:ajax event="rowUnselect" listener="#{proveedorController.generaGrafica()}"  update="createButton  viewButton editButton  ProveedorListForm3"/>
 
                       
                         <p:column>
@@ -102,8 +103,9 @@
                         </f:facet>
                     </p:dataTable>
                 </p:panel>
-                </p:fieldset>
-                <p:panel header="Detalle" id="detalle"  rendered="#{!empty proveedorController.selected}">
+                </h:form>
+                 <h:form id="ProveedorListForm3">
+                <p:panel header="Detalle" id="detalle"  toggleable="true" rendered="#{!empty proveedorController.selected}">
                     <p:tabView  id="panelCompra" rendered="#{proveedorController.selected.compraList.size()>0}">
                          <p:tab title="Grafica">                            
                              <p:chart rendered="#{proveedorController.selected.compraList.size()>0}" type="line" model="#{proveedorController.chartCompra}" style="height:300px;"/>
@@ -111,15 +113,19 @@
                     <p:tab title="Compras"> 
                         
                 
-                    <p:dataTable id="datalistCompra"  value="#{proveedorController.selected.compraList}" var="item"
-                             
-                           paginator="true" 
-                                 paginatorTemplate="{Exporters}"
-                                 paginatorPosition="bottom"      
-                                
-                                   scrollable="true" 
-                                 scrollHeight="250"
-                                 >
+                    <p:dataTable id="datalistCompra"  value="#{proveedorController.selected.compraList}" var="item"                            
+                            paginator="true" 
+                            paginatorTemplate="{Exporters}"
+                            paginatorPosition="bottom"  
+                            scrollable="true" 
+                            scrollHeight="250"
+                            rowKey="#{item.idcompra}"
+                            selectionMode="single" 
+                            selection="#{proveedorController.selectedCompra}"
+                            rowStyleClass="#{item.saldo > 0  ? 'RedTable' : 'GreenTable'}"
+                        >
+                          <p:ajax event="rowSelect"    update="pago detalle"/>
+                          <p:ajax event="rowUnselect"   update="pago detalle"/>
                         <f:facet name="{Exporters}" >
                             <h:commandLink>
                                 <p:graphicImage library="img" name="excel.png" width="24"/>                
@@ -129,7 +135,9 @@
                                 <p:graphicImage library="img" name="pdf.png" width="24"/>                
                                 <p:dataExporter type="pdf" target="datalistCompra" fileName="items" />
                             </h:commandLink>
-                        </f:facet>                          
+                        </f:facet> 
+                         <p:ajax event="rowDblselect" 
+                                    update=":detCompraForm"   oncomplete="PF('detCompraDialog').show()" />   
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="Documento"/>
@@ -169,7 +177,21 @@
                                 <h:outputText value="total"/>
                             </f:facet>
                             <h:outputText value="#{item.total}"/>
-                        </p:column>                         
+                        </p:column> 
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="saldo"/>
+                            </f:facet>
+                            <h:outputText value="#{item.saldo}"/>
+                        </p:column>                          
+                         
+                       
+                         <f:facet name="footer">
+                             <p:commandButton id="pago" icon="fa fa-cc-paypal" value="Pagos" disabled="#{proveedorController.selectedCompra==null}"   />  
+                             <p:commandButton id="detalle" icon="fa  fa-align-justify " value="Detalle"  disabled="#{proveedorController.selectedCompra==null}" update=":detCompraForm"   oncomplete="PF('detCompraDialog').show()" />                                    
+                         </f:facet>
+                          
+                               
                       </p:dataTable>
                        </p:tab>
                   </p:tabView>
@@ -179,6 +201,7 @@
             <ui:include src="Create.xhtml"/>
             <ui:include src="Edit.xhtml"/>
             <ui:include src="View.xhtml"/>
+             <ui:include src="detCompra.xhtml"/>
         </ui:define>
     </ui:composition>
 

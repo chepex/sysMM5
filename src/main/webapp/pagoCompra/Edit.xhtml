@@ -33,7 +33,7 @@
                         <p:outputLabel value="#{bundle.EditPagoCompraLabel_fechaUpdate}" for="fechaUpdate" />
                         <p:calendar id="fechaUpdate" pattern="MM/dd/yyyy" value="#{pagoCompraController.selected.fechaUpdate}" title="#{bundle.EditPagoCompraTitle_fechaUpdate}"  showOn="button"/>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{pagoCompraController.update}" value="#{bundle.Save}" update="display,:PagoCompraListForm:datalist,:growl" oncomplete="handleSubmit(args, 'PagoCompraEditDialog');"/>
+                    <p:commandButton actionListener="#{pagoCompraController.update}" value="#{bundle.Save}" update="display,:PagoCompraListForm:datalist,:growl" oncomplete="PF('PagoCompraEditDialog').hide();"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="PagoCompraEditDialog.hide()"/>
                 </h:panelGroup>
             </h:form>

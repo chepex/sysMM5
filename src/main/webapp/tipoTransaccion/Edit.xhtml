@@ -29,7 +29,7 @@
                         <p:outputLabel value="#{bundle.EditTipoTransaccionLabel_usuarioUpdate}" for="usuarioUpdate" />
                         <p:inputText id="usuarioUpdate" value="#{tipoTransaccionController.selected.usuarioUpdate}" title="#{bundle.EditTipoTransaccionTitle_usuarioUpdate}" />
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{tipoTransaccionController.update}" value="#{bundle.Save}" update="display,:TipoTransaccionListForm:datalist,:growl" oncomplete="handleSubmit(args, 'TipoTransaccionEditDialog');"/>
+                    <p:commandButton actionListener="#{tipoTransaccionController.update}" value="#{bundle.Save}" update="display,:TipoTransaccionListForm:datalist,:growl" oncomplete="PF('TipoTransaccionEditDialog').hide();"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="TipoTransaccionEditDialog.hide()"/>
                 </h:panelGroup>
             </h:form>

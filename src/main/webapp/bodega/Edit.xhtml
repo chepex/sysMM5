@@ -21,7 +21,7 @@
                         <p:outputLabel value="#{bundle.EditBodegaLabel_activo}" for="activo" />
                         <p:selectBooleanCheckbox id="activo" value="#{bodegaController.selected.activo}" />
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{bodegaController.update}" value="#{bundle.Save}" update="display,:BodegaListForm:datalist,:growl" oncomplete="handleSubmit(args, 'BodegaEditDialog');"/>
+                    <p:commandButton actionListener="#{bodegaController.update}" value="#{bundle.Save}" update="display,:BodegaListForm:datalist,:growl" oncomplete="PF('BodegaEditDialog').hide();"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="BodegaEditDialog.hide()"/>
                 </h:panelGroup>
             </h:form>

@@ -24,7 +24,11 @@
     </h:head>
 
     <h:body styleClass="BlueTopbar">
-
+        <script>
+             $( document ).ready(function() {
+            Olympos.changeBodyClass('SlimMenu');
+             });
+        </script>
         <ui:include src="topbar.xhtml" />
 
         <!-- LAYOUT CONTAINER -->

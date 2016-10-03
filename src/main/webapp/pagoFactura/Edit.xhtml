@@ -35,7 +35,7 @@
                         <p:outputLabel value="#{bundle.EditPagoFacturaLabel_pagoFacturacol}" for="pagoFacturacol" />
                         <p:inputText id="pagoFacturacol" value="#{pagoFacturaController.selected.pagoFacturacol}" title="#{bundle.EditPagoFacturaTitle_pagoFacturacol}" />
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{pagoFacturaController.update}" value="#{bundle.Save}" update="display,:PagoFacturaListForm:datalist,:growl" oncomplete="handleSubmit(args, 'PagoFacturaEditDialog');"/>
+                    <p:commandButton actionListener="#{pagoFacturaController.update}" value="#{bundle.Save}" update="display,:PagoFacturaListForm:datalist,:growl" oncomplete="PF('PagoFacturaEditDialog').hide();"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="PagoFacturaEditDialog.hide()"/>
                 </h:panelGroup>
             </h:form>

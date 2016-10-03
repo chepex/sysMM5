@@ -22,7 +22,7 @@
                         <p:outputLabel value="#{bundle.CreateDocumentoLabel_activo}" for="activo" />
                         <p:selectBooleanCheckbox id="activo" value="#{documentoController.selected.activo}" />
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{documentoController.create}" value="#{bundle.Save}" update="display,:DocumentoListForm:datalist,:growl" oncomplete="handleSubmit(args,'DocumentoCreateDialog');"/>
+                    <p:commandButton actionListener="#{documentoController.create}" value="#{bundle.Save}" update="display,:DocumentoListForm:datalist,:growl" oncomplete="PF('DocumentoCreateDialog').hide();"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="DocumentoCreateDialog.hide()"/>
                 </h:panelGroup>
             </h:form>

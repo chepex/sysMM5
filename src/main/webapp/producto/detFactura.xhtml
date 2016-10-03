@@ -32,10 +32,10 @@
                     </p:accordionPanel>
                     <p:dataTable id="detalleFactura" value="#{productoController.selectedFactura.facturaDetList}" var="item"
                                  selectionMode="single" selection="#{facturaDetController.selected}"
-                                 paginator="true"
+                                 
                                  rowKey="#{item.idfacturaDet}"
-                                 rows="10"
-                                 rowsPerPageTemplate="10,20,30,40,50"
+                                    scrollable="true" 
+                                 scrollHeight="250"
                                  >
                         <p:column>
                             <f:facet name="header">

@@ -29,7 +29,7 @@
                                            itemValue="#{bancoIdbancoItem}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{cuentaBancoController.create}" value="#{bundle.Save}" update="display,:CuentaBancoListForm:datalist,:growl" oncomplete="handleSubmit(args,'CuentaBancoCreateDialog');"/>
+                    <p:commandButton actionListener="#{cuentaBancoController.create}" value="#{bundle.Save}" update="display,:CuentaBancoListForm:datalist,:growl" oncomplete="PF('CuentaBancoCreateDialog').hide();"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="CuentaBancoCreateDialog.hide()"/>
                 </h:panelGroup>
             </h:form>

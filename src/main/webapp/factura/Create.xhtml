@@ -39,7 +39,7 @@
                                            itemValue="#{clienteIdclienteItem}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{facturaController.create}" value="#{bundle.Save}" update="display,:FacturaListForm:datalist,:growl" oncomplete="handleSubmit(args,'FacturaCreateDialog');"/>
+                    <p:commandButton actionListener="#{facturaController.create}" value="#{bundle.Save}" update="display,:FacturaListForm:datalist,:growl" oncomplete="PF('FacturaCreateDialog').hide();"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="FacturaCreateDialog.hide()"/>
                 </h:panelGroup>
             </h:form>

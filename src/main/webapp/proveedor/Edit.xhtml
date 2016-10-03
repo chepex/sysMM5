@@ -26,10 +26,12 @@
                         <p:inputText id="correo" value="#{proveedorController.selected.correo}" title="#{bundle.EditProveedorTitle_correo}" />
                         <p:outputLabel value="#{bundle.EditProveedorLabel_direccion}" for="direccion" />
                         <p:inputText id="direccion" value="#{proveedorController.selected.direccion}" title="#{bundle.EditProveedorTitle_direccion}" />
+                        <h:outputLabel for="dias_credito" value="Dias Credito" />
+                        <p:spinner id="dias_credito" value="#{proveedorController.selected.diasCredito}" min="0" max="200" />
                         <p:outputLabel value="#{bundle.EditProveedorLabel_activo}" for="activo" />
                         <p:selectBooleanCheckbox id="activo" value="#{proveedorController.selected.activo}" />
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{proveedorController.update}" value="#{bundle.Save}" update="display,:ProveedorListForm:datalist,:growl" oncomplete="handleSubmit(args, 'ProveedorEditDialog');"/>
+                    <p:commandButton actionListener="#{proveedorController.update}" value="#{bundle.Save}" update="display,:ProveedorListForm:datalist,:growl" oncomplete="PF('ProveedorEditDialog').hide();"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="ProveedorEditDialog.hide()"/>
                 </h:panelGroup>
             </h:form>

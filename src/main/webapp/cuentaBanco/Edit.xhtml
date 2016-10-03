@@ -36,7 +36,7 @@
                                            itemValue="#{bancoIdbancoItem}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{cuentaBancoController.update}" value="#{bundle.Save}" update="display,:CuentaBancoListForm:datalist,:growl" oncomplete="handleSubmit(args, 'CuentaBancoEditDialog');"/>
+                    <p:commandButton actionListener="#{cuentaBancoController.update}" value="#{bundle.Save}" update="display,:CuentaBancoListForm:datalist,:growl" oncomplete="PF('CuentaBancoEditDialog').hide();"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="CuentaBancoEditDialog.hide()"/>
                 </h:panelGroup>
             </h:form>

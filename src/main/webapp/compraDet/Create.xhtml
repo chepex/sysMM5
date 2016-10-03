@@ -31,7 +31,7 @@
                                            itemValue="#{compraIdcompraItem}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{compraDetController.create}" value="#{bundle.Save}" update="display,:CompraDetListForm:datalist,:growl" oncomplete="handleSubmit(args,'CompraDetCreateDialog');"/>
+                    <p:commandButton actionListener="#{compraDetController.create}" value="#{bundle.Save}" update="display,:CompraDetListForm:datalist,:growl" oncomplete="PF('CompraDetCreateDialog').hide();"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="CompraDetCreateDialog.hide()"/>
                 </h:panelGroup>
             </h:form>
