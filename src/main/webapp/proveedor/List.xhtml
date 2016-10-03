@@ -187,7 +187,7 @@
                          
                        
                          <f:facet name="footer">
-                             <p:commandButton id="pago" icon="fa fa-cc-paypal" value="Pagos" disabled="#{proveedorController.selectedCompra==null}"   />  
+                             <p:commandButton id="pago" icon="fa fa-cc-paypal" value="Pagos" disabled="#{proveedorController.selectedCompra==null}"  update=":detPagoForm"   oncomplete="PF('detPagoDialog').show()"     />  
                              <p:commandButton id="detalle" icon="fa  fa-align-justify " value="Detalle"  disabled="#{proveedorController.selectedCompra==null}" update=":detCompraForm"   oncomplete="PF('detCompraDialog').show()" />                                    
                          </f:facet>
                           
@@ -202,6 +202,7 @@
             <ui:include src="Edit.xhtml"/>
             <ui:include src="View.xhtml"/>
              <ui:include src="detCompra.xhtml"/>
+             <ui:include src="detPago.xhtml"/>
         </ui:define>
     </ui:composition>
 

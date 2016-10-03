@@ -120,6 +120,7 @@ text-align: left ! important
                                  paginator="true" 
                                  paginatorTemplate="{Exporters}"
                                  paginatorPosition="bottom"
+                                  rowStyleClass="#{item.saldo > 0  ? 'RedTable' : 'GreenTable'}"
                                  >
                         <f:facet name="{Exporters}" >
                             <h:commandLink>
@@ -171,7 +172,13 @@ text-align: left ! important
                                 <h:outputText value="total"/>
                             </f:facet>
                             <h:outputText value="#{item.total}"/>
-                        </p:column>                         
+                        </p:column> 
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="saldo"/>
+                            </f:facet>
+                            <h:outputText value="#{item.saldo}"/>
+                        </p:column>                           
                       </p:dataTable>
                     </p:tab>
                         

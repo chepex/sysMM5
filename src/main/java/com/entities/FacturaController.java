@@ -29,13 +29,11 @@ public class FacturaController implements Serializable {
     @EJB
     private com.entities.UsuarioFacade usuarioFacade; 
     @EJB
-    private com.entities.FacturaDetFacade facturaDetFacade;     
-    @EJB
-    private com.entities.CorrelativoFacade correlativoFacade;    
+    private com.ejb.SB_Factura sb_Factura;     
+  
     @EJB
     private com.ejb.SB_inventario sb_inventario;   
-    @EJB
-    private com.ejb.SB_Cliente sb_Cliente;     
+
     private List<Factura> items = null;
     private Factura selected;
     private List<FacturaDet> detFactura = new ArrayList<FacturaDet>();
@@ -157,65 +155,18 @@ public class FacturaController implements Serializable {
            return "error";
            
        }
-        /*si es pago al credito*/
-        if(selected.getTipoPagoIdtipoPago().getIdtipoPago()!=1){        
         
-            String vlimite = sb_Cliente.validaLimite(selected.getClienteIdcliente(), this.selected.getTotal());
-            System.out.println("vlimite"+vlimite);
-            if(!vlimite.equals("ok")){
-               JsfUtil.addErrorMessage("El valor de la compra ha sobre pasado el limite de credito del cliente");
-               return "error";
-            }else{            
-                sb_Cliente.actualizaSaldo(selected.getClienteIdcliente(), selected.getTotal());
-                selected.setSaldo(selected.getTotal());
-            }
-        }
-        
-        List<Correlativo> lcort = correlativoFacade.findByNombre("Factura");
-        if(!lcort.isEmpty()){
-            Correlativo c= lcort.get(0);
-            int nuevoValor= c.getValorActual()+1;
-            String vcorrelativo = c.getPrefijo()+nuevoValor;
-            c.setValorActual(nuevoValor);
-            correlativoFacade.edit(c);
-            selected.setDocumento(vcorrelativo);
-        
+        String msg = sb_Factura.crearFactura(selected, this.detFactura);
+        if(msg.equals("ok")){
+            JsfUtil.addSuccessMessage("Factura generada correctamente");
+            selected = this.getFacade().auditCreate(selected);
         }else{
-            selected.setDocumento("No corelt");
+            JsfUtil.addErrorMessage(msg);
         }
         
         
-       /* for(FacturaDet detalle :detFactura){
-            BigDecimal vid= facturaDetFacade.finById();
-            System.out.println(" id-->"+vid);
-            detalle.setIdfacturaDet(vid.intValue()+1);
-          Producto p = detalle.getProductoIdproducto();
-            p.setExistencia(p.getExistencia()-detalle.getCantidad()); 
-            
-        }*/
-         for(FacturaDet detalle :detFactura){
-             detalle.setIdfacturaDet(0);
-            System.out.println("idDetakke--->"+detalle.getIdfacturaDet());
-        }
-        selected.setFacturaDetList(detFactura);  
         
-        
-        List<Object[]>  lobjt =  sb_inventario.facturaToList(detFactura);
-        
-        //Registrar Salida
-        if (!sb_inventario.createDocumento(selected.getDocumento(), lobjt, "2").equals("ok")){
-             JsfUtil.addErrorMessage("Favor definir un documento de salida");
-            
-        return "error";
-        }
-        selected = this.getFacade().auditCreate(selected);
-        
-        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("FacturaCreated"));
       
-        
-        if (!JsfUtil.isValidationFailed()) {
-            items = null;    // Invalidate list of items to trigger re-query.
-        }
         
         return "ok";
     }

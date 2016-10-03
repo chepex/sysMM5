@@ -28,10 +28,7 @@ public class CompraController implements Serializable {
 
     @EJB
     private com.entities.CompraFacade ejbFacade;
-    @EJB
-    private com.entities.CorrelativoFacade correlativoFacade;   
-    @EJB
-    private com.entities.ProveedorFacade proveedorFacade;      
+         
     @EJB
     private com.entities.UsuarioFacade usuarioFacade;    
     @EJB
@@ -182,48 +179,14 @@ public class CompraController implements Serializable {
             return "error";
         }
        
-        for(CompraDet detalle :detCompra){
-             detalle.setIdcompraDet(0);
-             
-            System.out.println("idDetakke--->"+detalle.getIdcompraDet());
-        }
-        
-        selected.setCompraDetList(detCompra);
-        sb_Compra.actualizaCosto(selected);
-        List<Object[]>  lobjt =  sb_inventario.compraToList(detCompra);
-        //sb_inventario.ingresoCompra(selected);
-        
-        /*tipo de pago*/
-        /*Efectivo*/
-        if(selected.getTipoPagoIdtipoPago().getIdtipoPago().equals(1)){
-            selected.setSaldo(new BigDecimal("0"));
-        }
-        /*Credito*/
-        if(selected.getTipoPagoIdtipoPago().getIdtipoPago().equals(2)){
-            selected.setSaldo(this.selected.getTotal());
-            System.out.println("saldo--->"+selected.getSaldo());
-            System.out.println("saldo-->"+selected.getProveedorIdproveedor().getSaldo());
-            selected.getProveedorIdproveedor().setSaldo(selected.getProveedorIdproveedor().getSaldo().add(selected.getSaldo()));
-            System.out.println("proveedor"+selected.getProveedorIdproveedor());
-            System.out.println("saldo-->"+selected.getProveedorIdproveedor().getSaldo());
-            
-        }        
-        
-        proveedorFacade.edit(selected.getProveedorIdproveedor());
-        //Registrar Entrada
-        String msgDocumento = sb_inventario.createDocumento(selected.getDocumento(), lobjt,"1");
-        
-        if(msgDocumento.equals("ok")){
-            selected = this.getFacade().auditCreate(selected);
-        
-            persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("CompraCreated"));
-            if (!JsfUtil.isValidationFailed()) {
-                items = null;    // Invalidate list of items to trigger re-query.
-            }
+        String  msg = sb_Compra.crarCompra(selected, detCompra);
+        if(msg.equals("ok")){        
+            JsfUtil.addSuccessMessage("Compra generada correctamente");
         }else{
-             JsfUtil.addErrorMessage(msgDocumento);
-           return "error";
+            JsfUtil.addErrorMessage(msg);
         }
+       
+        this.getFacade().auditCreate(selected);  
         
         
         return "ok";

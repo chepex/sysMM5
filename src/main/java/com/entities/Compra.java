@@ -93,6 +93,8 @@ public class Compra implements Serializable {
     private Proveedor proveedorIdproveedor;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "compraIdcompra")
     private List<CompraDet> compraDetList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "compraIdcompra")
+    private List<PagoCompra> pagoCompraList;    
     @JoinColumn(name = "tipo_pago_idtipo_pago", referencedColumnName = "idtipo_pago")
     @ManyToOne(optional = false)
     private TipoPago tipoPagoIdtipoPago;
@@ -231,6 +233,15 @@ public class Compra implements Serializable {
     public void setProveedorIdproveedor(Proveedor proveedorIdproveedor) {
         this.proveedorIdproveedor = proveedorIdproveedor;
     }
+
+    public List<PagoCompra> getPagoCompraList() {
+        return pagoCompraList;
+    }
+
+    public void setPagoCompraList(List<PagoCompra> pagoCompraList) {
+        this.pagoCompraList = pagoCompraList;
+    }
+    
 
     @XmlTransient
     public List<CompraDet> getCompraDetList() {

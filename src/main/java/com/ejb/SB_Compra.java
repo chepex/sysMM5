@@ -8,8 +8,10 @@ package com.ejb;
 import com.entities.Compra;
 import com.entities.CompraDet;
 import com.entities.Producto;
+import com.entities.util.JsfUtil;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
@@ -19,10 +21,61 @@ import javax.ejb.Stateless;
  */
 @Stateless
 public class SB_Compra {
+    
+    @EJB
+    private com.entities.ProveedorFacade proveedorFacade;  
     @EJB
     private com.entities.ProductoFacade productoFacade;  
+    @EJB
+    private com.ejb.SB_inventario sb_inventario;      
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")
+    
+    public String crarCompra(Compra compra, List<CompraDet> detCompra){
+        String msg = "ok";
+        
+        for(CompraDet detalle :detCompra){
+             detalle.setIdcompraDet(0);
+        }
+        compra.setCompraDetList(detCompra);
+        
+        actualizaCosto(compra);
+        
+        List<Object[]>  lobjt =  sb_inventario.compraToList(detCompra);
+        
+        /*tipo de pago*/
+        /*Efectivo*/
+        if(compra.getTipoPagoIdtipoPago().getIdtipoPago().equals(1)){
+            compra.setSaldo(new BigDecimal("0"));
+        }
+        /*Credito*/
+        if(compra.getTipoPagoIdtipoPago().getIdtipoPago().equals(2)){
+            compra.setSaldo(compra.getTotal());
+          
+            compra.getProveedorIdproveedor().setSaldo(compra.getProveedorIdproveedor().getSaldo().add(compra.getSaldo()));
+        }         
+        
+        //Registrar Entrada
+       msg= sb_inventario.createDocumento(compra.getDocumento(), lobjt,"1");
+        
+        if(msg.equals("ok")){
+            try{
+                compra.getProveedorIdproveedor().getCompraList().add(compra);
+                proveedorFacade.edit(compra.getProveedorIdproveedor());
+               
+             
+            }catch(Exception ex){
+              msg =ex.getMessage();
+            }
+            
+        }else{
+           
+           return msg;
+        }        
+        
+        return msg;
+    }
+    
     public String actualizaCosto(Compra compra){
         
         
@@ -42,17 +95,16 @@ public class SB_Compra {
             }else{
                 BigDecimal vtatalExistencia = existenciaAnterior.add(existenciaNueva);
 
-                System.out.println("Total existencia:"+vtatalExistencia);
+              
                 BigDecimal totalCostoAnterio = p.getCosto().multiply( existenciaAnterior);
                 BigDecimal totalCostoNuevo = cd.getPrecio().multiply(existenciaNueva);
 
-                System.out.println("totalCostoAnterio:"+totalCostoAnterio);
-                System.out.println("totalCostoNuevo:"+totalCostoNuevo);
+            
 
                 double nuevoCosto= totalCostoAnterio.doubleValue()+totalCostoNuevo.doubleValue();
-                System.out.println("nuevoCosto:"+nuevoCosto);
+             
                 nuevoCosto = nuevoCosto/ vtatalExistencia.doubleValue();
-                System.out.println("nuevoCosto:"+nuevoCosto);
+              
                 BigDecimal vcosto = new BigDecimal(nuevoCosto);
                 vcosto = vcosto.setScale(2, RoundingMode.CEILING);
                 p.setCosto(vcosto);

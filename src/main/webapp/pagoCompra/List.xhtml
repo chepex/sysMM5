@@ -71,7 +71,7 @@
                             <h:outputText value="#{item.saldo}"/>
                         </p:column>  
                         <f:facet name="footer">
-                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="Pagar"   actionListener="#{pagoCompraController.prepareCreate()}"  oncomplete="PF('PagoCompraCreateDialog').show()" update=":growl,datalist" />
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="Pagar"   actionListener="#{pagoCompraController.prepareCreate()}"  oncomplete="PF('PagoCompraCreateDialog').show()" update=":PagoCompraCreateForm" />
                          </f:facet>                 
                     </p:dataTable>
                     Doble Click para realizar pago
