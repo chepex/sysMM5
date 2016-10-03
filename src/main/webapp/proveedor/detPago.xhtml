@@ -13,8 +13,7 @@
                 <h:panelGroup id="display" rendered="#{proveedorController.selected != null}" >
                      <p:accordionPanel  activeIndex="-1"  >
                          <p:tab title="Proveedor #{proveedorController.selectedCompra.proveedorIdproveedor.nombre}" >
-                            <h:panelGrid columns="12" cellpadding="10">
-                               
+                            <h:panelGrid columns="12" cellpadding="10">                               
                                 <p:outputLabel value="Descripcion" for="descripcion" />
                                 <p:outputLabel value="#{proveedorController.selectedCompra.proveedorIdproveedor.descripcion}" id="descripcion"/>
                                 <p:outputLabel value="Telefono" for="telefono" />
@@ -27,18 +26,13 @@
                                 <p:outputLabel value="#{proveedorController.selectedCompra.proveedorIdproveedor.diasCredito}" id="diasCredito"/> 
                                 <p:outputLabel value="Saldo" for="saldo" />
                                 <p:outputLabel value="#{proveedorController.selectedCompra.proveedorIdproveedor.saldo}" id="saldo"/> 
-                                
-                                 
-                            </h:panelGrid>
-                        
+                            </h:panelGrid>                        
                         </p:tab>                           
                     </p:accordionPanel>
                     <p:dataTable id="datalistCompraDet" value="#{proveedorController.selectedCompra.pagoCompraList}" var="item"
-                                 
-                                         
-                                 rowKey="#{item.idpagoCompra}"
-                                  scrollable="true" 
-                            scrollHeight="250"
+                                rowKey="#{item.idpagoCompra}"
+                                scrollable="true" 
+                                scrollHeight="250"
                                  >
                         <p:column>
                             <f:facet name="header">
