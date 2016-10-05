@@ -12,7 +12,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.persistence.EntityManager;
-
+ 
 /**
  *
  * @author chepe
@@ -28,8 +28,9 @@ public abstract class AbstractFacade<T> {
 
     protected abstract EntityManager getEntityManager();
 
-    public void create(T entity) {
+    public void create(T entity)  {
         getEntityManager().persist(entity);
+          getEntityManager().close();
     }
     
      public T  auditCreate(T entity)  {
@@ -89,6 +90,7 @@ public abstract class AbstractFacade<T> {
 
     public void edit(T entity) {
         getEntityManager().merge(entity);
+       
     }
 
     public void remove(T entity) {
@@ -122,4 +124,13 @@ public abstract class AbstractFacade<T> {
         return ((Long) q.getSingleResult()).intValue();
     }
     
+    
+    protected void finalize(T entity)  { 
+       
+         getEntityManager().close();
+         
+
+    }      
+
+
 }

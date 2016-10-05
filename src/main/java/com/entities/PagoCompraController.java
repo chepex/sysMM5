@@ -41,6 +41,7 @@ public class PagoCompraController implements Serializable {
     }
 
     public Compra getSelectedCompra() {
+        
         return selectedCompra;
     }
 
