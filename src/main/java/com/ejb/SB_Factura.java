@@ -43,12 +43,13 @@ public class SB_Factura {
             if(factura.getTipoPagoIdtipoPago().getIdtipoPago()!=1){                
                 String vlimite = sb_Cliente.validaLimite(factura.getClienteIdcliente(), factura.getTotal());           
                 if(!vlimite.equals("ok")){              
-                    msg= "Compra super limite del cliente, limite: "+factura.getClienteIdcliente().getLimite();
+                    return "Compra super limite del cliente, limite: "+factura.getClienteIdcliente().getLimite();
                 }else{            
                     sb_Cliente.actualizaSaldo(factura.getClienteIdcliente(), factura.getTotal());
                     factura.setSaldo(factura.getTotal());
                 }
             }
+        
             
         msg  =   generarCorrelativo(  factura);  
         if(!msg.equals("ok")){

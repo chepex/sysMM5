@@ -27,6 +27,8 @@ public class PagoFacturaController implements Serializable {
     @EJB
     private com.entities.FacturaFacade facturaFacade; 
     @EJB
+    private com.entities.ClienteFacade clienteFacade;     
+    @EJB
     private com.entities.CuentaBancoFacade cuentaBancoFacade;      
     private List<PagoFactura> items = null;
     private PagoFactura selected;
@@ -104,14 +106,22 @@ public class PagoFacturaController implements Serializable {
     }
 
     public void create() {
-        selected.setFacturaIdfactura(selectedFactura);
+        
         selected.setFecha(new Date());
         
+        selectedFactura.setSaldo(selectedFactura.getSaldo().subtract(selected.getValor()));
+     
+        selectedFactura.getClienteIdcliente().setSaldo(selectedFactura.getClienteIdcliente().getSaldo().subtract(selected.getValor()));
+        selected.setFacturaIdfactura(selectedFactura);
         
+        clienteFacade.edit(selectedFactura.getClienteIdcliente());
+        facturaFacade.edit(selectedFactura);
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("PagoFacturaCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
         }
+        consulta();
+        
     }
 
     public void update() {
@@ -127,9 +137,9 @@ public class PagoFacturaController implements Serializable {
     }
 
     public List<PagoFactura> getItems() {
-        if (items == null) {
+       /* if (items == null) {
             items = getFacade().findAll();
-        }
+        }*/
         return items;
     }
 
@@ -210,13 +220,23 @@ public class PagoFacturaController implements Serializable {
 
     }
     
+    public void consulta(){
+     lfactura = facturaFacade.findByClientePendiente(this.cliente);
+    }
+    
     public void consultaPendiente(){
         System.out.println(" aui--->");
-    lfactura = facturaFacade.findByClientePendiente(this.cliente);
-      System.out.println(" aui--->"+lfactura);
+        
+       
+        lfactura = facturaFacade.findByClientePendiente(this.cliente);
+        System.out.println(" lfactura--->"+lfactura);
+        System.out.println(" selectedFactura--->"+selectedFactura);
+        items = null;
+        System.out.println(" items--->"+items);
         if(lfactura.isEmpty()){
             JsfUtil.addErrorMessage("No se encontraron facturas pendientes");
         }
+         this.selectedFactura = null;
    
     }      
 
@@ -231,9 +251,18 @@ public class PagoFacturaController implements Serializable {
 
 
     public void consultaPagos(){
-        if(this.selectedFactura!=null){
-            items= this.ejbFacade.findByCompra(this.selectedFactura);
+                System.out.println("items-->"+items);
+        items = null;
+        try{
+            if(this.selectedFactura!=null){
+                items= this.ejbFacade.findByCompra(this.selectedFactura);
+            }
+        }catch(Exception ex){
+            items= null;
         }
+        
+                System.out.println("items-->"+items);
+
         
     }
 

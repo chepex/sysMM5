@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="detPagoDlg" widgetVar="detPagoDialog" modal="true" resizable="false" appendTo="@(body)" header="Detalle Pagos">
+            <h:form id="detPagoForm">
+                <h:panelGroup id="display" rendered="#{clienteController.selectedVenta != null}" >
+                     <p:accordionPanel  activeIndex="-1"  >
+                         <p:tab title="Cliente #{clienteController.selected.nombre}" >
+                            <h:panelGrid columns="12" cellpadding="10">                               
+                                <p:outputLabel value="Descripcion" for="descripcion" />
+                                <p:outputLabel value="#{clienteController.selected.descripcion}" id="descripcion"/>
+                                <p:outputLabel value="Telefono" for="telefono" />
+                                <p:outputLabel value="#{clienteController.selected.tel}" id="telefono"/>  
+                                <p:outputLabel value="Correo" for="correo" />
+                                <p:outputLabel value="#{clienteController.selected.correo}" id="correo"/>   
+                                <p:outputLabel value="Activo" for="activo" />
+                                <p:selectBooleanCheckbox value="#{clienteController.selected.activo}" disabled="true" id="activo"/>                               
+                                
+                                <p:outputLabel value="Saldo" for="saldo" />
+                                <p:outputLabel value="#{clienteController.selected.saldo}" id="saldo"/> 
+                            </h:panelGrid>                        
+                        </p:tab>                           
+                    </p:accordionPanel>
+                    <p:dataTable id="datalistCompraDet" value="#{clienteController.selectedVenta.pagFacturaList}" 
+                                 var="item"
+                                 rowKey="#{item.idpagoFactura}"
+                                scrollable="true" 
+                                scrollHeight="250"
+                                 >
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Fecha"/>
+                            </f:facet>
+                            <h:outputText value="#{item.fecha}">
+                                <f:convertDateTime pattern="dd-MM-yyyy" />
+                            </h:outputText>
+                            
+                        </p:column> 
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListCompraDetTitle_productoIdproducto}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.bancoIdbanco.nombre}"/>
+                        </p:column>    
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListCompraDetTitle_cantidad}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.cuentaBancoIdcuenta.numero}"/>
+                        </p:column>  
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListCompraDetTitle_precio}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.valor}"/>
+                        </p:column>       
+                                             
+                                       
+                      
+                  </p:dataTable>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

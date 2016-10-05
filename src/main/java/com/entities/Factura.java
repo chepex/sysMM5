@@ -100,12 +100,23 @@ public class Factura implements Serializable {
     private Cliente clienteIdcliente;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "facturaIdfactura")
     private List<FacturaDet> facturaDetList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "facturaIdfactura")
+    private List<PagoFactura> pagFacturaList;    
     @JoinColumn(name = "tipo_pago_idtipo_pago", referencedColumnName = "idtipo_pago")
     @ManyToOne(optional = false)
     private TipoPago tipoPagoIdtipoPago;    
 
     public Factura() {
     }
+
+    public List<PagoFactura> getPagFacturaList() {
+        return pagFacturaList;
+    }
+
+    public void setPagFacturaList(List<PagoFactura> pagFacturaList) {
+        this.pagFacturaList = pagFacturaList;
+    }
+    
 
     public TipoPago getTipoPagoIdtipoPago() {
         return tipoPagoIdtipoPago;

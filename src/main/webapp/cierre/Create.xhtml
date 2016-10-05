@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="CierreCreateDlg" widgetVar="CierreCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateCierreTitle}">
+            <h:form id="CierreCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{cierreController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateCierreLabel_idcierre}" for="idcierre" />
+                        <p:inputText id="idcierre" value="#{cierreController.selected.idcierre}" title="#{bundle.CreateCierreTitle_idcierre}" required="true" requiredMessage="#{bundle.CreateCierreRequiredMessage_idcierre}"/>
+                        <p:outputLabel value="#{bundle.CreateCierreLabel_anio}" for="anio" />
+                        <p:inputText id="anio" value="#{cierreController.selected.anio}" title="#{bundle.CreateCierreTitle_anio}" />
+                        <p:outputLabel value="#{bundle.CreateCierreLabel_mes}" for="mes" />
+                        <p:inputText id="mes" value="#{cierreController.selected.mes}" title="#{bundle.CreateCierreTitle_mes}" />
+                        <p:outputLabel value="#{bundle.CreateCierreLabel_existencia}" for="existencia" />
+                        <p:inputText id="existencia" value="#{cierreController.selected.existencia}" title="#{bundle.CreateCierreTitle_existencia}" />
+                        <p:outputLabel value="#{bundle.CreateCierreLabel_costoUnitario}" for="costoUnitario" />
+                        <p:inputText id="costoUnitario" value="#{cierreController.selected.costoUnitario}" title="#{bundle.CreateCierreTitle_costoUnitario}" />
+                        <p:outputLabel value="#{bundle.CreateCierreLabel_totalCosto}" for="totalCosto" />
+                        <p:inputText id="totalCosto" value="#{cierreController.selected.totalCosto}" title="#{bundle.CreateCierreTitle_totalCosto}" />
+                        <p:outputLabel value="#{bundle.CreateCierreLabel_cantidadVenta}" for="cantidadVenta" />
+                        <p:inputText id="cantidadVenta" value="#{cierreController.selected.cantidadVenta}" title="#{bundle.CreateCierreTitle_cantidadVenta}" />
+                        <p:outputLabel value="#{bundle.CreateCierreLabel_precio}" for="precio" />
+                        <p:inputText id="precio" value="#{cierreController.selected.precio}" title="#{bundle.CreateCierreTitle_precio}" />
+                        <p:outputLabel value="#{bundle.CreateCierreLabel_totalVenta}" for="totalVenta" />
+                        <p:inputText id="totalVenta" value="#{cierreController.selected.totalVenta}" title="#{bundle.CreateCierreTitle_totalVenta}" />
+                        <p:outputLabel value="#{bundle.CreateCierreLabel_cantidadCompra}" for="cantidadCompra" />
+                        <p:inputText id="cantidadCompra" value="#{cierreController.selected.cantidadCompra}" title="#{bundle.CreateCierreTitle_cantidadCompra}" />
+                        <p:outputLabel value="#{bundle.CreateCierreLabel_precioCompra}" for="precioCompra" />
+                        <p:inputText id="precioCompra" value="#{cierreController.selected.precioCompra}" title="#{bundle.CreateCierreTitle_precioCompra}" />
+                        <p:outputLabel value="#{bundle.CreateCierreLabel_totaCompra}" for="totaCompra" />
+                        <p:inputText id="totaCompra" value="#{cierreController.selected.totaCompra}" title="#{bundle.CreateCierreTitle_totaCompra}" />
+                        <p:outputLabel value="#{bundle.CreateCierreLabel_fecha}" for="fecha" />
+                        <p:calendar id="fecha" pattern="MM/dd/yyyy" value="#{cierreController.selected.fecha}" title="#{bundle.EditCierreTitle_fecha}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateCierreLabel_totalUtilidad}" for="totalUtilidad" />
+                        <p:inputText id="totalUtilidad" value="#{cierreController.selected.totalUtilidad}" title="#{bundle.CreateCierreTitle_totalUtilidad}" />
+                        <p:outputLabel value="#{bundle.CreateCierreLabel_margen}" for="margen" />
+                        <p:inputText id="margen" value="#{cierreController.selected.margen}" title="#{bundle.CreateCierreTitle_margen}" />
+                        <p:outputLabel value="#{bundle.CreateCierreLabel_idproducto}" for="idproducto" />
+                        <p:selectOneMenu id="idproducto" value="#{cierreController.selected.idproducto}" >
+                            <f:selectItems value="#{productoController.itemsAvailableSelectOne}"
+                                           var="idproductoItem"
+                                           itemValue="#{idproductoItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{cierreController.create}" value="#{bundle.Save}" update="display,:CierreListForm:datalist,:growl" oncomplete="handleSubmit(args,'CierreCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="CierreCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

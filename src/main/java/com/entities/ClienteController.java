@@ -27,17 +27,30 @@ import org.primefaces.model.chart.LineChartModel;
 public class ClienteController implements Serializable {
 
     @EJB
-    private com.entities.ClienteFacade ejbFacade;
+    private ClienteFacade ejbFacade;
     private List<Cliente> items = null;
     private Cliente selected;
     private Double porcentajeLimite;
     private String valorBuscar;
     private LineChartModel chartCompra;   
     @EJB
-    private com.ejb.Sb_Grafica sb_Grafica;        
+    private com.ejb.Sb_Grafica sb_Grafica;  
+    private Factura selectedVenta;
+    
 
     public ClienteController() {
     }
+
+    public Factura getSelectedVenta() {
+//        System.out.println("venta:"+selectedVenta);
+        return selectedVenta;
+    }
+
+    public void setSelectedVenta(Factura selectedVenta) {
+        this.selectedVenta = selectedVenta;
+    }
+    
+    
 
     public LineChartModel getChartCompra() {
         return chartCompra;

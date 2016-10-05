@@ -113,7 +113,7 @@ text-align: left ! important
                          </p:tab>
                     <p:tab title="Ventas"> 
                     <p:dataTable id="datalistCompra"  value="#{clienteController.selected.facturaList}" var="item"
-                                 selectionMode="single" selection="#{facturaController.selected}"
+                                 selectionMode="single" selection="#{clienteController.selectedVenta}"
                                  rowKey="#{item.idfactura}"
                                   scrollable="true" 
                                  scrollHeight="250"
@@ -122,6 +122,8 @@ text-align: left ! important
                                  paginatorPosition="bottom"
                                   rowStyleClass="#{item.saldo > 0  ? 'RedTable' : 'GreenTable'}"
                                  >
+                         <p:ajax event="rowSelect"    update="  detalle pago"/>
+                          <p:ajax event="rowUnselect"   update="  detalle pago"/>                        
                         <f:facet name="{Exporters}" >
                             <h:commandLink>
                                 <p:graphicImage library="img" name="excel.png" width="24"/>                
@@ -133,6 +135,12 @@ text-align: left ! important
                             </h:commandLink>
                         </f:facet>  
                                                
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Documento"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idfactura}"/>
+                        </p:column>                                               
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="Documento"/>
@@ -178,7 +186,11 @@ text-align: left ! important
                                 <h:outputText value="saldo"/>
                             </f:facet>
                             <h:outputText value="#{item.saldo}"/>
-                        </p:column>                           
+                        </p:column>    
+                           <f:facet name="footer">
+                             <p:commandButton id="pago" icon="fa fa-cc-paypal " value="Pago"  disabled="#{clienteController.selectedVenta==null}" update=":detPagoForm"   oncomplete="PF('detPagoDialog').show()" />                                    
+                             <p:commandButton id="detalle" icon="fa  fa-align-justify " value="Detalle"  disabled="#{clienteController.selectedVenta==null}" update=":detVentaForm"   oncomplete="PF('detVentaDialog').show()" />                                    
+                         </f:facet>
                       </p:dataTable>
                     </p:tab>
                         
@@ -190,6 +202,8 @@ text-align: left ! important
             <ui:include src="Create.xhtml"/>
             <ui:include src="Edit.xhtml"/>
             <ui:include src="View.xhtml"/>
+            <ui:include src="detVenta.xhtml"/>
+            <ui:include src="detPago.xhtml"/>
         </ui:define>
     </ui:composition>
 
