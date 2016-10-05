@@ -65,7 +65,83 @@
                             </f:facet>
                             <h:outputText value="#{item.total}"/>
                         </p:column>                        
-                                       
+                        <p:columnGroup type="footer" >
+                            <p:row>
+                                <p:column colspan=""    >
+                                    1
+                                </p:column>
+                                <p:column colspan=""   class="derecha"   >
+                                <f:facet name="footer" >                                
+                                <h:outputText value="Sub-Total:" />                                  
+                                
+                                </f:facet>                                
+                            </p:column>
+                            <p:column  class="derecha">
+                                <f:facet name="footer" >
+                                    <h:outputText value="#{productoController.selectedCompra.cantidad}"/>                                  
+                                </f:facet>
+                            </p:column>
+                            <p:column class="derecha">
+                                <f:facet name="footer" >
+                                    <h:outputText value="#{productoController.selectedCompra.subTotal}"  >
+                                         <f:convertNumber type="currency" currencySymbol="$"   />
+                                </h:outputText>
+                                    
+                                </f:facet>                                
+                            </p:column>
+                            
+                            </p:row>
+                            <p:row>
+                                <p:column colspan=""    >
+                                    1
+                                </p:column>
+                                <p:column colspan=""   class="derecha"   >
+                                <f:facet name="footer" >                                
+                                                                
+                                
+                                </f:facet>                                
+                            </p:column>
+                            <p:column  class="derecha">
+                                <f:facet name="footer" >
+                                 <h:outputText value="Iva:" /> 
+                                </f:facet>
+                            </p:column>
+                            <p:column class="derecha">
+                                <f:facet name="footer" >
+                                    <h:outputText value="#{productoController.selectedCompra.iva}"  >
+                                         <f:convertNumber type="currency" currencySymbol="$"   />
+                                </h:outputText>
+                                    
+                                </f:facet>                                
+                            </p:column>
+                            
+                            </p:row> 
+                            <p:row>
+                                <p:column colspan=""    >
+                                    1
+                                </p:column>
+                                <p:column colspan=""   class="derecha"   >
+                                <f:facet name="footer" >                                
+                                                                
+                                
+                                </f:facet>                                
+                            </p:column>
+                            <p:column  class="derecha">
+                                <f:facet name="footer" >
+                                 <h:outputText value="Total" /> 
+                                </f:facet>
+                            </p:column>
+                            <p:column class="derecha">
+                                <f:facet name="footer" >
+                                    <h:outputText value="#{productoController.selectedCompra.total}"  >
+                                         <f:convertNumber type="currency" currencySymbol="$"   />
+                                </h:outputText>
+                                    
+                                </f:facet>                                
+                            </p:column>
+                            
+                            </p:row>                            
+                       </p:columnGroup>                                       
                       
                   </p:dataTable>
                
