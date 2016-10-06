@@ -1,0 +1,166 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+
+    <ui:define name="head">
+        <h:outputScript name="js/maps.js" library="olympos-layout" />
+       
+    </ui:define>
+
+    <ui:define name="content">
+
+   <h:outputScript name="js/grafica.js" library="olympos-layout" />
+        <!-- top buttons-->
+        <div class="Container100">
+            <div class="Card">
+                <div class="Container80 Responsive100 NoIndent ui-fluid">
+                    <div class="Container20 Responsive50 "><p:button value="Add New Supplier" styleClass="AquaButton"/></div>
+                    <div class="Container20 Responsive50 "><p:button value="Add New Employee" styleClass="AquaButton"/></div>
+                    <div class="Container20 Responsive50 "><p:button value="Add New Account" styleClass="AquaButton"/></div>
+                    <div class="Container20 Responsive50 "><p:button value="Supplier Phone Book" styleClass="AquaButton"/></div>
+                    <div class="Container20 Responsive50 "><p:button value="Product Inventory" styleClass="AquaButton"/></div>
+                </div>
+
+                <div class="Container20 Responsive100 TexAlRight">
+                    <p:button icon="fa fa-plus" styleClass="Fs14 White GreenButton"/>
+                    <p:button icon="fa fa-folder-open" styleClass="Fs14 White PurpleButton"/>
+                    <p:button icon="fa fa-calculator" styleClass="Fs14 White OrangeButton"/>
+                </div>
+            </div>
+        </div>
+
+        <!-- top boxes-->
+        <div class="Container100 NoIndent Flex FlexWrap">
+            <div class="Container25 Responsive50 Flex">
+                <div class="Card">
+                    <div class="EmptyBox10"></div>
+                    <div class="Container60 NoIndent Responsive100">
+                        <i class="fa fa-lightbulb-o  Green Fs60 Fleft MarRight10"></i>
+                        <span class="FontLatoBlack Black Opac80 Fleft Fs13 DispBlock">VENTAS</span><br/>
+                        <span class="FontLatoRegular Green Fleft Fs40 DispBlock">$24.667</span>
+                    </div>
+                    <div class="Container40 NoIndent ui-fluid Responsive100">
+                        <div class="EmptyBox10"></div>
+                        <p:button value="Get All Actions" styleClass="GreenButton"/>
+                    </div>
+                    <div class="EmptyBox10"></div>
+                </div>
+            </div>
+            <div class="Container25 Responsive50 Flex">
+                <div class="Card">
+                    <div class="EmptyBox10"></div>
+                    <div class="Container60 NoIndent Responsive100">
+                        <i class="fa fa-shopping-cart    Blue Fs60 Fleft MarRight10"></i>
+                        <span class="FontLatoBlack Black Opac80 Fleft Fs13 DispBlock">COMPRAS</span><br/>
+                        <span class="FontLatoRegular Blue Fleft Fs40 DispBlock">$19.332</span>
+                    </div>
+                    <div class="Container40 NoIndent ui-fluid Responsive100">
+                        <div class="EmptyBox10"></div>
+                        <p:button value="Get All Actions" styleClass="BlueButton"/>
+                    </div>
+                    <div class="EmptyBox10"></div>
+                </div>
+            </div>
+            <div class="Container25 Responsive50 Flex">
+                <div class="Card">
+                    <div class="EmptyBox10"></div>
+                    <div class="Container60 NoIndent Responsive100">
+                        <i class="fa   fa-university  Navy Fs60 Fleft MarRight10"></i>
+                        <span class="FontLatoBlack Black Opac80 Fleft Fs13 DispBlock">CAJA</span><br/>
+                        <span class="FontLatoRegular Navy Fleft Fs40 DispBlock">$2.879</span>
+                    </div>
+                    <div class="Container40 NoIndent ui-fluid Responsive100">
+                        <div class="EmptyBox10"></div>
+                        <p:button value="Get All Actions" styleClass="NavyButton"/>
+                    </div>
+                    <div class="EmptyBox10"></div>
+                </div>
+            </div>
+            <div class="Container25 Responsive50 Flex">
+                <div class="Card">
+                    <div class="EmptyBox10"></div>
+                    <div class="Container60 NoIndent Responsive100">
+                        <i class="fa  fa-cubes  Yellow Fs60 Fleft MarRight10"></i>
+                        <span class="FontLatoBlack Black Opac80 Fleft Fs13 DispBlock">INVENTARIO</span><br/>
+                        <span class="FontLatoRegular Yellow Fleft Fs40 DispBlock">41.992</span>
+                    </div>
+                    <div class="Container40 NoIndent ui-fluid Responsive100">
+                        <div class="EmptyBox10"></div>
+                        <p:button value="Get All Actions" styleClass="YellowButton"/>
+                    </div>
+                    <div class="EmptyBox10"></div>
+                </div>
+            </div>
+        </div>
+
+ 
+        <!-- leaden boxes -->
+        <div class="Container100 NoIndent Flex FlexWrap">
+            <div class="Container20 Flex Responsive50">
+                <div class="Card LeadenBack">
+                    <div class="CardBigTopic White Opac80">Pagos Pendientes</div>
+                    <div class="EmptyBox20"></div>
+                     
+                        <i class="fa     fa-calendar-check-o   Yellow Fs60 Fleft MarRight10"></i>
+                    <span class="FontLatoLight Fs40 Yellow">$332</span>
+                    <div class="EmptyBox20"></div>
+                    
+                </div>
+            </div>
+            <div class="Container20 Flex Responsive50">
+                <div class="Card LeadenBack">
+                    <div class="CardBigTopic White Opac80">Cobros Pendientes    </div>
+                    <div class="EmptyBox20"></div>                    
+                    <i class="fa   fa-bullhorn     Yellow Fs60 Fleft MarRight10"></i>
+                    <span class="FontLatoLight Fs40 Yellow">$1332</span>
+                    <div class="EmptyBox20"></div>
+                 
+                </div>
+            </div>
+            <div class="Container20 Flex Responsive50">
+                <div class="Card LeadenBack">
+                    <div class="CardBigTopic White Opac80">Productos en Minimo</div>
+                    <div class="EmptyBox20"></div>                   
+                     <i class="fa    fa-chevron-down    Yellow Fs60 Fleft MarRight10"></i>
+                    <span class="FontLatoLight Fs40 Yellow">12</span>
+                    <div class="EmptyBox20"></div>                    
+                </div>
+            </div>    
+            <div class="Container20 Flex Responsive50">
+                <div class="Card LeadenBack">
+                    <div class="CardBigTopic White Opac80">Clientes</div>
+                    <div class="EmptyBox20"></div>
+                       <i class="fa  fa-user   Yellow Fs60 Fleft MarRight10"></i>
+                     
+                    <span class="FontLatoLight Fs40 Yellow">200</span>
+                    <div class="EmptyBox20"></div>                    
+                </div>
+            </div>
+            <div class="Container20 Flex Responsive50">
+                <div class="Card LeadenBack">
+                    <div class="CardBigTopic White Opac80">Proveedores</div>
+                    <div class="EmptyBox20"></div>
+                     <i class="fa   fa-user-secret   Yellow Fs60 Fleft MarRight10"></i>
+                    <span class="FontLatoLight Fs40 Yellow">25</span>
+                    <div class="EmptyBox20"></div>
+                    
+                </div>
+            </div>            
+            
+        </div>
+
+       <!-- center boxes -->   
+        <div class="Container100">
+                <div class="Card">
+                    <div class="CardBigTopic TexAlCenter">Linear Chart</div>
+                    <p:chart id="grafica"   styleClass="Wid100"  type="line" rendered="#{productoController.chartVentaCompra!=null}"  model="#{productoController.chartVentaCompra}" style="height:300px;" responsive="true"/>
+                    
+                </div>
+            </div>       
+            
+    </ui:define>
+
+</ui:composition>

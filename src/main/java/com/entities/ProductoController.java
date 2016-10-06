@@ -54,6 +54,7 @@ public class ProductoController implements Serializable {
     }
 
     public LineChartModel getChartVentaCompra() {
+        System.out.println("char--->"+chartVentaCompra);
         return chartVentaCompra;
     }
 
