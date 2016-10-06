@@ -19,6 +19,8 @@ public class SB_Cliente {
 
     @EJB
     private com.entities.ClienteFacade clienteFacade; 
+
+     
     
    public String  validaLimite(Cliente cliente, BigDecimal nuevaCompra){
         String msg= "ok";

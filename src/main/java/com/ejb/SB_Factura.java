@@ -10,6 +10,7 @@ import com.entities.Correlativo;
 import com.entities.Factura;
 import com.entities.FacturaDet;
 import com.entities.util.JsfUtil;
+import java.math.BigDecimal;
 
 import java.util.List;
 import javax.ejb.EJB;
@@ -37,29 +38,34 @@ public class SB_Factura {
     public String crearFactura(Factura factura, List<FacturaDet> detFactura){
      
         String msg = "ok";
-        Cliente c = factura.getClienteIdcliente();
-     
-            /*validar limite si es compra al credito*/     
-            if(factura.getTipoPagoIdtipoPago().getIdtipoPago()!=1){                
-                String vlimite = sb_Cliente.validaLimite(factura.getClienteIdcliente(), factura.getTotal());           
-                if(!vlimite.equals("ok")){              
-                    return "Compra super limite del cliente, limite: "+factura.getClienteIdcliente().getLimite();
-                }else{            
-                    sb_Cliente.actualizaSaldo(factura.getClienteIdcliente(), factura.getTotal());
-                    factura.setSaldo(factura.getTotal());
-                }
+        BigDecimal totalUtilidad =new BigDecimal("0");
+        Cliente c = factura.getClienteIdcliente();     
+        /*validar limite si es compra al credito*/     
+        if(factura.getTipoPagoIdtipoPago().getIdtipoPago()!=1){                
+            String vlimite = sb_Cliente.validaLimite(factura.getClienteIdcliente(), factura.getTotal());           
+            if(!vlimite.equals("ok")){              
+                return "Compra super limite del cliente, limite: "+factura.getClienteIdcliente().getLimite();
+            }else{            
+                sb_Cliente.actualizaSaldo(factura.getClienteIdcliente(), factura.getTotal());
+                factura.setSaldo(factura.getTotal());
             }
-        
-            
+        }
         msg  =   generarCorrelativo(  factura);  
         if(!msg.equals("ok")){
             return "Error al generar correlativo";
         }
         
         for(FacturaDet detalle :detFactura){
-             detalle.setIdfacturaDet(0);        
+             detalle.setIdfacturaDet(0);               
+             double vcostoFijo = ((detalle.getProductoIdproducto().getCosto().doubleValue() *detalle.getProductoIdproducto().getCostoFijo()) /100);
+             detalle.setUtilidad(detalle.getPrecio().subtract(detalle.getProductoIdproducto().getCosto()).subtract(new BigDecimal(vcostoFijo)).multiply(new BigDecimal(detalle.getCantidad())));             
+             System.out.println("detalleUtilidad"+detalle.getUtilidad());
+            totalUtilidad = totalUtilidad.add(detalle.getUtilidad());
+             System.out.println("totalUtilidad"+totalUtilidad);
         }
+        System.out.println("totalUtilidad"+totalUtilidad);
         factura.setFacturaDetList(detFactura);  
+        factura.setUtilidad(totalUtilidad);
             
         List<Object[]>  lobjt =  sb_inventario.facturaToList(detFactura);
         

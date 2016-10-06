@@ -110,14 +110,15 @@ public class SB_Compra {
                 p.setCosto(vcosto);
             }
             
-            
-            double vprecio = (p.getCosto().doubleValue()*p.getMargen()/100)+p.getCosto().doubleValue();
-            BigDecimal value = new BigDecimal(vprecio);
-            value = value.setScale(2, RoundingMode.CEILING);
+                double vcostoFijo = (p.getCosto().doubleValue()*p.getCostoFijo()/100);
+                double vprecio = (p.getCosto().doubleValue()*p.getMargen()/100)+p.getCosto().doubleValue();
+                vprecio = vprecio +vcostoFijo;
+                BigDecimal value = new BigDecimal(vprecio);
+                value = value.setScale(2, RoundingMode.CEILING);
 
-
-            p.setPrecio(value);
-            productoFacade.edit(p);
+                
+                p.setPrecio(value);
+                productoFacade.edit(p);
             
             
         }

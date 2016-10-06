@@ -19,6 +19,8 @@
                         <p:inputText id="descripion" value="#{productoController.selected.descripion}" title="#{bundle.CreateProductoTitle_descripion}" />
                         <h:outputLabel for="margen" value="Margen:" />
                         <p:spinner id="margen" value="#{productoController.selected.margen}" min="1" max="100" />
+                        <h:outputLabel for="costoFijo" value="Costo Fijo:" />
+                        <p:spinner id="costoFijo" value="#{productoController.selected.costoFijo}" min="0" max="100"  stepFactor="5" />                        
                         <p:outputLabel value="#{bundle.CreateProductoLabel_min}" for="min" />
                         <p:inputText id="min" value="#{productoController.selected.min}" title="#{bundle.CreateProductoTitle_min}" />
                         <p:outputLabel value="#{bundle.CreateProductoLabel_max}" for="max" />

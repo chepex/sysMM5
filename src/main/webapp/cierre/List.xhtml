@@ -15,6 +15,21 @@
 
         <ui:define name="content">
             <h:form id="CierreListForm">
+                <p:panelGrid  columns="4">
+                    <p:outputLabel>Mes abierto</p:outputLabel>
+                    <p:selectOneMenu id="mes" value="#{cierreController.catalgoCierre}" required="true" requiredMessage="#{bundle.EditProductoRequiredMessage_categoriaIdcategoria}">
+                            <f:selectItems value="#{catalogoCierreController.itemsAvailableSelectOne}"
+                                           var="catalogoCierreItem"
+                                           itemLabel="#{catalogoCierreItem.anio}-#{catalogoCierreItem.mes}"
+                                           itemValue="#{catalogoCierreItem}"/>
+                        </p:selectOneMenu>                    
+                    <p:commandButton actionListener="#{cierreController.cerrar()}" update="@form :growl"  value="Cerrar">
+                          <p:confirm header="Confirmation" message="Esta seguro que desa ejecutar este cierre?" icon="ui-icon-alert" />
+                    </p:commandButton>
+                    
+                    
+                </p:panelGrid>                
+                
                 <p:panel header="Cierre">
                     <p:dataTable id="datalist" value="#{cierreController.items}" var="item"
                                  selectionMode="single" selection="#{cierreController.selected}"
@@ -26,55 +41,45 @@
 
                         <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
                         <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
-
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListCierreTitle_idcierre}"/>
+                                <h:outputText value="Producto"/>
                             </f:facet>
-                            <h:outputText value="#{item.idcierre}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListCierreTitle_anio}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.anio}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListCierreTitle_mes}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.mes}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListCierreTitle_existencia}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.existencia}"/>
+                            <h:outputText value="#{item.idproducto.nombre}"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListCierreTitle_costoUnitario}"/>
                             </f:facet>
                             <h:outputText value="#{item.costoUnitario}"/>
-                        </p:column>
+                        </p:column>                        
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListCierreTitle_totalCosto}"/>
+                                <h:outputText value="#{bundle.ListCierreTitle_precio}"/>
                             </f:facet>
-                            <h:outputText value="#{item.totalCosto}"/>
+                            <h:outputText value="#{item.precio}"/>
+                        </p:column> 
+                        <p:column>                                                                                                                                                         
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListCierreTitle_margen}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.margen}"/>
+                        </p:column>                        
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListCierreTitle_existencia}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.existencia}"/>
                         </p:column>
+
+                     
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListCierreTitle_cantidadVenta}"/>
                             </f:facet>
                             <h:outputText value="#{item.cantidadVenta}"/>
                         </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListCierreTitle_precio}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.precio}"/>
-                        </p:column>
+
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListCierreTitle_totalVenta}"/>
@@ -87,44 +92,22 @@
                             </f:facet>
                             <h:outputText value="#{item.cantidadCompra}"/>
                         </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListCierreTitle_precioCompra}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.precioCompra}"/>
-                        </p:column>
+                     
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListCierreTitle_totaCompra}"/>
                             </f:facet>
                             <h:outputText value="#{item.totaCompra}"/>
                         </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListCierreTitle_fecha}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.fecha}">
-                                <f:convertDateTime pattern="MM/dd/yyyy" />
-                            </h:outputText>
-                        </p:column>
+ 
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListCierreTitle_totalUtilidad}"/>
                             </f:facet>
                             <h:outputText value="#{item.totalUtilidad}"/>
                         </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListCierreTitle_margen}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.margen}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListCierreTitle_idproducto}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.idproducto}"/>
-                        </p:column>
+
+
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{cierreController.prepareCreate}" update=":CierreCreateForm" oncomplete="PF('CierreCreateDialog').show()"/>
                             <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":CierreViewForm" oncomplete="PF('CierreViewDialog').show()" disabled="#{empty cierreController.selected}"/>

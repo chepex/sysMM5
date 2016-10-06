@@ -78,10 +78,14 @@ public class Producto implements Serializable {
     private Integer max;
     @Column(name = "margen")
     private Integer margen;    
+    @Column(name = "costo_fijo")
+    private Integer costoFijo;        
+        
     @Column(name = "existencia")
     private Integer existencia;
     @Column(name = "activo")
     private Boolean activo;
+
     @Size(max = 45)
     @Column(name = "usuario_create")
     private String usuarioCreate;
@@ -107,6 +111,16 @@ public class Producto implements Serializable {
     public Producto() {
     }
 
+    public Integer getCostoFijo() {
+        return costoFijo;
+    }
+
+    public void setCostoFijo(Integer costoFijo) {
+        this.costoFijo = costoFijo;
+    }
+
+    
+    
     public Integer getMargen() {
         return margen;
     }

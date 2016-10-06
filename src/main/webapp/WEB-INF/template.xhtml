@@ -48,6 +48,10 @@
                 <!-- PORTLETS COVER -->
                 <div id="layout-portlets-cover">
                     <p:growl id="growl" life="500" showDetail="true" ></p:growl>
+                       <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                            <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                            <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                        </p:confirmDialog>
                     <ui:insert name="content">
                         Template
                     </ui:insert>

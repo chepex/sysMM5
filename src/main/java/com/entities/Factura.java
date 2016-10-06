@@ -80,6 +80,8 @@ public class Factura implements Serializable {
     private BigDecimal total;
     @Column(name = "sub_total")
     private BigDecimal subTotal;    
+    @Column(name = "utilidad")
+    private BigDecimal utilidad;       
     @Size(max = 45)
     @Column(name = "usuario_create")
     private String usuarioCreate;
@@ -109,6 +111,16 @@ public class Factura implements Serializable {
     public Factura() {
     }
 
+    public BigDecimal getUtilidad() {
+        return utilidad;
+    }
+
+    public void setUtilidad(BigDecimal utilidad) {
+        this.utilidad = utilidad;
+    }
+
+    
+    
     public List<PagoFactura> getPagFacturaList() {
         return pagFacturaList;
     }

@@ -16,7 +16,8 @@
                         <p:inputText id="idproducto" disabled="true" value="#{productoController.selected.idproducto}" title="#{bundle.EditProductoTitle_idproducto}" required="true" requiredMessage="#{bundle.EditProductoRequiredMessage_idproducto}"/>
                         <h:outputLabel for="margen" value="Margen:" />
                         <p:spinner id="margen" value="#{productoController.selected.margen}" min="1" max="100" />
-                        
+                        <h:outputLabel for="costoFijo" value="Costo Fijo:" />
+                        <p:spinner id="costoFijo" value="#{productoController.selected.costoFijo}" min="0" max="100"  stepFactor="5" />                        
                         <p:outputLabel value="#{bundle.EditProductoLabel_nombre}" for="nombre" />
                         <p:inputText id="nombre" value="#{productoController.selected.nombre}" title="#{bundle.EditProductoTitle_nombre}" />
                         <p:outputLabel value="#{bundle.EditProductoLabel_descripion}" for="descripion" />

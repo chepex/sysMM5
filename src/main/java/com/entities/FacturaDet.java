@@ -30,7 +30,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "FacturaDet.findAll", query = "SELECT f FROM FacturaDet f"),
     @NamedQuery(name = "FacturaDet.findByIdfacturaDet", query = "SELECT f FROM FacturaDet f WHERE f.idfacturaDet = :idfacturaDet"),
-    @NamedQuery(name = "FacturaDet.findByCantidad", query = "SELECT f FROM FacturaDet f WHERE f.cantidad = :cantidad"),
+    @NamedQuery(name = "FacturaDet.findByCantidad", query = "SELECT f FROM FacturaDet f WHERE  f.cantidad = :cantidad"),
     @NamedQuery(name = "FacturaDet.findByPrecio", query = "SELECT f FROM FacturaDet f WHERE f.precio = :precio")})
 public class FacturaDet implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -46,6 +46,8 @@ public class FacturaDet implements Serializable {
     private BigDecimal precio;
     @Column(name = "total")
     private BigDecimal total;    
+    @Column(name = "utilidad")
+    private BigDecimal utilidad;      
     @JoinColumn(name = "producto_idproducto", referencedColumnName = "idproducto")
     @ManyToOne(optional = false)
     private Producto productoIdproducto;
@@ -56,6 +58,16 @@ public class FacturaDet implements Serializable {
     public FacturaDet() {
     }
 
+    public BigDecimal getUtilidad() {
+        return utilidad;
+    }
+
+    public void setUtilidad(BigDecimal utilidad) {
+        this.utilidad = utilidad;
+    }
+
+    
+    
     public BigDecimal getTotal() {
         return total;
     }

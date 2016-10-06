@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="CatalogoCierreCreateDlg" widgetVar="CatalogoCierreCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateCatalogoCierreTitle}">
+            <h:form id="CatalogoCierreCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{catalogoCierreController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateCatalogoCierreLabel_idcatalogoCierre}" for="idcatalogoCierre" />
+                        <p:inputText id="idcatalogoCierre" value="#{catalogoCierreController.selected.idcatalogoCierre}" title="#{bundle.CreateCatalogoCierreTitle_idcatalogoCierre}" required="true" requiredMessage="#{bundle.CreateCatalogoCierreRequiredMessage_idcatalogoCierre}"/>
+                        <p:outputLabel value="#{bundle.CreateCatalogoCierreLabel_anio}" for="anio" />
+                        <p:inputText id="anio" value="#{catalogoCierreController.selected.anio}" title="#{bundle.CreateCatalogoCierreTitle_anio}" />
+                        <p:outputLabel value="#{bundle.CreateCatalogoCierreLabel_mes}" for="mes" />
+                        <p:inputText id="mes" value="#{catalogoCierreController.selected.mes}" title="#{bundle.CreateCatalogoCierreTitle_mes}" />
+                        <p:outputLabel value="#{bundle.CreateCatalogoCierreLabel_cerrado}" for="cerrado" />
+                        <p:selectBooleanCheckbox id="cerrado" value="#{catalogoCierreController.selected.cerrado}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{catalogoCierreController.create}" value="#{bundle.Save}" update="display,:CatalogoCierreListForm:datalist,:growl" oncomplete="handleSubmit(args,'CatalogoCierreCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="CatalogoCierreCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

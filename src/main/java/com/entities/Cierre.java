@@ -37,12 +37,12 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Cierre.findByMes", query = "SELECT c FROM Cierre c WHERE c.mes = :mes"),
     @NamedQuery(name = "Cierre.findByExistencia", query = "SELECT c FROM Cierre c WHERE c.existencia = :existencia"),
     @NamedQuery(name = "Cierre.findByCostoUnitario", query = "SELECT c FROM Cierre c WHERE c.costoUnitario = :costoUnitario"),
-    @NamedQuery(name = "Cierre.findByTotalCosto", query = "SELECT c FROM Cierre c WHERE c.totalCosto = :totalCosto"),
+    
     @NamedQuery(name = "Cierre.findByCantidadVenta", query = "SELECT c FROM Cierre c WHERE c.cantidadVenta = :cantidadVenta"),
     @NamedQuery(name = "Cierre.findByPrecio", query = "SELECT c FROM Cierre c WHERE c.precio = :precio"),
     @NamedQuery(name = "Cierre.findByTotalVenta", query = "SELECT c FROM Cierre c WHERE c.totalVenta = :totalVenta"),
     @NamedQuery(name = "Cierre.findByCantidadCompra", query = "SELECT c FROM Cierre c WHERE c.cantidadCompra = :cantidadCompra"),
-    @NamedQuery(name = "Cierre.findByPrecioCompra", query = "SELECT c FROM Cierre c WHERE c.precioCompra = :precioCompra"),
+    
     @NamedQuery(name = "Cierre.findByTotaCompra", query = "SELECT c FROM Cierre c WHERE c.totaCompra = :totaCompra"),
     @NamedQuery(name = "Cierre.findByFecha", query = "SELECT c FROM Cierre c WHERE c.fecha = :fecha"),
     @NamedQuery(name = "Cierre.findByTotalUtilidad", query = "SELECT c FROM Cierre c WHERE c.totalUtilidad = :totalUtilidad"),
@@ -63,8 +63,7 @@ public class Cierre implements Serializable {
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "costo_unitario")
     private BigDecimal costoUnitario;
-    @Column(name = "total_costo")
-    private BigDecimal totalCosto;
+
     @Column(name = "cantidad_venta")
     private Integer cantidadVenta;
     @Column(name = "precio")
@@ -73,9 +72,8 @@ public class Cierre implements Serializable {
     private BigDecimal totalVenta;
     @Column(name = "cantidad_compra")
     private Integer cantidadCompra;
-    @Column(name = "precio_compra")
-    private BigDecimal precioCompra;
-    @Column(name = "tota_compra")
+ 
+    @Column(name = "total_compra")
     private BigDecimal totaCompra;
     @Column(name = "fecha")
     @Temporal(TemporalType.DATE)
@@ -136,13 +134,7 @@ public class Cierre implements Serializable {
         this.costoUnitario = costoUnitario;
     }
 
-    public BigDecimal getTotalCosto() {
-        return totalCosto;
-    }
 
-    public void setTotalCosto(BigDecimal totalCosto) {
-        this.totalCosto = totalCosto;
-    }
 
     public Integer getCantidadVenta() {
         return cantidadVenta;
@@ -176,13 +168,6 @@ public class Cierre implements Serializable {
         this.cantidadCompra = cantidadCompra;
     }
 
-    public BigDecimal getPrecioCompra() {
-        return precioCompra;
-    }
-
-    public void setPrecioCompra(BigDecimal precioCompra) {
-        this.precioCompra = precioCompra;
-    }
 
     public BigDecimal getTotaCompra() {
         return totaCompra;

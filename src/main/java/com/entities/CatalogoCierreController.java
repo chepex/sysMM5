@@ -1,10 +1,8 @@
 package com.entities;
 
- 
-
-
 import com.entities.util.JsfUtil;
 import com.entities.util.JsfUtil.PersistAction;
+
 import java.io.Serializable;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -19,37 +17,23 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-@ManagedBean(name = "cierreController")
+@ManagedBean(name = "catalogoCierreController")
 @SessionScoped
-public class CierreController implements Serializable {
+public class CatalogoCierreController implements Serializable {
 
     @EJB
-    private CierreFacade ejbFacade;
-    @EJB
-    private com.ejb.SB_Cierre sb_cierre;    
-    private List<Cierre> items = null;
-    private Cierre selected;
-    private CatalogoCierre catalgoCierre;
-    
+    private com.entities.CatalogoCierreFacade ejbFacade;
+    private List<CatalogoCierre> items = null;
+    private CatalogoCierre selected;
 
-    public CierreController() {
+    public CatalogoCierreController() {
     }
 
-    public CatalogoCierre getCatalgoCierre() {
-        return catalgoCierre;
-    }
-
-    public void setCatalgoCierre(CatalogoCierre catalgoCierre) {
-        this.catalgoCierre = catalgoCierre;
-    }
-    
-    
-
-    public Cierre getSelected() {
+    public CatalogoCierre getSelected() {
         return selected;
     }
 
-    public void setSelected(Cierre selected) {
+    public void setSelected(CatalogoCierre selected) {
         this.selected = selected;
     }
 
@@ -59,36 +43,36 @@ public class CierreController implements Serializable {
     protected void initializeEmbeddableKey() {
     }
 
-    private CierreFacade getFacade() {
+    private CatalogoCierreFacade getFacade() {
         return ejbFacade;
     }
 
-    public Cierre prepareCreate() {
-        selected = new Cierre();
+    public CatalogoCierre prepareCreate() {
+        selected = new CatalogoCierre();
         initializeEmbeddableKey();
         return selected;
     }
 
     public void create() {
-        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("CierreCreated"));
+        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("CatalogoCierreCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
 
     public void update() {
-        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("CierreUpdated"));
+        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("CatalogoCierreUpdated"));
     }
 
     public void destroy() {
-        persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("CierreDeleted"));
+        persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("CatalogoCierreDeleted"));
         if (!JsfUtil.isValidationFailed()) {
             selected = null; // Remove selection
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
 
-    public List<Cierre> getItems() {
+    public List<CatalogoCierre> getItems() {
         if (items == null) {
             items = getFacade().findAll();
         }
@@ -123,24 +107,24 @@ public class CierreController implements Serializable {
         }
     }
 
-    public List<Cierre> getItemsAvailableSelectMany() {
+    public List<CatalogoCierre> getItemsAvailableSelectMany() {
         return getFacade().findAll();
     }
 
-    public List<Cierre> getItemsAvailableSelectOne() {
+    public List<CatalogoCierre> getItemsAvailableSelectOne() {
         return getFacade().findAll();
     }
 
-    @FacesConverter(forClass = Cierre.class)
-    public static class CierreControllerConverter implements Converter {
+    @FacesConverter(forClass = CatalogoCierre.class)
+    public static class CatalogoCierreControllerConverter implements Converter {
 
         @Override
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            CierreController controller = (CierreController) facesContext.getApplication().getELResolver().
-                    getValue(facesContext.getELContext(), null, "cierreController");
+            CatalogoCierreController controller = (CatalogoCierreController) facesContext.getApplication().getELResolver().
+                    getValue(facesContext.getELContext(), null, "catalogoCierreController");
             return controller.getFacade().find(getKey(value));
         }
 
@@ -161,32 +145,15 @@ public class CierreController implements Serializable {
             if (object == null) {
                 return null;
             }
-            if (object instanceof Cierre) {
-                Cierre o = (Cierre) object;
-                return getStringKey(o.getIdcierre());
+            if (object instanceof CatalogoCierre) {
+                CatalogoCierre o = (CatalogoCierre) object;
+                return getStringKey(o.getIdcatalogoCierre());
             } else {
-                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), Cierre.class.getName()});
+                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), CatalogoCierre.class.getName()});
                 return null;
             }
         }
 
-    }
-    
-    public String cerrar(){
-        String msg = "";
-        System.out.println("cerrando mes");
-        System.out.println("cerrando mes");
-        System.out.println("cerrando mes");
-        System.out.println("cerrando mes");        
-        msg = sb_cierre.cerrar(catalgoCierre.getAnio(), catalgoCierre.getMes());
-        if(msg.equals("ok")){
-            JsfUtil.addSuccessMessage("Mes cerrado correctamente");
-        }else{
-            JsfUtil.addErrorMessage("Surgio un error "+msg);
-        }
-        
-        
-        return  msg;
     }
 
 }

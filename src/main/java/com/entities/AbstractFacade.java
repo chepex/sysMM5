@@ -127,7 +127,7 @@ public abstract class AbstractFacade<T> {
     
     protected void finalize(T entity)  { 
        
-         getEntityManager().close();
+       //  getEntityManager().close();
          
 
     }      
