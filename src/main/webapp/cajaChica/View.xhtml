@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="CajaChicaViewDlg" widgetVar="CajaChicaViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewCajaChicaTitle}">
+            <h:form id="CajaChicaViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{cajaChicaController.selected != null}">
+                        <h:outputText value="#{bundle.ViewCajaChicaLabel_idcajaChica}"/>
+                        <h:outputText value="#{cajaChicaController.selected.idcajaChica}" title="#{bundle.ViewCajaChicaTitle_idcajaChica}"/>
+                        <h:outputText value="#{bundle.ViewCajaChicaLabel_fecha}"/>
+                        <h:outputText value="#{cajaChicaController.selected.fecha}" title="#{bundle.ViewCajaChicaTitle_fecha}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewCajaChicaLabel_montoInicial}"/>
+                        <h:outputText value="#{cajaChicaController.selected.montoInicial}" title="#{bundle.ViewCajaChicaTitle_montoInicial}"/>
+                        <h:outputText value="#{bundle.ViewCajaChicaLabel_montoFinal}"/>
+                        <h:outputText value="#{cajaChicaController.selected.montoFinal}" title="#{bundle.ViewCajaChicaTitle_montoFinal}"/>
+                        <h:outputText value="#{bundle.ViewCajaChicaLabel_abierta}"/>
+                        <p:selectBooleanCheckbox value="#{cajaChicaController.selected.abierta}" disabled="true"/>
+                        <h:outputText value="#{bundle.ViewCajaChicaLabel_saldo}"/>
+                        <h:outputText value="#{cajaChicaController.selected.saldo}" title="#{bundle.ViewCajaChicaTitle_saldo}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="CajaChicaViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

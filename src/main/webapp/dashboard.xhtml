@@ -11,14 +11,98 @@
     </ui:define>
 
     <ui:define name="content">
-
-   
+            <script>
+                function skinChart() {
+                     this.cfg.legend= {
+             show: true,
+             location: 'ne',
+             placement: 'outsideGrid'
+           }    ;
+    
+ this.cfg.shadow = true;
+                this.cfg.title = '';
+                this.cfg.seriesColors = ['#2BB673', '#F15732','#EF3FF1'];
+                this.cfg.grid = {
+                    background: '#ffffff',
+                    borderColor: '#ffffff',
+                    gridLineColor: '#F5F5F5',
+                    shadow: false
+                };
+                this.cfg.axesDefaults = {
+                    rendererOptions: {
+                        textColor: '#666F77'
+                    }
+                };
+                this.cfg.legend.show =true;
+                this.cfg.seriesDefaults = {
+                    shadow: false,
+                    lineWidth: 1,
+                    renderer: $.jqplot.BarRenderer,
+                    markerOptions: {
+                        shadow: false,
+                        size: 7,
+                        style: 'circle'
+                    }
+                }
+            }            
+  function skinBar() {
+                this.cfg.shadow = false;
+                this.cfg.title = '';
+                this.cfg.seriesColors = ['#2BB673', '#F15732'];
+                this.cfg.grid = {
+                    background: '#ffffff',
+                    borderColor: '#ffffff',
+                    gridLineColor: '#F5F5F5',
+                    shadow: false
+                };
+                this.cfg.axesDefaults = {
+                    rendererOptions: {
+                        textColor: '#666F77'
+                    }
+                };
+                this.cfg.seriesDefaults = {
+                    shadow: false,
+                    lineWidth: 1,
+                    renderer: $.jqplot.BarRenderer,
+                    markerOptions: {
+                        shadow: false,
+                        size: 7,
+                        style: 'circle'
+                    }
+                }
+            }       
+            function skinPie() {
+                this.cfg.shadow = false;
+                this.cfg.title = '';
+                this.cfg.seriesColors = ['#3E98D3', '#EF3F61', '#2BB673', '#F15732'];
+                this.cfg.grid = {
+                    background: '#ffffff',
+                    borderColor: '#ffffff',
+                    gridLineColor: '#F5F5F5',
+                    shadow: false
+                };
+                this.cfg.axesDefaults = {
+                    rendererOptions: {
+                        textColor: '#666F77',
+                    }
+                };
+                this.cfg.seriesDefaults = {
+                    renderer: $.jqplot.PieRenderer,
+                    shadow: false,
+                    lineWidth: 1,
+                    markerOptions: {
+                        shadow: false,
+                        size: 7,
+                        style: 'circle'
+                    }
+                }
+            }
+            
+           </script>
+        <h:form id="formDashboard"  >    
+   <p:poll interval="10" listener="#{dashboardController.init}" update="formDashboard" />    
         <!-- top buttons-->
-        <div class="Container100">
-            <div class="Card">
-                 
-            </div>
-        </div>
+        
 
         <!-- top boxes-->
         <div class="Container100 NoIndent Flex FlexWrap">
@@ -28,7 +112,7 @@
                     <div class="Container60 NoIndent Responsive100">
                         <i class="fa fa-lightbulb-o  Green Fs60 Fleft MarRight10"></i>
                         <span class="FontLatoBlack Black Opac80 Fleft Fs13 DispBlock">VENTAS</span><br/>
-                        <span class="FontLatoRegular Green Fleft Fs40 DispBlock">$24.667</span>
+                        <span class="FontLatoRegular Green Fleft Fs40 DispBlock">$ ${dashboardController.ventaMes}</span>
                     </div>
                     <div class="Container40 NoIndent ui-fluid Responsive100">
                         <div class="EmptyBox10"></div>
@@ -43,7 +127,7 @@
                     <div class="Container60 NoIndent Responsive100">
                         <i class="fa fa-shopping-cart    Blue Fs60 Fleft MarRight10"></i>
                         <span class="FontLatoBlack Black Opac80 Fleft Fs13 DispBlock">COMPRAS</span><br/>
-                        <span class="FontLatoRegular Blue Fleft Fs40 DispBlock">$19.332</span>
+                        <span class="FontLatoRegular Blue Fleft Fs40 DispBlock">$ ${dashboardController.compraMes}</span>
                     </div>
                     <div class="Container40 NoIndent ui-fluid Responsive100">
                         <div class="EmptyBox10"></div>
@@ -142,14 +226,35 @@
         </div>
 
        <!-- center boxes -->   
-        <div class="Container100">
+        <div class="Container100 Responsive100 NoIndent">
+            <div class="Container50">
                 <div class="Card">
-                    <div class="CardBigTopic TexAlCenter">Linear Chart</div>
-                    <p:chart id="grafica"   styleClass="Wid100"  type="line" rendered="#{productoController.chartVentaCompra!=null}"  model="#{productoController.chartVentaCompra}" style="height:300px;" responsive="true"/>
-                    
+                    <div class="CardBigTopic TexAlCenter">Ventas</div>
+                     <p:chart type="bar" model="#{dashboardController.ventaModel}"  />
                 </div>
-            </div>       
+            </div>
+            <div class="Container50">
+                <div class="Card">
+                    <div class="CardBigTopic TexAlCenter">Compras</div>
+                     <p:chart type="bar" model="#{dashboardController.compraModel}" style="height:300px; width: 100%;"/>                                       
+                </div>
+            </div>            
+            <div class="Container50">
+                <div class="Card">
+                     <div class="CardBigTopic TexAlCenter">Existencias por categoria</div>
+                     <p:chart type="pie" model="#{dashboardController.existenciaCategoria}" style=" width: 100%;height:300px" />
+                </div>
+            </div>               
+            <div class="Container50">
+                <div class="Card">
+                     <div class="CardBigTopic TexAlCenter">Ventas por usuario</div>
+                     <p:chart type="pie" model="#{dashboardController.ventaUsuario}" style=" width: 100%;height:300px" />
+                </div>
+            </div>                           
             
+            
+        </div>    
+       </h:form>
     </ui:define>
 
 </ui:composition>

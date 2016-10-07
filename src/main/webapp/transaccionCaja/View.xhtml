@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TransaccionCajaViewDlg" widgetVar="TransaccionCajaViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewTransaccionCajaTitle}">
+            <h:form id="TransaccionCajaViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{transaccionCajaController.selected != null}">
+                        <h:outputText value="#{bundle.ViewTransaccionCajaLabel_idtransaccion}"/>
+                        <h:outputText value="#{transaccionCajaController.selected.idtransaccion}" title="#{bundle.ViewTransaccionCajaTitle_idtransaccion}"/>
+                        <h:outputText value="#{bundle.ViewTransaccionCajaLabel_fecha}"/>
+                        <h:outputText value="#{transaccionCajaController.selected.fecha}" title="#{bundle.ViewTransaccionCajaTitle_fecha}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewTransaccionCajaLabel_subtotal}"/>
+                        <h:outputText value="#{transaccionCajaController.selected.subtotal}" title="#{bundle.ViewTransaccionCajaTitle_subtotal}"/>
+                        <h:outputText value="#{bundle.ViewTransaccionCajaLabel_iva}"/>
+                        <h:outputText value="#{transaccionCajaController.selected.iva}" title="#{bundle.ViewTransaccionCajaTitle_iva}"/>
+                        <h:outputText value="#{bundle.ViewTransaccionCajaLabel_total}"/>
+                        <h:outputText value="#{transaccionCajaController.selected.total}" title="#{bundle.ViewTransaccionCajaTitle_total}"/>
+                        <h:outputText value="#{bundle.ViewTransaccionCajaLabel_descripcion}"/>
+                        <h:outputText value="#{transaccionCajaController.selected.descripcion}" title="#{bundle.ViewTransaccionCajaTitle_descripcion}"/>
+                        <h:outputText value="#{bundle.ViewTransaccionCajaLabel_docReferencia}"/>
+                        <h:outputText value="#{transaccionCajaController.selected.docReferencia}" title="#{bundle.ViewTransaccionCajaTitle_docReferencia}"/>
+                        <h:outputText value="#{bundle.ViewTransaccionCajaLabel_idcajaChica}"/>
+                        <h:outputText value="#{transaccionCajaController.selected.idcajaChica}" title="#{bundle.ViewTransaccionCajaTitle_idcajaChica}"/>
+                        <h:outputText value="#{bundle.ViewTransaccionCajaLabel_idusuario}"/>
+                        <h:outputText value="#{transaccionCajaController.selected.idusuario}" title="#{bundle.ViewTransaccionCajaTitle_idusuario}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="TransaccionCajaViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

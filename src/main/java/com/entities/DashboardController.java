@@ -9,6 +9,7 @@ package com.entities;
 import javax.annotation.PostConstruct;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -45,14 +46,39 @@ public class DashboardController implements Serializable {
    private BarChartModel ventaModel;
    private BarChartModel compraModel;   
    private PieChartModel existenciaCategoria;
-   private PieChartModel ventaUsuario;   
+   private PieChartModel ventaUsuario; 
+   private String ventaMes;
+   private String compraMes;   
  
     public DashboardController() {
     }
+
+    public String getCompraMes() {
+        return compraMes;
+    }
+
+    public void setCompraMes(String compraMes) {
+        this.compraMes = compraMes;
+    }
+
     
-  @PostConstruct
+    
+    public String getVentaMes() {
+        
+
+        return ventaMes;
+    }
+
+    public void setVentaMes(String ventaMes) {
+        this.ventaMes = ventaMes;
+    }
+    
+    
+    
+    @PostConstruct
     public void init() {
         //createLineModels();
+        System.out.println("aqui--->");
          createBarModels();
          
     }
@@ -78,6 +104,7 @@ public class DashboardController implements Serializable {
     
     
     public BarChartModel getVentaModel() {
+        System.out.println("venta-->"+ventaModel);
         return ventaModel;
     }
 
@@ -185,13 +212,46 @@ public class DashboardController implements Serializable {
         createBarCompra();
         createPieModel1();
         createPieVentaUsuario();
+        llenarVariables();
+        
+    }
+    
+    private void llenarVariables(){
+    
+        /*Ventas*/
+        List<Object[]> lv = this.facturaFacade.ventaMes();
+        if(lv!=null){            
+            Object[] vtaMes =  lv.get(0);             
+            BigDecimal valor =new BigDecimal( vtaMes[1].toString());
+            valor = valor.setScale(2, RoundingMode.CEILING);
+            ventaMes =  valor.toString();
+        }else{
+            ventaMes = "0";
+        } 
+        
+        /*Compras*/
+        
+        List<Object[]> lv2 = this.compraFacade.compraMes();
+        if(lv2!=null){            
+            Object[] vcompraMes =  lv2.get(0);             
+            BigDecimal valor =new BigDecimal( vcompraMes[1].toString());
+            valor = valor.setScale(2, RoundingMode.CEILING);
+            compraMes =  valor.toString();
+        }else{
+            compraMes = "0";
+        }                 
+        
+    
+    
     }
      
     private void createBarVenta() {
-        this.ventaModel = initBarVenta();         
+        ventaModel = initBarVenta();         
         ventaModel.setTitle("Comparativo Ventas");
         ventaModel.setLegendPosition("ne");         
-        Axis xAxis = ventaModel.getAxis(AxisType.X);         
+        ventaModel.setExtender("skinBar");
+        
+        System.out.println("max-->"+maxLine.add(new BigDecimal("10")));
         Axis yAxis = ventaModel.getAxis(AxisType.Y);
         yAxis.setLabel("Ventas");
         yAxis.setMin(0);
@@ -201,7 +261,8 @@ public class DashboardController implements Serializable {
     private void createBarCompra() {
         this.compraModel = initBarCompra();         
         compraModel.setTitle("Comparativo Compras");
-        compraModel.setLegendPosition("ne");         
+        compraModel.setLegendPosition("ne");   
+        compraModel.setExtender("skinBar");
         Axis xAxis = compraModel.getAxis(AxisType.X);         
         Axis yAxis = compraModel.getAxis(AxisType.Y);
         yAxis.setLabel("Compra");
@@ -219,10 +280,11 @@ public class DashboardController implements Serializable {
                BigDecimal valor =new BigDecimal( element[1].toString());
                             
                 existenciaCategoria.set( element[0].toString(),valor );  
-                System.out.println("mes:"+element[0].toString()+" valor:"+valor);
+                System.out.println("mesPie:"+element[0].toString()+" valor:"+valor);
             }                     
         }          
-          
+         
+         existenciaCategoria.setExtender("skinPie");
         existenciaCategoria.setTitle("Categoria Existencia");
         existenciaCategoria.setLegendPosition("w");
       
@@ -237,10 +299,10 @@ public class DashboardController implements Serializable {
                Object[] element = itr.next();            
                BigDecimal valor =new BigDecimal( element[1].toString());                            
                 ventaUsuario.set( element[0].toString(),valor );  
-                System.out.println("mes:"+element[0].toString()+" valor:"+valor);
+                System.out.println("mesVenta:"+element[0].toString()+" valor:"+valor);
             }                     
         }          
-          
+          ventaUsuario.setExtender("skinPie");
         ventaUsuario.setTitle("Venta Usuario");
         ventaUsuario.setLegendPosition("w");
       

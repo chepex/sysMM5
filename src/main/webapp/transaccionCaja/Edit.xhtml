@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TransaccionCajaEditDlg" widgetVar="TransaccionCajaEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditTransaccionCajaTitle}">
+            <h:form id="TransaccionCajaEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{transaccionCajaController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditTransaccionCajaLabel_idtransaccion}" for="idtransaccion" />
+                        <p:inputText id="idtransaccion" value="#{transaccionCajaController.selected.idtransaccion}" title="#{bundle.EditTransaccionCajaTitle_idtransaccion}" required="true" requiredMessage="#{bundle.EditTransaccionCajaRequiredMessage_idtransaccion}"/>
+                        <p:outputLabel value="#{bundle.EditTransaccionCajaLabel_fecha}" for="fecha" />
+                        <p:calendar id="fecha" pattern="MM/dd/yyyy" value="#{transaccionCajaController.selected.fecha}" title="#{bundle.EditTransaccionCajaTitle_fecha}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditTransaccionCajaLabel_subtotal}" for="subtotal" />
+                        <p:inputText id="subtotal" value="#{transaccionCajaController.selected.subtotal}" title="#{bundle.EditTransaccionCajaTitle_subtotal}" />
+                        <p:outputLabel value="#{bundle.EditTransaccionCajaLabel_iva}" for="iva" />
+                        <p:inputText id="iva" value="#{transaccionCajaController.selected.iva}" title="#{bundle.EditTransaccionCajaTitle_iva}" />
+                        <p:outputLabel value="#{bundle.EditTransaccionCajaLabel_total}" for="total" />
+                        <p:inputText id="total" value="#{transaccionCajaController.selected.total}" title="#{bundle.EditTransaccionCajaTitle_total}" />
+                        <p:outputLabel value="#{bundle.EditTransaccionCajaLabel_descripcion}" for="descripcion" />
+                        <p:inputText id="descripcion" value="#{transaccionCajaController.selected.descripcion}" title="#{bundle.EditTransaccionCajaTitle_descripcion}" />
+                        <p:outputLabel value="#{bundle.EditTransaccionCajaLabel_docReferencia}" for="docReferencia" />
+                        <p:inputText id="docReferencia" value="#{transaccionCajaController.selected.docReferencia}" title="#{bundle.EditTransaccionCajaTitle_docReferencia}" />
+                        <p:outputLabel value="#{bundle.EditTransaccionCajaLabel_idcajaChica}" for="idcajaChica" />
+                        <p:selectOneMenu id="idcajaChica" value="#{transaccionCajaController.selected.idcajaChica}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{cajaChicaController.itemsAvailableSelectOne}"
+                                           var="idcajaChicaItem"
+                                           itemValue="#{idcajaChicaItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditTransaccionCajaLabel_idusuario}" for="idusuario" />
+                        <p:selectOneMenu id="idusuario" value="#{transaccionCajaController.selected.idusuario}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{usuarioController.itemsAvailableSelectOne}"
+                                           var="idusuarioItem"
+                                           itemValue="#{idusuarioItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{transaccionCajaController.update}" value="#{bundle.Save}" update="display,:TransaccionCajaListForm:datalist,:growl" oncomplete="handleSubmit(args, 'TransaccionCajaEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="TransaccionCajaEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
