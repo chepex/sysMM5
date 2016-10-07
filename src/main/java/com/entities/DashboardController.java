@@ -99,7 +99,7 @@ public class DashboardController implements Serializable {
         SimpleDateFormat formateador = new SimpleDateFormat("yyyy");        
         series1.setLabel(formateador.format(date1));           
         List<Object[]> lv = this.facturaFacade.ventaActual();
-        if(!lv.isEmpty()){
+        if(lv!=null){
             Iterator<Object[]>itr = lv.iterator();  
             while(itr.hasNext()) {
                Object[] element = itr.next();            
@@ -118,7 +118,7 @@ public class DashboardController implements Serializable {
         Date date2 = cal2.getTime(); 
         series2.setLabel(formateador.format(date2));          
         List<Object[]> lv2 = this.facturaFacade.ventaAnterior();
-        if(!lv2.isEmpty()){
+        if(lv2!=null){
             Iterator<Object[]>itr = lv2.iterator();  
             while(itr.hasNext()) {
                Object[] element = itr.next();            
@@ -144,7 +144,7 @@ public class DashboardController implements Serializable {
         SimpleDateFormat formateador = new SimpleDateFormat("yyyy");        
         series1.setLabel(formateador.format(date1));           
         List<Object[]> lv = this.compraFacade.compraActual();
-        if(!lv.isEmpty()){
+        if(lv!=null){
             Iterator<Object[]>itr = lv.iterator();  
             while(itr.hasNext()) {
                Object[] element = itr.next();            
@@ -163,7 +163,7 @@ public class DashboardController implements Serializable {
         Date date2 = cal2.getTime(); 
         series2.setLabel(formateador.format(date2));          
         List<Object[]> lv2 = this.compraFacade.compraAnterior();
-        if(!lv2.isEmpty()){
+        if(lv2!=null){
             Iterator<Object[]>itr = lv2.iterator();  
             while(itr.hasNext()) {
                Object[] element = itr.next();            
@@ -212,7 +212,7 @@ public class DashboardController implements Serializable {
     private void createPieModel1() {
         existenciaCategoria = new PieChartModel();
         List<Object[]> lv = this.productoFacade.existenciaCategoria();
-        if(!lv.isEmpty()){
+        if(lv!=null){
             Iterator<Object[]>itr = lv.iterator();  
             while(itr.hasNext()) {
                Object[] element = itr.next();            
@@ -231,7 +231,7 @@ public class DashboardController implements Serializable {
     private void createPieVentaUsuario() {
         ventaUsuario = new PieChartModel();
         List<Object[]> lv = this.facturaFacade.ventaUsuario();
-        if(!lv.isEmpty()){
+        if(lv!=null){
             Iterator<Object[]>itr = lv.iterator();  
             while(itr.hasNext()) {
                Object[] element = itr.next();            

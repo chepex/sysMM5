@@ -56,7 +56,9 @@ public class SB_Factura {
         }
         
         for(FacturaDet detalle :detFactura){
-             detalle.setIdfacturaDet(0);               
+             detalle.setIdfacturaDet(0);              
+             System.out.println("double1->"+detalle.getProductoIdproducto().getCosto().doubleValue() );
+             System.out.println("double2->"+detalle.getProductoIdproducto().getCostoFijo());
              double vcostoFijo = ((detalle.getProductoIdproducto().getCosto().doubleValue() *detalle.getProductoIdproducto().getCostoFijo()) /100);
              detalle.setUtilidad(detalle.getPrecio().subtract(detalle.getProductoIdproducto().getCosto()).subtract(new BigDecimal(vcostoFijo)).multiply(new BigDecimal(detalle.getCantidad())));             
              System.out.println("detalleUtilidad"+detalle.getUtilidad());
