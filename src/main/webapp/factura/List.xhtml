@@ -82,10 +82,10 @@
                 <p:panel header="Detalle" >
                     <p:dataTable id="datalist" value="#{facturaController.detFactura}" var="item"
                                  selectionMode="single" selection="#{facturaDetController.selected}"
-                                  scrollable="true" scrollHeight="250"
+                                 
                                   rowKey="#{item.idfacturaDet}"
                                  rows="30"
-                                 
+                                  scrollable="true" scrollHeight="250"
                                  >
                          <p:column>
                             <f:facet name="header">

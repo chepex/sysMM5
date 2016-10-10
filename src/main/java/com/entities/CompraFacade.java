@@ -81,7 +81,7 @@ public class CompraFacade extends AbstractFacade<Compra> {
         " FROM sysmmx.compra f, sysmmx.meses m" +
         " where  DATE_FORMAT(fecha, '%Y-%m-%d') between CONCAT(DATE_FORMAT(CURDATE(), '%Y-%m-') , '01') and DATE_FORMAT(CURDATE(), '%Y-%m-%d')  " +
         " and DATE_FORMAT(fecha, '%m')  = m.idmes" +
-        " group by m.nombre\n" +
+        " group by m.nombre " +
         " order by   m.idmes  ";                             
         try{            
             q=  em.createNativeQuery(query);          

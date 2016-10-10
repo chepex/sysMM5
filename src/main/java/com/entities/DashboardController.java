@@ -232,14 +232,19 @@ public class DashboardController implements Serializable {
         /*Compras*/
         
         List<Object[]> lv2 = this.compraFacade.compraMes();
-        if(lv2!=null){            
-            Object[] vcompraMes =  lv2.get(0);             
-            BigDecimal valor =new BigDecimal( vcompraMes[1].toString());
-            valor = valor.setScale(2, RoundingMode.CEILING);
-            compraMes =  valor.toString();
-        }else{
+        if(lv2!=null){   
+            
+            if(!lv2.isEmpty()) {
+                Object[] vcompraMes =  lv2.get(0);             
+                BigDecimal valor =new BigDecimal( vcompraMes[1].toString());
+                valor = valor.setScale(2, RoundingMode.CEILING);
+                compraMes =  valor.toString();
+            }
+        }
+        if(compraMes ==null)           
+        {
             compraMes = "0";
-        }                 
+        }       
         
     
     
