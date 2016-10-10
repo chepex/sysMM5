@@ -7,134 +7,167 @@
       xmlns:p="http://primefaces.org/ui">
 
     <ui:composition   template="/WEB-INF/template.xhtml">
-
-
         <ui:define name="title">
             <h:outputText value="#{bundle.ListCajaChicaTitle}"></h:outputText>
         </ui:define>
 
         <ui:define name="content">
-             <h:form id="CajaChicaListForm">
-             <div class="Container100">
+            <h:form id="CajaChicaListForm">
+            <div class="Container100">
             <div class="Card">
-                <div class="Container100 Responsive100 NoIndent ui-fluid">
-                    <div class="Container25 Responsive50"  >  <p:commandButton id="buscarButton"    icon="ui-icon-search" value="Ctrl+B"  update="@form" oncomplete="PF('BUscarDialog').show()" disabled="#{!empty facturaController.selected}"/>  </div>              
-          <div class="Container25 Responsive50"  > <p:commandButton  value="Aperturar"   icon="ui-icon-plus"   actionListener="#{cajaChicaController.prepareCreate}" update=":CajaChicaCreateForm" oncomplete="PF('CajaChicaCreateDialog').show()"/> </div>              
-          <div class="Container25 Responsive50"  > <p:commandButton value="Cerrar"   actionListener="#{facturaController.create()}"   icon="ui-icon-disk" update="2form :growl" disabled="#{empty facturaController.selected}"/> </div>              
-          <div class="Container25 Responsive50"  > <p:commandButton value="Limpiar"    actionListener="#{facturaController.limpiar()}"   icon="ui-icon-closethick"  update="@form" disabled="#{empty facturaController.selected}"/> </div>              
-           </div>  
-                </div>
+            <div class="Container100 Responsive100 NoIndent ui-fluid">
+            <div class="Container20 Responsive50"  > <p:commandButton id="buscarButton"    icon="ui-icon-search" value="Ctrl+B"  update="@form" oncomplete="PF('BUscarDialog').show()"  />  </div>              
+            <div class="Container20 Responsive50"  > <p:commandButton  value="Aperturar"    icon="ui-icon-plus"   actionListener="#{cajaChicaController.prepareCreate}" update=":CajaChicaCreateForm" oncomplete="PF('CajaChicaCreateDialog').show()"/> </div>              
+            <div class="Container20 Responsive50"  > <p:commandButton value="Cerrar"   actionListener="#{cajaChicaController.cerrar}"   icon="ui-icon-disk" update="@form :growl"  rendered="#{cajaChicaController.selected!=null}" disabled="#{ cajaChicaController.selected.abierta==false}" /> </div>              
+            <div class="Container20 Responsive50"  > <p:commandButton value="Limpiar"    actionListener="#{cajaChicaController.limpiar}"   icon="ui-icon-closethick"  update="@form" disabled="#{empty cajaChicaController.selected}"/> </div>                          
+            </div>  
+            </div>
                  
                 </div>
+                 
         <div class="Container100">
-            <p:outputLabel value="Producto" for="producto:" />
-                        <p:autoComplete id="producto" minQueryLength="3" 
-                                        value="#{facturaController.productoIdproducto}"                                         
-                                         var="producto"
-                                         itemLabel="#{producto.nombre}" 
-                                         itemValue="#{producto}"
-                                        completeMethod="#{productoController.autoCompleteProducto}" 
-                                        converter="#{ProductoControllerConverter}" 
-                                                                                
-                                        effect="fade" >
-                             
-                        </p:autoComplete>
+            <div class="Card">
+                <p:panelGrid columns="10">
+            <p:outputLabel value="Producto: " for="producto" />
+                <p:autoComplete id="producto" minQueryLength="3" 
+                                value="#{cajaChicaController.producto}"                                         
+                                var="producto"
+                                itemLabel="#{producto.nombre}" 
+                                itemValue="#{producto}"
+                                completeMethod="#{productoController.autoCompleteProducto}" 
+                                converter="#{ProductoControllerConverter}" 
+                                effect="fade" >
+                </p:autoComplete>
+            <p:outputLabel value="  Valor: " for="valor" />
+            <p:inputText id="valor"   value="#{cajaChicaController.monto}"/>      
+            <p:outputLabel value="  Descripcion: " for="descripcion" />
+            <p:inputText id="descripcion"   value="#{cajaChicaController.descripcion}"/>              
+            <p:outputLabel value="  Referencia: " for="referencia" />
+            <p:inputText id="referencia"   value="#{cajaChicaController.referencia}"/>             
+            
+            <p:commandButton value="Agregar"        icon="ui-icon-plus"   actionListener="#{cajaChicaController.addDetalle}" update="datalist"  disabled="#{cajaChicaController.selected.abierta==false}"/>
+            </p:panelGrid>
+            </div>
         </div>
                 
-    <div class="Container100 Responsive100 ">
-    <div class="Container100 ui-fluid">
-      <div class="Card">
-                         
-            <div class="Container100 Responsive100">
-            <p:dataTable id="datalist" value="#{cajaChicaController.items}" var="item"
-                     selectionMode="single" selection="#{cajaChicaController.selected}"
-                     rowKey="#{item.idcajaChica}"
-                     rows="30"
-                        scrollable="true" scrollHeight="250"
-                     >
-            <p:ajax event="rowSelect"   />
-            <p:ajax event="rowUnselect"  />
-            <p:column>
-                <f:facet name="header">
-                    <h:outputText value="#{bundle.ListCajaChicaTitle_idcajaChica}"/>
-                </f:facet>
-                <h:outputText value="#{item.idcajaChica}"/>
-            </p:column>
-            <p:column>
-                <f:facet name="header">
-                    <h:outputText value="#{bundle.ListCajaChicaTitle_fecha}"/>
-                </f:facet>
-                <h:outputText value="#{item.fecha}">
-                    <f:convertDateTime pattern="MM/dd/yyyy" />
-                </h:outputText>
-            </p:column>
-            <p:column>
-                <f:facet name="header">
-                    <h:outputText value="#{bundle.ListCajaChicaTitle_montoInicial}"/>
-                </f:facet>
-                <h:outputText value="#{item.montoInicial}"/>
-            </p:column>
-            <p:column>
-                <f:facet name="header">
-                    <h:outputText value="#{bundle.ListCajaChicaTitle_montoFinal}"/>
-                </f:facet>
-                <h:outputText value="#{item.montoFinal}"/>
-            </p:column>
-            <p:column>
-                <f:facet name="header">
-                    <h:outputText value="#{bundle.ListCajaChicaTitle_abierta}"/>
-                </f:facet>
-                <p:selectBooleanCheckbox value="#{item.abierta}" disabled="true"/>
-            </p:column>
-            <p:column>
-                <f:facet name="header">
-                    <h:outputText value="#{bundle.ListCajaChicaTitle_saldo}"/>
-                </f:facet>
-                <h:outputText value="#{item.saldo}"/>
-            </p:column>
-            <f:facet name="footer">
-              
-            </f:facet>
-        </p:dataTable>
-                 <div class="Container25">
-                      
-                   <p:commandButton id="createButton" icon="ui-icon-plus"   value="Anular"   update="@form" />  
-            </div>
-       </div>   
-
-     </div>
-        </div>
-        </div>
-  <div class="Container100">
+<p:panel rendered="#{cajaChicaController.selected!=null}">
+            <div class="Container100">
             <div class="Container25   Responsive100 ">  
                 <div class="Card">
                 <span class="FontLatoBlack Black Opac80 Fleft Fs13 DispBlock">Fecha</span><br/>
-                <span class="FontLatoRegular Green Fleft Fs40 DispBlock">01/01/2016</span>
+                <span class="FontLatoRegular Green Fleft Fs40 DispBlock">
+                    <h:outputText value="#{cajaChicaController.selected.fecha}" title="#{bundle.ViewCajaChicaTitle_fecha}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                    
+                </span>
                 </div>
             </div>
           
             <div class="Container25   Responsive100  ">    
                 <div class="Card">
                     <span class="FontLatoBlack Black Opac80 Fleft Fs13 DispBlock">Saldo</span><br/>
-                    <span class="FontLatoRegular Green Fleft Fs40 DispBlock">$ 100</span>
+                    <span class="FontLatoRegular Green Fleft Fs40 DispBlock">$ #{cajaChicaController.selected.saldo}</span>
                 </div>
             </div>    
                  
             <div class="Container25   Responsive100  ">                        
                   <div class="Card">
                     <span class="FontLatoBlack Black Opac80 Fleft Fs13 DispBlock">Apertura</span><br/>
-                  <span class="FontLatoRegular Green Fleft Fs40 DispBlock">$ 10</span>
+                    <span class="FontLatoRegular Green Fleft Fs40 DispBlock">$ #{cajaChicaController.selected.montoInicial}</span>
                   </div>
             </div>   
             <div class="Container25   Responsive100  ">                        
                   <div class="Card">
                     <span class="FontLatoBlack Black Opac80 Fleft Fs13 DispBlock">Cierre</span><br/>
-                  <span class="FontLatoRegular Green Fleft Fs40 DispBlock">$ 200</span>
+                    <span class="FontLatoRegular Green Fleft Fs40 DispBlock">$ #{cajaChicaController.selected.montoFinal}</span>
                   </div>
             </div>                      
-                 </div>                  
+                 </div>      
+                    </p:panel>                
+        <div class="Container100 Responsive100 ">
+        <div class="Container100 ui-fluid">
+        <div class="Card">
+                         
+            <div class="Container100 Responsive100">
+                <p:dataTable id="datalist" value="#{cajaChicaController.selected.transaccionCajaList}" var="item"
+                                 selectionMode="single" 
+                                 selection="#{cajaChicaController.selectedTransaccion}"                              
+                                 rowKey="#{item.idtransaccion}"      
+                                    scrollable="true" scrollHeight="250"
+                                 >
+                       
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTransaccionCajaTitle_idtransaccion}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idtransaccion}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTransaccionCajaTitle_fecha}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.fecha}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTransaccionCajaTitle_subtotal}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.subtotal}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTransaccionCajaTitle_iva}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.iva}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTransaccionCajaTitle_total}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.total}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTransaccionCajaTitle_descripcion}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.descripcion}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTransaccionCajaTitle_docReferencia}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.docReferencia}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTransaccionCajaTitle_idcajaChica}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idcajaChica}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTransaccionCajaTitle_idusuario}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idusuario}"/>
+                        </p:column>
+                        
+                    </p:dataTable>        
+                 <div class="Container25">
+                      
+                     <p:commandButton id="createButton" icon="ui-icon-plus"  actionListener="#{cajaChicaController.eliminar}"  disabled="#{cajaChicaController.selected.abierta==false}" value="Eliminar"   update="@form :growl" />  
+            </div>
+       </div>   
+
+     </div>
+        </div>
+        </div>
+                
             </h:form>
              <ui:include src="Create.xhtml"/>
+             <ui:include src="Buscar.xhtml"/>
         
         </ui:define>
     </ui:composition>

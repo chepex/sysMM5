@@ -12,6 +12,8 @@
             <h:form id="CajaChicaCreateForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{cajaChicaController.selected != null}">                                                
+                        <p:outputLabel value="#{bundle.EditCajaChicaLabel_fecha}" for="fecha" />
+                        <p:calendar id="fecha" pattern="MM/dd/yyyy" value="#{cajaChicaController.selected.fecha}" title="#{bundle.EditCajaChicaTitle_fecha}"  showOn="button"/>
                         <p:outputLabel value="#{bundle.CreateCajaChicaLabel_montoInicial}" for="montoInicial" />
                         <p:inputText id="montoInicial" value="#{cajaChicaController.selected.montoInicial}" title="#{bundle.CreateCajaChicaTitle_montoInicial}" />                        
                     </p:panelGrid>

@@ -72,12 +72,24 @@ public class TransaccionCaja implements Serializable {
     @JoinColumn(name = "idusuario", referencedColumnName = "idusuario")
     @ManyToOne
     private Usuario idusuario;
-    @OneToMany(mappedBy = "idtransaccion")
-    private List<DetalleCaja> detalleCajaList;
+
+    @JoinColumn(name = "idproducto", referencedColumnName = "idproducto")
+    @ManyToOne
+    private Producto idproducto;    
 
     public TransaccionCaja() {
     }
 
+    public Producto getIdproducto() {
+        return idproducto;
+    }
+
+    public void setIdproducto(Producto idproducto) {
+        this.idproducto = idproducto;
+    }
+
+    
+    
     public TransaccionCaja(Integer idtransaccion) {
         this.idtransaccion = idtransaccion;
     }
@@ -154,14 +166,7 @@ public class TransaccionCaja implements Serializable {
         this.idusuario = idusuario;
     }
 
-    @XmlTransient
-    public List<DetalleCaja> getDetalleCajaList() {
-        return detalleCajaList;
-    }
 
-    public void setDetalleCajaList(List<DetalleCaja> detalleCajaList) {
-        this.detalleCajaList = detalleCajaList;
-    }
 
     @Override
     public int hashCode() {

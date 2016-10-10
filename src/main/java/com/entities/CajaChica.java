@@ -37,7 +37,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "CajaChica.findByFecha", query = "SELECT c FROM CajaChica c WHERE c.fecha = :fecha"),
     @NamedQuery(name = "CajaChica.findByMontoInicial", query = "SELECT c FROM CajaChica c WHERE c.montoInicial = :montoInicial"),
     @NamedQuery(name = "CajaChica.findByMontoFinal", query = "SELECT c FROM CajaChica c WHERE c.montoFinal = :montoFinal"),
-    @NamedQuery(name = "CajaChica.findByAbierta", query = "SELECT c FROM CajaChica c WHERE c.abierta = :abierta"),
+    @NamedQuery(name = "CajaChica.findByAbierta", query = "SELECT c FROM CajaChica c WHERE c.abierta = true"),
     @NamedQuery(name = "CajaChica.findBySaldo", query = "SELECT c FROM CajaChica c WHERE c.saldo = :saldo")})
 public class CajaChica implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -77,6 +77,7 @@ public class CajaChica implements Serializable {
     }
 
     public Date getFecha() {
+        
         return fecha;
     }
 

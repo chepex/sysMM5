@@ -39,6 +39,15 @@ public class CajaChicaFacade extends AbstractFacade<CajaChica> {
               
         return q.getResultList();
     }     
+    
+    public List<CajaChica> findByAbierta( ) {
+        TypedQuery<CajaChica> q = null;
+     
+             q = em.createNamedQuery("CajaChica.findByAbierta",CajaChica.class);               
+                
+              
+        return q.getResultList();
+    }      
             
     
 }

@@ -5,6 +5,7 @@ import com.entities.util.JsfUtil.PersistAction;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -25,11 +26,90 @@ public class CajaChicaController implements Serializable {
 
     @EJB
     private com.entities.CajaChicaFacade ejbFacade;
+    
+
+    @EJB
+    private com.entities.TransaccionCajaFacade transaccionCajaFacade;    
+    private TransaccionCaja selectedTransaccion;
     private List<CajaChica> items = null;
     private CajaChica selected;
+    private Producto producto;
+    private BigDecimal monto;
+    private String descripcion;
+    private String referencia;
+    private Date vfecha;
+    private List<TransaccionCaja> ltransaccion = new ArrayList<TransaccionCaja>();
 
     public CajaChicaController() {
     }
+
+    public TransaccionCaja getSelectedTransaccion() {
+        return selectedTransaccion;
+    }
+
+    public void setSelectedTransaccion(TransaccionCaja selectedTransaccion) {
+        this.selectedTransaccion = selectedTransaccion;
+    }
+
+    
+    
+    public Date getVfecha() {
+        return vfecha;
+    }
+
+    public void setVfecha(Date vfecha) {
+        this.vfecha = vfecha;
+    }
+
+    
+    
+    public List<TransaccionCaja> getLtransaccion() {
+        return ltransaccion;
+    }
+
+    public void setLtransaccion(List<TransaccionCaja> ltransaccion) {
+        this.ltransaccion = ltransaccion;
+    }
+
+    
+    
+    public String getReferencia() {
+        return referencia;
+    }
+
+    public void setReferencia(String referencia) {
+        this.referencia = referencia;
+    }
+    
+    
+
+    public Producto getProducto() {
+        return producto;
+    }
+
+    public void setProducto(Producto producto) {
+        this.producto = producto;
+    }
+
+    public BigDecimal getMonto() {
+        return monto;
+    }
+
+    public void setMonto(BigDecimal monto) {
+        this.monto = monto;
+    }
+
+
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+    
+    
 
     public CajaChica getSelected() {
         return selected;
@@ -61,15 +141,26 @@ public class CajaChicaController implements Serializable {
     }
 
     public String  create() {
-        String msg = "ok";
-         
+        String msg = "ok";         
         List<CajaChica> lcaja =this.ejbFacade.findByFecha(selected.getFecha());
+        
+        List<CajaChica> lcaja2 =this.ejbFacade.findByAbierta();
+        
         
         if(!lcaja.isEmpty()){
             JsfUtil.addErrorMessage("Ya se ha creado una caja chica en esta fecha");
             return "error";
         }
+        
+        if(!lcaja2.isEmpty()){
+            JsfUtil.addErrorMessage("Existe una caja abierta, favor cerrarla antes de continuar fecha: "+lcaja2.get(0).getFecha());
+            return "error";
+        }        
+        
+        
         selected.setSaldo(selected.getMontoInicial());
+        
+        
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("CajaChicaCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
@@ -77,6 +168,8 @@ public class CajaChicaController implements Serializable {
        
         return msg;
     }
+    
+   
 
     public void update() {
         persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("CajaChicaUpdated"));
@@ -91,9 +184,9 @@ public class CajaChicaController implements Serializable {
     }
 
     public List<CajaChica> getItems() {
-        if (items == null) {
+       /* if (items == null) {
             items = getFacade().findAll();
-        }
+        }*/
         return items;
     }
 
@@ -172,6 +265,87 @@ public class CajaChicaController implements Serializable {
             }
         }
 
+    }
+    
+    public String addDetalle(){
+        String msg = "ok";
+        TransaccionCaja tc = new TransaccionCaja ();
+        tc.setIdtransaccion(0);
+        tc.setFecha(new Date());
+        tc.setDescripcion(descripcion);
+        tc.setDocReferencia(referencia);
+        tc.setSubtotal(monto);
+        tc.setTotal(monto);
+        tc.setIdproducto(producto);
+        tc.setIdcajaChica(selected);  
+        this.selected.getTransaccionCajaList().add(tc);
+        this.ejbFacade.edit(selected);
+         this.selected = ejbFacade.find(selected.getIdcajaChica());
+         
+                 this.monto =new BigDecimal(0);
+        this.referencia ="";
+        this.producto = null;
+        this.descripcion = "";
+        // ltransaccion =  selected.getTransaccionCajaList();
+        return msg;
+    
+    }
+    
+    public String buscar(){
+        String msg= "ok";
+        List<CajaChica> cc =  this.ejbFacade.findByFecha(vfecha);
+        if(cc.isEmpty()){        
+            JsfUtil.addErrorMessage("No se encontro caja chica con esta fecha");  
+        }else{
+            selected = cc.get(0);                
+            ltransaccion =  selected.getTransaccionCajaList();
+        }        
+            JsfUtil.addSuccessMessage("Consulta realizada correctamente");
+        
+        return msg;
+    
+    }
+    
+    
+    public String eliminar(){
+        String msg = "ok";
+        
+        
+        //ltransaccion.remove(this.selectedTransaccion) ;
+        selected.getTransaccionCajaList().remove(selectedTransaccion);
+        this.transaccionCajaFacade.remove(selectedTransaccion);        
+        //this.ejbFacade.edit(selected);
+        JsfUtil.addErrorMessage("Registro eliminado correctamente");  
+        return msg;
+    
+    }
+    
+    public String limpiar(){
+        String msg = "ok";
+        this.selected = null;
+        this.selectedTransaccion = null;
+        this.monto =new BigDecimal(0);
+        this.referencia ="";
+        this.producto = null;
+        this.descripcion = "";
+        
+        
+        return msg;
+    }
+    
+    public String cerrar(){
+        String msg = "ok";
+        selected.setAbierta(false);
+        BigDecimal total = new BigDecimal("0");
+        for(TransaccionCaja tc : selected.getTransaccionCajaList()){
+            total = total.add(tc.getTotal());        
+        }
+        
+        selected.setMontoFinal(total);
+        this.ejbFacade.edit(selected);
+         JsfUtil.addSuccessMessage("Cierre de caja ejecutado correctamente");
+        return msg;
+    
     }
 
 }
