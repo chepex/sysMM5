@@ -45,7 +45,7 @@
             <p:outputLabel value="  Referencia: " for="referencia" />
             <p:inputText id="referencia"   value="#{cajaChicaController.referencia}"/>             
             
-            <p:commandButton value="Agregar"        icon="ui-icon-plus"   actionListener="#{cajaChicaController.addDetalle}" update="datalist"  disabled="#{cajaChicaController.selected.abierta==false}"/>
+            <p:commandButton value="Agregar"        icon="ui-icon-plus"   actionListener="#{cajaChicaController.addDetalle}" update="@form :growl"  disabled="#{cajaChicaController.selected.abierta==false}"/>
             </p:panelGrid>
             </div>
         </div>

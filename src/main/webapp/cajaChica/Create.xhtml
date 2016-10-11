@@ -17,7 +17,7 @@
                         <p:outputLabel value="#{bundle.CreateCajaChicaLabel_montoInicial}" for="montoInicial" />
                         <p:inputText id="montoInicial" value="#{cajaChicaController.selected.montoInicial}" title="#{bundle.CreateCajaChicaTitle_montoInicial}" />                        
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{cajaChicaController.create}" value="#{bundle.Save}" update="display,:CajaChicaListForm:datalist,:growl"   oncomplete="PF('CajaChicaCreateDialog').hide();"/>
+                    <p:commandButton actionListener="#{cajaChicaController.create}" value="#{bundle.Save}" update="display,:CajaChicaListForm,:growl"   oncomplete="PF('CajaChicaCreateDialog').hide();"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="CajaChicaCreateDialog.hide()"/>
                 </h:panelGroup>
             </h:form>

@@ -5,6 +5,8 @@ import com.entities.util.JsfUtil.PersistAction;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.math.MathContext;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -153,7 +155,12 @@ public class CajaChicaController implements Serializable {
         }
         
         if(!lcaja2.isEmpty()){
-            JsfUtil.addErrorMessage("Existe una caja abierta, favor cerrarla antes de continuar fecha: "+lcaja2.get(0).getFecha());
+            
+            SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd-MM-yyyy");
+            String date = DATE_FORMAT.format(lcaja2.get(0).getFecha());
+
+
+            JsfUtil.addErrorMessage("Existe una caja abierta, favor cerrarla antes de continuar fecha: "+date);
             return "error";
         }        
         
@@ -278,15 +285,23 @@ public class CajaChicaController implements Serializable {
         tc.setTotal(monto);
         tc.setIdproducto(producto);
         tc.setIdcajaChica(selected);  
+        if(monto.compareTo(selected.getSaldo())==1){
+             JsfUtil.addErrorMessage("El monto a agregar es mayor que el disponbible en caja");  
+            return "error";
+        }
+        selected.setSaldo(selected.getSaldo().subtract(monto, MathContext.UNLIMITED));
+        if(selected.getTransaccionCajaList().isEmpty()){
+         selected.setTransaccionCajaList(   new ArrayList<TransaccionCaja>());
+        }
         this.selected.getTransaccionCajaList().add(tc);
         this.ejbFacade.edit(selected);
-         this.selected = ejbFacade.find(selected.getIdcajaChica());
-         
-                 this.monto =new BigDecimal(0);
+        this.selected = ejbFacade.find(selected.getIdcajaChica());         
+        this.monto =new BigDecimal(0);
         this.referencia ="";
         this.producto = null;
         this.descripcion = "";
-        // ltransaccion =  selected.getTransaccionCajaList();
+        
+        
         return msg;
     
     }
@@ -298,7 +313,7 @@ public class CajaChicaController implements Serializable {
             JsfUtil.addErrorMessage("No se encontro caja chica con esta fecha");  
         }else{
             selected = cc.get(0);                
-            ltransaccion =  selected.getTransaccionCajaList();
+           // ltransaccion =  selected.getTransaccionCajaList();
         }        
             JsfUtil.addSuccessMessage("Consulta realizada correctamente");
         
@@ -313,8 +328,9 @@ public class CajaChicaController implements Serializable {
         
         //ltransaccion.remove(this.selectedTransaccion) ;
         selected.getTransaccionCajaList().remove(selectedTransaccion);
+        selected.setSaldo(selected.getSaldo().add(selectedTransaccion.getTotal()));
         this.transaccionCajaFacade.remove(selectedTransaccion);        
-        //this.ejbFacade.edit(selected);
+        
         JsfUtil.addErrorMessage("Registro eliminado correctamente");  
         return msg;
     
