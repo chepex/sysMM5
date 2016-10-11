@@ -13,7 +13,7 @@
 
         <ui:define name="content">
             <h:form id="CajaChicaListForm">
-            <div class="Container100">
+            
             <div class="Card">
             <div class="Container100 Responsive100 NoIndent ui-fluid">
             <div class="Container20 Responsive50"  > <p:commandButton id="buscarButton"    icon="ui-icon-search" value="Ctrl+B"  update="@form" oncomplete="PF('BUscarDialog').show()"  />  </div>              
@@ -23,35 +23,44 @@
             </div>  
             </div>
                  
-                </div>
+            
                  
         <div class="Container100">
             <div class="Card">
-                <p:panelGrid columns="10">
-            <p:outputLabel value="Producto: " for="producto" />
-                <p:autoComplete id="producto" minQueryLength="3" 
-                                value="#{cajaChicaController.producto}"                                         
-                                var="producto"
-                                itemLabel="#{producto.nombre}" 
-                                itemValue="#{producto}"
-                                completeMethod="#{productoController.autoCompleteProducto}" 
-                                converter="#{ProductoControllerConverter}" 
-                                effect="fade" >
-                </p:autoComplete>
-            <p:outputLabel value="  Valor: " for="valor" />
-            <p:inputText id="valor"   value="#{cajaChicaController.monto}"/>      
-            <p:outputLabel value="  Descripcion: " for="descripcion" />
-            <p:inputText id="descripcion"   value="#{cajaChicaController.descripcion}"/>              
-            <p:outputLabel value="  Referencia: " for="referencia" />
-            <p:inputText id="referencia"   value="#{cajaChicaController.referencia}"/>             
-            
-            <p:commandButton value="Agregar"        icon="ui-icon-plus"   actionListener="#{cajaChicaController.addDetalle}" update="@form :growl"  disabled="#{cajaChicaController.selected.abierta==false}"/>
-            </p:panelGrid>
+                <div class="Container100 Responsive100 NoIndent ui-fluid">
+                <div class="Container20 Responsive50"  > 
+                <p:outputLabel value="Producto: " for="producto" />
+                    <p:autoComplete id="producto" minQueryLength="3" 
+                                    value="#{cajaChicaController.producto}"                                         
+                                    var="producto"
+                                    itemLabel="#{producto.nombre}" 
+                                    itemValue="#{producto}"
+                                    completeMethod="#{productoController.autoCompleteProducto}" 
+                                    converter="#{ProductoControllerConverter}" 
+                                    effect="fade" >
+                    </p:autoComplete>
+                </div>
+                    <div class="Container20 Responsive50"  > 
+                <p:outputLabel value="  Valor: " for="valor" />
+                <p:inputText id="valor"   value="#{cajaChicaController.monto}"/>      
+                    </div>
+                    <div class="Container20 Responsive50"  > 
+                <p:outputLabel value="  Descripcion: " for="descripcion" />
+                <p:inputText id="descripcion"   value="#{cajaChicaController.descripcion}"/>              
+                    </div>
+                    <div class="Container20 Responsive50"  > 
+                <p:outputLabel value="  Referencia: " for="referencia" />
+                <p:inputText id="referencia"   value="#{cajaChicaController.referencia}"/>             
+                    </div>
+                <div class="Container20 Responsive50"  > 
+                <p:commandButton value="Agregar"        icon="ui-icon-plus"   actionListener="#{cajaChicaController.addDetalle}" update="@form :growl"  disabled="#{cajaChicaController.selected.abierta==false}"/>
+                </div>
             </div>
+                </div>
         </div>
                 
-<p:panel rendered="#{cajaChicaController.selected!=null}">
-            <div class="Container100">
+                
+            
             <div class="Container25   Responsive100 ">  
                 <div class="Card">
                 <span class="FontLatoBlack Black Opac80 Fleft Fs13 DispBlock">Fecha</span><br/>
@@ -83,8 +92,8 @@
                     <span class="FontLatoRegular Green Fleft Fs40 DispBlock">$ #{cajaChicaController.selected.montoFinal}</span>
                   </div>
             </div>                      
-                 </div>      
-                    </p:panel>                
+            
+                
         <div class="Container100 Responsive100 ">
         <div class="Container100 ui-fluid">
         <div class="Card">

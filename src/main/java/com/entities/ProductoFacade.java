@@ -5,6 +5,8 @@
  */
 package com.entities;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -82,7 +84,7 @@ public class ProductoFacade extends AbstractFacade<Producto> {
                
     }    
 
-public List<Object[]> compraProveedor( int proveedor){
+    public List<Object[]> compraProveedor( int proveedor){
         Query q  = null;
         List<Object[]> lo = null;  
        
@@ -189,6 +191,25 @@ public List<Object[]> compraProveedor( int proveedor){
        return lo;        
               
                
+    }    
+    
+    public BigDecimal existenciaDia(){
+        BigDecimal val=new BigDecimal("0");
+       
+        
+        try{           
+            Query q =  em.createNativeQuery(" SELECT IFNULL( sum(existencia) ,0) FROM  producto where activo= true" );  
+            val = (BigDecimal)q.getSingleResult();
+            val = val.setScale(2, RoundingMode.CEILING);
+            
+        }catch(Exception ex){
+            
+            val = new BigDecimal("0");
+            
+        }               
+       
+        return val;
+       
     }    
     
     

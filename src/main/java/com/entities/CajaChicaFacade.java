@@ -5,11 +5,14 @@
  */
 package com.entities;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 /**
@@ -48,6 +51,25 @@ public class CajaChicaFacade extends AbstractFacade<CajaChica> {
               
         return q.getResultList();
     }      
+          
+    
+    public BigDecimal saldoDia(){
+        BigDecimal val=new BigDecimal("0");
+       
+        
+        try{           
+            Query q =  em.createNativeQuery(" SELECT IFNULL( saldo ,0) FROM  caja_chica where fecha = CURDATE() " );  
+            val = (BigDecimal)q.getSingleResult();
+            val = val.setScale(2, RoundingMode.CEILING);
             
+        }catch(Exception ex){
+            
+            val = new BigDecimal("0");
+            
+        }               
+       
+        return val;
+       
+    }      
     
 }

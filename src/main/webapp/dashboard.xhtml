@@ -11,6 +11,13 @@
     </ui:define>
 
     <ui:define name="content">
+        <style>
+            
+            .ui-commandlink {
+ 
+    text-decoration: none !important;
+}
+        </style>
             <script>
                 function skinChart() {
                      this.cfg.legend= {
@@ -100,7 +107,7 @@
             
            </script>
         <h:form id="formDashboard"  >    
-   <p:poll interval="10" listener="#{dashboardController.init}" update="formDashboard" />    
+   
         <!-- top buttons-->
         
 
@@ -108,17 +115,20 @@
         <div class="Container100 NoIndent Flex FlexWrap">
             <div class="Container25 Responsive50 Flex">
                 <div class="Card">
+                    
+                    <span class="FontLatoBlack Black Opac80 Fleft Fs23 DispBlock">VENTA DEL MES1</span><br/>
                     <div class="EmptyBox10"></div>
-                    <div class="Container60 NoIndent Responsive100">
-                        <i class="fa fa-lightbulb-o  Green Fs60 Fleft MarRight10"></i>
-                        <span class="FontLatoBlack Black Opac80 Fleft Fs13 DispBlock">VENTAS</span><br/>
-                        <span class="FontLatoRegular Green Fleft Fs40 DispBlock">$ ${dashboardController.ventaMes}</span>
+                    <div class="Container20 NoIndent ui-fluid Responsive100">
+                        <i class="fa fa-lightbulb-o  Green Fs60 Fleft"></i>
                     </div>
-                    <div class="Container40 NoIndent ui-fluid Responsive100">
-                        <div class="EmptyBox10"></div>
-                        <p:button value="Get All Actions" styleClass="GreenButton"/>
+               
+               
+                    <div class="Container50 NoIndent ui-fluid Responsive100">                        
+                    <span class="FontLatoRegular Green  Fs40 DispBlock ">$ ${dashboardController.ventaMes}</span>
                     </div>
-                    <div class="EmptyBox10"></div>
+                         <div class="Container25 NoIndent ui-fluid Responsive100">                        
+                        <p:button value="Get All" styleClass="GreenButton"/>
+                    </div>
                 </div>
             </div>
             <div class="Container25 Responsive50 Flex">
@@ -126,7 +136,7 @@
                     <div class="EmptyBox10"></div>
                     <div class="Container60 NoIndent Responsive100">
                         <i class="fa fa-shopping-cart    Blue Fs60 Fleft MarRight10"></i>
-                        <span class="FontLatoBlack Black Opac80 Fleft Fs13 DispBlock">COMPRAS</span><br/>
+                        <span class="FontLatoBlack Black Opac80 Fleft Fs13 DispBlock">COMPRA DEL MES</span><br/>
                         <span class="FontLatoRegular Blue Fleft Fs40 DispBlock">$ ${dashboardController.compraMes}</span>
                     </div>
                     <div class="Container40 NoIndent ui-fluid Responsive100">
@@ -142,8 +152,8 @@
                     <div class="EmptyBox10"></div>
                     <div class="Container60 NoIndent Responsive100">
                         <i class="fa   fa-university  Navy Fs60 Fleft MarRight10"></i>
-                        <span class="FontLatoBlack Black Opac80 Fleft Fs13 DispBlock">CAJA</span><br/>
-                        <span class="FontLatoRegular Navy Fleft Fs40 DispBlock">$2.879</span>
+                        <span class="FontLatoBlack Black Opac80 Fleft Fs13 DispBlock">CAJA AL DIA</span><br/>
+                        <span class="FontLatoRegular Navy Fleft Fs40 DispBlock">$ ${dashboardController.cajaDia}</span>
                     </div>
                     <div class="Container40 NoIndent ui-fluid Responsive100">
                         <div class="EmptyBox10"></div>
@@ -157,8 +167,8 @@
                     <div class="EmptyBox10"></div>
                     <div class="Container60 NoIndent Responsive100">
                         <i class="fa  fa-cubes  Yellow Fs60 Fleft MarRight10"></i>
-                        <span class="FontLatoBlack Black Opac80 Fleft Fs13 DispBlock">INVENTARIO</span><br/>
-                        <span class="FontLatoRegular Yellow Fleft Fs40 DispBlock">41.992</span>
+                        <span class="FontLatoBlack Black Opac80 Fleft Fs13 DispBlock">INVENTARIO </span><br/>
+                        <span class="FontLatoRegular Yellow Fleft Fs40 DispBlock">${dashboardController.existencia}</span>
                     </div>
                     <div class="Container40 NoIndent ui-fluid Responsive100">
                         <div class="EmptyBox10"></div>
@@ -174,25 +184,32 @@
         <div class="Container100 NoIndent Flex FlexWrap">
             <div class="Container20 Flex Responsive50">
                 <div class="Card LeadenBack">
-                    <div class="CardBigTopic White Opac80">Pagos Pendientes</div>
-                    <div class="EmptyBox20"></div>
+                    <div class="CardBigTopic White Opac80">Pagos Pendientes</div>                    
+                    <div class="EmptyBox20"></div>                                         
+                        <i class="fa  fa-calendar-check-o   Yellow Fs60 Fleft MarRight10"></i>                        
+                    <span class="FontLatoLight Fs40 Yellow">$332</span>                     
+                    <div class="EmptyBox20">
+                    </div>                         
                      
-                        <i class="fa     fa-calendar-check-o   Yellow Fs60 Fleft MarRight10"></i>
-                    <span class="FontLatoLight Fs40 Yellow">$332</span>
-                    <div class="EmptyBox20"></div>
-                    
                 </div>
             </div>
-            <div class="Container20 Flex Responsive50">
+            <div class="Container20 Flex Responsive50">                
+                
                 <div class="Card LeadenBack">
                     <div class="CardBigTopic White Opac80">Cobros Pendientes    </div>
                     <div class="EmptyBox20"></div>                    
+                    <p:commandLink id="ajax" styleClass="text-decoration:none !important;   " update="growl" actionListener="#{buttonView.buttonAction}">
                     <i class="fa   fa-bullhorn     Yellow Fs60 Fleft MarRight10"></i>
-                    <span class="FontLatoLight Fs40 Yellow">$1332</span>
-                    <div class="EmptyBox20"></div>
-                 
+                    </p:commandLink>
+                    <p:commandLink id="ajax3" styleClass="text-decoration:none !important;   " update="growl" actionListener="#{buttonView.buttonAction}">
+                    <span class="FontLatoLight Fs40 Yellow" style="text-decoration:none !important; ">$1332</span>                    
+                    </p:commandLink>
+                    
+                    <div class="EmptyBox10"></div>                    
                 </div>
+                    
             </div>
+            
             <div class="Container20 Flex Responsive50">
                 <div class="Card LeadenBack">
                     <div class="CardBigTopic White Opac80">Productos en Minimo</div>
