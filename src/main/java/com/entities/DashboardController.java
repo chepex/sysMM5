@@ -44,6 +44,8 @@ public class DashboardController implements Serializable {
    private ProductoFacade productoFacade;         
    @EJB
    private CajaChicaFacade cajaChicaFacade;     
+@EJB
+   private ClienteFacade clienteFacade;        
    private BigDecimal maxLine;          
    private BarChartModel ventaModel;
    private BarChartModel compraModel;   
@@ -53,9 +55,20 @@ public class DashboardController implements Serializable {
    private String compraMes;   
    private String cajaDia;   
    private String existencia;
+   private String cliente;
  
     public DashboardController() {
     }
+
+    public String getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(String cliente) {
+        this.cliente = cliente;
+    }
+    
+    
 
     public String getExistencia() {
         return existencia;
@@ -271,7 +284,8 @@ public class DashboardController implements Serializable {
         
         this.cajaDia  = cajaChicaFacade.saldoDia().toString();
         existencia = productoFacade.existenciaDia().toString();
-    
+        
+        cliente = String.valueOf(this.clienteFacade.count());
     
     }
      

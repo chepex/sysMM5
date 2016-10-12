@@ -121,29 +121,29 @@
                     <div class="Container20 NoIndent ui-fluid Responsive100">
                         <i class="fa fa-lightbulb-o  Green Fs60 Fleft"></i>
                     </div>
-               
-               
                     <div class="Container50 NoIndent ui-fluid Responsive100">                        
                     <span class="FontLatoRegular Green  Fs40 DispBlock ">$ ${dashboardController.ventaMes}</span>
                     </div>
-                         <div class="Container25 NoIndent ui-fluid Responsive100">                        
+                         <div class="Container20 NoIndent ui-fluid Responsive100">                        
                         <p:button value="Get All" styleClass="GreenButton"/>
                     </div>
                 </div>
             </div>
             <div class="Container25 Responsive50 Flex">
                 <div class="Card">
+                    <span class="FontLatoBlack Black Opac80 Fleft Fs13 DispBlock">COMPRA DEL MES</span><br/>
                     <div class="EmptyBox10"></div>
-                    <div class="Container60 NoIndent Responsive100">
+                    <div class="Container20 NoIndent ui-fluid Responsive100">
                         <i class="fa fa-shopping-cart    Blue Fs60 Fleft MarRight10"></i>
-                        <span class="FontLatoBlack Black Opac80 Fleft Fs13 DispBlock">COMPRA DEL MES</span><br/>
-                        <span class="FontLatoRegular Blue Fleft Fs40 DispBlock">$ ${dashboardController.compraMes}</span>
                     </div>
-                    <div class="Container40 NoIndent ui-fluid Responsive100">
-                        <div class="EmptyBox10"></div>
-                        <p:button value="Get All Actions" styleClass="BlueButton"/>
+                    <div class="Container50 NoIndent ui-fluid Responsive100">                        
+                    <span class="FontLatoRegular Blue Fleft Fs40 DispBlock">$ ${dashboardController.compraMes}</span>
                     </div>
-                    <div class="EmptyBox10"></div>
+                    
+                        <div class="Container20 NoIndent ui-fluid Responsive100"> 
+                        <p:button value="Get All" styleClass="BlueButton"/>
+                    </div>
+                    
                 </div>
             </div>
             
@@ -187,7 +187,7 @@
                     <div class="CardBigTopic White Opac80">Pagos Pendientes</div>                    
                     <div class="EmptyBox20"></div>                                         
                         <i class="fa  fa-calendar-check-o   Yellow Fs60 Fleft MarRight10"></i>                        
-                    <span class="FontLatoLight Fs40 Yellow">$332</span>                     
+                    <span class="FontLatoLight Fs50 Yellow">$332</span>                     
                     <div class="EmptyBox20">
                     </div>                         
                      
@@ -202,7 +202,7 @@
                     <i class="fa   fa-bullhorn     Yellow Fs60 Fleft MarRight10"></i>
                     </p:commandLink>
                     <p:commandLink id="ajax3" styleClass="text-decoration:none !important;   " update="growl" actionListener="#{buttonView.buttonAction}">
-                    <span class="FontLatoLight Fs40 Yellow" style="text-decoration:none !important; ">$1332</span>                    
+                    <span class="FontLatoLight Fs50 Yellow" style="text-decoration:none !important; ">$1332</span>                    
                     </p:commandLink>
                     
                     <div class="EmptyBox10"></div>                    
@@ -215,7 +215,7 @@
                     <div class="CardBigTopic White Opac80">Productos en Minimo</div>
                     <div class="EmptyBox20"></div>                   
                      <i class="fa    fa-chevron-down    Yellow Fs60 Fleft MarRight10"></i>
-                    <span class="FontLatoLight Fs40 Yellow">12</span>
+                    <span class="FontLatoLight Fs50 Yellow">12</span>
                     <div class="EmptyBox20"></div>                    
                 </div>
             </div>    
@@ -225,7 +225,7 @@
                     <div class="EmptyBox20"></div>
                        <i class="fa  fa-user   Yellow Fs60 Fleft MarRight10"></i>
                      
-                    <span class="FontLatoLight Fs40 Yellow">200</span>
+                       <span class="FontLatoLight Fs50 Yellow">#{dashboardController.cliente}</span>
                     <div class="EmptyBox20"></div>                    
                 </div>
             </div>
@@ -234,7 +234,7 @@
                     <div class="CardBigTopic White Opac80">Proveedores</div>
                     <div class="EmptyBox20"></div>
                      <i class="fa   fa-user-secret   Yellow Fs60 Fleft MarRight10"></i>
-                    <span class="FontLatoLight Fs40 Yellow">25</span>
+                    <span class="FontLatoLight Fs50 Yellow">25</span>
                     <div class="EmptyBox20"></div>
                     
                 </div>
