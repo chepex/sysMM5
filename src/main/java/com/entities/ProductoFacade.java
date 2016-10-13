@@ -210,7 +210,46 @@ public class ProductoFacade extends AbstractFacade<Producto> {
        
         return val;
        
+    }   
+    
+    public BigDecimal existenciaMin(){
+        BigDecimal val=new BigDecimal("0");
+       
+        
+        try{           
+            Query q =  em.createNativeQuery(" SELECT IFNULL( sum(existencia) ,0) FROM  producto  where activo= true and existencia <=  min" );  
+            val = (BigDecimal)q.getSingleResult();
+            val = val.setScale(2, RoundingMode.CEILING);
+            
+        }catch(Exception ex){
+            
+            val = new BigDecimal("0");
+            
+        }               
+       
+        return val;
+       
     }    
+    
+    public BigDecimal existenciaMax(){
+        BigDecimal val=new BigDecimal("0");
+       
+        
+        try{           
+            Query q =  em.createNativeQuery(" SELECT IFNULL( sum(existencia) ,0) FROM  producto  where activo= true and existencia  = max" );  
+            val = (BigDecimal)q.getSingleResult();
+            val = val.setScale(2, RoundingMode.CEILING);
+            
+        }catch(Exception ex){
+            
+            val = new BigDecimal("0");
+            
+        }               
+       
+        return val;
+       
+    }       
+        
     
     
 }

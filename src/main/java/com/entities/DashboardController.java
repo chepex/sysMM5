@@ -44,8 +44,11 @@ public class DashboardController implements Serializable {
    private ProductoFacade productoFacade;         
    @EJB
    private CajaChicaFacade cajaChicaFacade;     
-@EJB
+   @EJB
    private ClienteFacade clienteFacade;        
+   @EJB
+   private ProveedorFacade proveedorFacade;    
+   
    private BigDecimal maxLine;          
    private BarChartModel ventaModel;
    private BarChartModel compraModel;   
@@ -56,10 +59,65 @@ public class DashboardController implements Serializable {
    private String cajaDia;   
    private String existencia;
    private String cliente;
+   private String proveedor;   
+   private String productoMin;
+   private String productoMax;
+   private String pendienteCliente;
+   private String pendienteProveedor;
  
     public DashboardController() {
     }
 
+    public String getPendienteProveedor() {
+        return pendienteProveedor;
+    }
+
+    public void setPendienteProveedor(String pendienteProveedor) {
+        this.pendienteProveedor = pendienteProveedor;
+    }
+    
+    
+
+    public String getPendienteCliente() {
+        return pendienteCliente;
+    }
+
+    public void setPendienteCliente(String pendienteCliente) {
+        this.pendienteCliente = pendienteCliente;
+    }
+
+    
+    
+    public String getProductoMax() {
+        return productoMax;
+    }
+
+    public void setProductoMax(String productoMax) {
+        this.productoMax = productoMax;
+    }
+
+    
+    
+    public String getProductoMin() {
+        return productoMin;
+    }
+
+    public void setProductoMin(String productoMin) {
+        this.productoMin = productoMin;
+    }
+    
+    
+
+    public String getProveedor() {
+        return proveedor;
+    }
+
+    public void setProveedor(String proveedor) {
+        this.proveedor = proveedor;
+    }
+
+    
+    
     public String getCliente() {
         return cliente;
     }
@@ -285,8 +343,19 @@ public class DashboardController implements Serializable {
         this.cajaDia  = cajaChicaFacade.saldoDia().toString();
         existencia = productoFacade.existenciaDia().toString();
         
-        cliente = String.valueOf(this.clienteFacade.count());
-    
+        cliente = String.valueOf(clienteFacade.count());
+        proveedor = String.valueOf(proveedorFacade.count());
+        productoMin =  String.valueOf(productoFacade.existenciaMin().intValue());        
+        productoMax =  String.valueOf(productoFacade.existenciaMax().intValue());        
+        
+        BigDecimal clientePen= new BigDecimal(clienteFacade.saldoClientes());
+        clientePen = clientePen.setScale(2, RoundingMode.CEILING);
+        pendienteCliente = String.valueOf(clientePen); 
+        
+        BigDecimal proveedorPen= new BigDecimal(proveedorFacade.saldoProveedores());
+        proveedorPen = proveedorPen.setScale(2, RoundingMode.CEILING);
+        pendienteProveedor = String.valueOf(proveedorPen);
+        
     }
      
     private void createBarVenta() {

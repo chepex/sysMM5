@@ -116,7 +116,7 @@
             <div class="Container25 Responsive50 Flex">
                 <div class="Card">
                     
-                    <span class="FontLatoBlack Black Opac80 Fleft Fs13 DispBlock">VENTA DEL MES1</span><br/>
+                    <span class="FontLatoBlack Black Opac80 Fleft Fs13 DispBlock">VENTA DEL MES</span><br/>
                     <div class="EmptyBox10"></div>
                     <div class="Container20 NoIndent ui-fluid Responsive100">
                         <i class="fa fa-lightbulb-o  Green Fs60 Fleft"></i>
@@ -183,7 +183,7 @@
                       <div class="EmptyBox10"></div>
                     <div class="Container100 NoIndent ui-fluid Responsive100">
                        
-                        <p:button value="Get All Actions" styleClass="YelllowButton"/>
+                        <p:button value="Get All Actions" styleClass="YellowButton"/>
                     </div>
                   
                 </div>
@@ -195,58 +195,73 @@
         <div class="Container100 NoIndent Flex FlexWrap">
             <div class="Container20 Flex Responsive50">
                 <div class="Card LeadenBack">
-                    <div class="CardBigTopic White Opac80">Pagos Pendientes</div>                    
-                    <div class="EmptyBox20"></div>                                         
-                        <i class="fa  fa-calendar-check-o   Yellow Fs60 Fleft MarRight10"></i>                        
-                    <span class="FontLatoLight Fs50 Yellow">$332</span>                     
-                    <div class="EmptyBox20">
-                    </div>                         
+                    <div class="CardBigTopic White  ">Pagos Pendientes
+                            <i class="fa  fa-calendar-check-o   Yellow Fs40 Fright MarRight10"></i>                        
+                    </div>                    
+                    <div class="EmptyBox10"></div>                                         
+                    
+                    <div class="Container100 ">
+                        <span class="FontLatoLight Fs50 Yellow">$ ${dashboardController.pendienteProveedor}</span>                     
+                    </div>
+                    
                      
                 </div>
             </div>
-            <div class="Container20 Flex Responsive50">                
-                
+            <div class="Container20 Flex Responsive50">                                
                 <div class="Card LeadenBack">
-                    <div class="CardBigTopic White Opac80">Cobros Pendientes    </div>
-                    <div class="EmptyBox20"></div>                    
-                    <p:commandLink id="ajax" styleClass="text-decoration:none !important;   " update="growl" actionListener="#{buttonView.buttonAction}">
-                    <i class="fa   fa-bullhorn     Yellow Fs60 Fleft MarRight10"></i>
-                    </p:commandLink>
-                    <p:commandLink id="ajax3" styleClass="text-decoration:none !important;   " update="growl" actionListener="#{buttonView.buttonAction}">
-                    <span class="FontLatoLight Fs50 Yellow" style="text-decoration:none !important; ">$1332</span>                    
-                    </p:commandLink>
+                    <div class="CardBigTopic White  ">Cobros Pendientes  
+                    <i class="fa   fa-bullhorn   Yellow Fs40 Fright  "></i>
+                    </div>                    
+                    <div class="EmptyBox10"></div>                      
+                    <div class="Container100">
+                    <p:commandLink id="ajax3"  class="Container50" styleClass="text-decoration:none !important;   " update="growl" actionListener="#{buttonView.buttonAction}">
+                        <span class="FontLatoLight Fs50 Yellow" style="text-decoration:none !important; ">$${dashboardController.pendienteCliente}</span>                    
+                    </p:commandLink>                    
+                        </div>
                     
-                    <div class="EmptyBox10"></div>                    
-                </div>
-                    
+                </div>                    
             </div>
             
             <div class="Container20 Flex Responsive50">
                 <div class="Card LeadenBack">
-                    <div class="CardBigTopic White Opac80">Productos en Minimo</div>
-                    <div class="EmptyBox20"></div>                   
-                     <i class="fa    fa-chevron-down    Yellow Fs60 Fleft MarRight10"></i>
-                    <span class="FontLatoLight Fs50 Yellow">12</span>
-                    <div class="EmptyBox20"></div>                    
+                    <div class="CardBigTopic White  ">Productos</div>                                   
+                         <div class="EmptyBox20"></div>
+                     <div class= "Container50">
+                        <i class="fa    fa-chevron-down    Yellow Fs60    "></i>
+                        <span class="FontLatoLight Fs30 Yellow">${dashboardController.productoMin}</span>
+                     </div>
+                    <div class= "Container50">
+                        <i class="fa    fa-chevron-up    Yellow Fs60    "></i>
+                        <span class="FontLatoLight Fs30 Yellow">${dashboardController.productoMax}</span>
+                     </div>
+                     
                 </div>
             </div>    
             <div class="Container20 Flex Responsive50">
                 <div class="Card LeadenBack">
-                    <div class="CardBigTopic White Opac80">Clientes</div>
-                    <div class="EmptyBox20"></div>
-                       <i class="fa  fa-user   Yellow Fs60 Fleft MarRight10"></i>
-                     
-                       <span class="FontLatoLight Fs50 Yellow">#{dashboardController.cliente}</span>
+                    
+                    <div class="CardBigTopic White  ">Clientes</div>
                     <div class="EmptyBox20"></div>                    
+                    <div class= "Container50">
+                       <i class="fa  fa-user   Yellow Fs60 Fleft MarRight10"></i>
+                    </div> 
+                    <div class= "Container50">
+                       <span class="FontLatoLight Fs50 Yellow">#{dashboardController.cliente}</span>
+                       </div>
+                    
                 </div>
             </div>
             <div class="Container20 Flex Responsive50">
                 <div class="Card LeadenBack">
-                    <div class="CardBigTopic White Opac80">Proveedores</div>
-                    <div class="EmptyBox20"></div>
+                    <div class="CardBigTopic White  ">Proveedores</div>
+                        <div class="EmptyBox20"></div>                    
+                        <div class= "Container50">
                      <i class="fa   fa-user-secret   Yellow Fs60 Fleft MarRight10"></i>
-                    <span class="FontLatoLight Fs50 Yellow">25</span>
-                    <div class="EmptyBox20"></div>
+                     </div>
+                        <div class= "Container50">
+                     <span class="FontLatoLight Fs50 Yellow">#{dashboardController.proveedor}</span>
+                     </div>
+                    
                     
                 </div>
             </div>            
