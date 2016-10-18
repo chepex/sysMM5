@@ -5,6 +5,7 @@
  */
 package com.entities;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -72,6 +73,53 @@ public class CompraFacade extends AbstractFacade<Compra> {
         return q.getResultList();
     }    
     
+    public List<Compra> ListaCompraMes2(){
+       
+        List<Compra> lo = null;       
+        Date dia  = new Date();
+        Calendar cal = Calendar.getInstance();
+        // 1 de septiembre
+        cal.set(Calendar.DATE, 1);
+        cal.set(Calendar.MONTH, dia.getMonth());
+        cal.set(Calendar.YEAR, dia.getYear());
+        Date fi =  cal.getTime();
+        TypedQuery<Compra> q = null;
+        System.out.println("INICIO:"+fi);
+        System.out.println("FIN:"+dia);
+        
+                 q = em.createNamedQuery("Compra.findByFecha",Compra.class)
+                .setParameter("fi", fi)
+                .setParameter("ff", dia);
+        
+                lo = q.getResultList();
+                       
+        
+       return lo;        
+    } 
+    
+    public List<Compra> ListaCompraMes(){
+        Query q  = null;
+        List<Compra> lo = null;       
+        Date dia  = new Date();
+        Calendar cal = Calendar.getInstance();
+        // 1 de septiembre
+        cal.set(Calendar.DATE, 1);
+        cal.set(Calendar.MONTH, dia.getMonth());
+        cal.set(Calendar.YEAR, dia.getYear());
+        
+        String query="                     " +
+        "   SELECT f.*" +
+        " FROM sysmmx.compra f " +
+        " where  DATE_FORMAT(fecha, '%Y-%m-%d') between CONCAT(DATE_FORMAT(CURDATE(), '%Y-%m-') , '01') and DATE_FORMAT(CURDATE(), '%Y-%m-%d')  " ;        
+        try{            
+            q=  em.createNativeQuery(query,Compra.class);          
+            lo= q.getResultList();
+        }catch(Exception ex){
+            lo= null;
+            System.out.println("::::"+ex);
+        }          
+       return lo;        
+    }     
     
     public List<Object[]> compraMes(){
         Query q  = null;

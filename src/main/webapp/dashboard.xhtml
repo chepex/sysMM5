@@ -110,7 +110,7 @@
    
         <!-- top buttons-->
         
-
+          <p:poll id="mas" interval="60" listener="#{dashboardController.init}" update="formDashboard" /> 
         <!-- top boxes-->
         <div class="Container100 NoIndent Flex FlexWrap">
             <div class="Container25 Responsive50 Flex">
@@ -122,11 +122,11 @@
                         <i class="fa fa-lightbulb-o  Green Fs60 Fleft"></i>
                     </div>
                     <div class="Container70 NoIndent ui-fluid Responsive100">                        
-                    <span class="FontLatoRegular Green  Fs40 DispBlock ">$ ${dashboardController.ventaMes}</span>
+                    <span class="FontLatoRegular Green  Fs40 DispBlock ">$ #{dashboardController.ventaMes}</span>
                     </div>
                       <div class="EmptyBox10"></div>
                          <div class="Container100 NoIndent ui-fluid Responsive100">                        
-                         <p:button value="Get All" styleClass="GreenButton"/>
+                             <p:button value="Get All" styleClass="GreenButton" outcome="/dashboard/ListVenta.xhtml" onclick=" #{dashboardController.consultaVenta()}" />
                     </div>
                 </div>
             </div>
@@ -142,7 +142,7 @@
                     </div>
                       <div class="EmptyBox10"></div>
                         <div class="Container100 NoIndent ui-fluid Responsive100"> 
-                        <p:button value="Get All" styleClass="BlueButton"/>
+                            <p:button value="Get All" styleClass="BlueButton" outcome="/dashboard/ListCompra.xhtml" onclick=" #{dashboardController.consultaCompra()}"/>
                     </div>
                     
                 </div>
@@ -163,7 +163,7 @@
                       <div class="EmptyBox10"></div>
                     <div class="Container100 NoIndent ui-fluid Responsive100">
                        
-                        <p:button value="Get All Actions" styleClass="NavyButton"/>
+                        <p:button value="Get All Actions" styleClass="NavyButton" outcome="/dashboard/ListCaja.xhtml" onclick=" #{dashboardController.consultaTransaccionCaja()}"/>
                     </div>
                    
                 </div>
@@ -183,7 +183,7 @@
                       <div class="EmptyBox10"></div>
                     <div class="Container100 NoIndent ui-fluid Responsive100">
                        
-                        <p:button value="Get All Actions" styleClass="YellowButton"/>
+                        <p:button value="Get All Actions" styleClass="YellowButton" outcome="/dashboard/ListProducto.xhtml" onclick=" #{dashboardController.consultaProducto()}"/>
                     </div>
                   
                 </div>

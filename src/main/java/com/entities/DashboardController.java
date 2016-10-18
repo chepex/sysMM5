@@ -47,6 +47,8 @@ public class DashboardController implements Serializable {
    @EJB
    private ClienteFacade clienteFacade;        
    @EJB
+   private TransaccionCajaFacade transaccionCajaFacade;    
+   @EJB
    private ProveedorFacade proveedorFacade;    
    
    private BigDecimal maxLine;          
@@ -64,9 +66,53 @@ public class DashboardController implements Serializable {
    private String productoMax;
    private String pendienteCliente;
    private String pendienteProveedor;
+   private List<Factura> lfactura;
+   private List<Compra> lcompra;   
+   private List<Producto>  lprocuto;
+   private List<TransaccionCaja> ltcaja;
  
     public DashboardController() {
     }
+
+    public List<TransaccionCaja> getLtcaja() {
+        return ltcaja;
+    }
+
+    public void setLtcaja(List<TransaccionCaja> ltcaja) {
+        this.ltcaja = ltcaja;
+    }
+    
+    
+
+    public List<Producto> getLprocuto() {
+        return lprocuto;
+    }
+
+    public void setLprocuto(List<Producto> lprocuto) {
+        this.lprocuto = lprocuto;
+    }
+
+    
+    
+    public List<Compra> getLcompra() {
+        return lcompra;
+    }
+
+    public void setLcompra(List<Compra> lcompra) {
+        this.lcompra = lcompra;
+    }
+
+    
+    
+    public List<Factura> getLfactura() {
+        return lfactura;
+    }
+
+    public void setLfactura(List<Factura> lfactura) {
+        this.lfactura = lfactura;
+    }
+    
+    
 
     public String getPendienteProveedor() {
         return pendienteProveedor;
@@ -170,11 +216,8 @@ public class DashboardController implements Serializable {
     
     
     @PostConstruct
-    public void init() {
-        //createLineModels();
-        System.out.println("aqui--->");
-         createBarModels();
-         
+    public void init() {              
+         createBarModels();         
     }
 
     public PieChartModel getVentaUsuario() {
@@ -420,6 +463,32 @@ public class DashboardController implements Serializable {
         ventaUsuario.setLegendPosition("w");
       
     }    
+    
+    public void consultaVenta(){   
+        this.lfactura  = null;
+        this.lfactura = this.facturaFacade.ListaVentaMes();
+        System.out.println(" lista ventas-->"+lfactura);
+    }
+    
+    public void consultaCompra(){    
+        this.lcompra = null;
+        this.lcompra = this.compraFacade.ListaCompraMes2();
+        System.out.println(" lista ventas-->"+lcompra);
+        System.out.println(" lista ventas-->"+lcompra);
+        System.out.println(" lista ventas-->"+lcompra);
+    }   
+    
+    public void consultaProducto(){
+        this.lprocuto = null;
+        this.lprocuto = this.productoFacade.findAll();
+        System.out.println(" lista productos-->"+lprocuto);
+    
+    }
+    
+    public void consultaTransaccionCaja(){
+        this.ltcaja = null;
+        this.ltcaja = this.transaccionCajaFacade.findByFecha();
+    }
    
     
  

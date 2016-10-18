@@ -126,9 +126,9 @@ public List<Factura> findByClienteFecha(Date fi, Date ff, Cliente client) {
         Query q  = null;
         List<Object[]> lo = null;  
        
-        String query="SELECT u.usuario, sum(cantidad) FROM factura f, usuario u \n" +
-            " where f.usuario_idusuario = u.idUsuario\n" +
-            " and f.fecha between  date_add(NOW(), INTERVAL -30 DAY) and now()\n" +
+        String query="SELECT u.usuario, sum(cantidad) FROM factura f, usuario u " +
+            " where f.usuario_idusuario = u.idUsuario " +
+            " and f.fecha between  date_add(NOW(), INTERVAL -30 DAY) and now() " +
             " group by u.usuario ";                             
         try{            
             q=  em.createNativeQuery(query);  
@@ -158,6 +158,29 @@ public List<Factura> findByClienteFecha(Date fi, Date ff, Cliente client) {
             .setParameter("cliente", c.getIdcliente());
        return q.getResultList();
     }         
+    
+        public List<Factura> ListaVentaMes(){
+        Query q  = null;
+        List<Factura> lo = null;  
+       
+        String query="SELECT f.* " +
+        " FROM sysmmx.factura f " +
+        " where  DATE_FORMAT(fecha, '%Y-%m-%d') between CONCAT(DATE_FORMAT(CURDATE(), '%Y-%m-') , '01') and DATE_FORMAT(CURDATE(), '%Y-%m-%d')  " ;
+        
+        try{            
+            q=  em.createNativeQuery(query,Factura.class);  
+            
+          
+            lo= q.getResultList();
+        }catch(Exception ex){
+            lo= null;
+            System.out.println("::::"+ex);
+        }
+            
+       return lo;        
+              
+               
+    }     
     
     
     
