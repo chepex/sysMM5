@@ -66,6 +66,16 @@ public class ProveedorFacade extends AbstractFacade<Proveedor> {
        
         return val;
        
-    }       
+    }      
+    
+    public List<Proveedor> saldoProveedor( ) {
+        Query q = null;
+        try{           
+           q  =  em.createNativeQuery(" SELECT  * FROM  proveedor where activo= true and saldo > 0 " ,Proveedor.class );  
+        }catch(Exception ex){            
+            System.out.println("error-->"+ex);
+        }               
+        return q.getResultList();
+    }     
     
 }

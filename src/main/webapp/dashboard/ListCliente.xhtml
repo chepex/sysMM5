@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition   template="/WEB-INF/template2.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="Ventas"></h:outputText>
+        </ui:define>
+
+        <ui:define name="content">   
+            <style>
+                .ui-paginator {
+                text-align: left ! important
+                }
+            </style>            
+            <h:form id="ListCaja">    
+                <p:panel header="Clientes saldo pendiente">
+                    <p:dataTable id="datalist" value="#{dashboardController.lcliente}" var="item"
+                                                 
+                         rowKey="#{item.idcliente}"
+                        scrollable="true" 
+                      scrollHeight="250"
+                      paginator="true" 
+                      paginatorTemplate="{Exporters}"                                 
+                      paginatorPosition="bottom"                         
+                         > 
+                <f:facet name="{Exporters}" >
+                    <h:commandLink>
+                        <p:graphicImage library="img" name="excel.png" width="24"/>                
+                        <p:dataExporter type="csv" target="datalist" fileName="items" />
+                    </h:commandLink>
+                     <h:commandLink>
+                        <p:graphicImage library="img" name="pdf.png" width="24"/>                
+                        <p:dataExporter type="pdf" target="datalist" fileName="items" />
+                    </h:commandLink>
+                </f:facet>                    
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Nombre"/>
+                    </f:facet>
+                    <h:outputText value="#{item.nombre}"/>
+                </p:column>                    
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Correo"/>
+                    </f:facet>
+                    <h:outputText value="#{item.correo}"/>
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Limite"/>
+                    </f:facet>
+                    <h:outputText value="#{item.limite}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:outputText>
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Saldo"/>
+                    </f:facet>
+                    <h:outputText value="#{item.saldo}"/>
+                </p:column>
+            </p:dataTable>                
+                </p:panel>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
+

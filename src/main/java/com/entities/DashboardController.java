@@ -6,6 +6,7 @@
 package com.entities;
 
 
+import java.io.IOException;
 import javax.annotation.PostConstruct;
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -16,8 +17,10 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import javax.ejb.EJB;
+ 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
  
 import org.primefaces.model.chart.Axis;
 import org.primefaces.model.chart.AxisType;
@@ -46,11 +49,11 @@ public class DashboardController implements Serializable {
    private CajaChicaFacade cajaChicaFacade;     
    @EJB
    private ClienteFacade clienteFacade;        
+   
    @EJB
    private TransaccionCajaFacade transaccionCajaFacade;    
    @EJB
-   private ProveedorFacade proveedorFacade;    
-   
+   private ProveedorFacade proveedorFacade;       
    private BigDecimal maxLine;          
    private BarChartModel ventaModel;
    private BarChartModel compraModel;   
@@ -70,10 +73,30 @@ public class DashboardController implements Serializable {
    private List<Compra> lcompra;   
    private List<Producto>  lprocuto;
    private List<TransaccionCaja> ltcaja;
+   private List<Cliente> lcliente;   
+   private List<Proveedor> lproveedor;      
  
     public DashboardController() {
     }
 
+    public List<Proveedor> getLproveedor() {
+        return lproveedor;
+    }
+
+    public void setLproveedor(List<Proveedor> lproveedor) {
+        this.lproveedor = lproveedor;
+    }
+
+    
+    
+    public List<Cliente> getLcliente() {
+        return lcliente;
+    }
+
+    public void setLcliente(List<Cliente> lcliente) {
+        this.lcliente = lcliente;
+    }    
+    
     public List<TransaccionCaja> getLtcaja() {
         return ltcaja;
     }
@@ -81,8 +104,6 @@ public class DashboardController implements Serializable {
     public void setLtcaja(List<TransaccionCaja> ltcaja) {
         this.ltcaja = ltcaja;
     }
-    
-    
 
     public List<Producto> getLprocuto() {
         return lprocuto;
@@ -388,8 +409,10 @@ public class DashboardController implements Serializable {
         
         cliente = String.valueOf(clienteFacade.count());
         proveedor = String.valueOf(proveedorFacade.count());
-        productoMin =  String.valueOf(productoFacade.existenciaMin().intValue());        
-        productoMax =  String.valueOf(productoFacade.existenciaMax().intValue());        
+        System.out.println("existencia min*--->"+productoFacade.existenciaMin());
+        System.out.println("existencia max*--->"+productoFacade.existenciaMax());
+        productoMin =   productoFacade.existenciaMin() ;        
+        productoMax =   productoFacade.existenciaMax();
         
         BigDecimal clientePen= new BigDecimal(clienteFacade.saldoClientes());
         clientePen = clientePen.setScale(2, RoundingMode.CEILING);
@@ -485,10 +508,38 @@ public class DashboardController implements Serializable {
     
     }
     
+    
+    public void consultaProductoMin() throws IOException{
+        this.lprocuto = null;
+        this.lprocuto = this.productoFacade.findAllMin();
+        System.out.println(" lista productos-->"+lprocuto);
+           FacesContext.getCurrentInstance().getExternalContext().redirect("dashboard/ListProducto.xhtml");
+    
+    }    
+    
+    public void consultaProductoMax() throws IOException{
+        this.lprocuto = null;
+        this.lprocuto = this.productoFacade.findAllMax();
+        System.out.println(" lista productos-->"+lprocuto);
+           FacesContext.getCurrentInstance().getExternalContext().redirect("dashboard/ListProducto.xhtml");
+    
+    }    
+    
     public void consultaTransaccionCaja(){
         this.ltcaja = null;
         this.ltcaja = this.transaccionCajaFacade.findByFecha();
     }
+    
+    public void consultaClientePendiente() throws IOException{    
+        lcliente = this.clienteFacade.saldoPendiente(); 
+        FacesContext.getCurrentInstance().getExternalContext().redirect("dashboard/ListCliente.xhtml");
+    }
+    
+    public void consultaProveedorPendiente() throws IOException{    
+        lproveedor = this.proveedorFacade.saldoProveedor(); 
+        FacesContext.getCurrentInstance().getExternalContext().redirect("dashboard/ListProveedor.xhtml");
+    }
+       
    
     
  

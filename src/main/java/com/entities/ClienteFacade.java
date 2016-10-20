@@ -66,7 +66,24 @@ public class ClienteFacade extends AbstractFacade<Cliente> {
        
         return val;
        
-    }        
+    }       
+    
+    public List<Cliente> saldoPendiente( ) {
+        Query q = null;
+        
+        
+        try{           
+           q  =  em.createNativeQuery(" SELECT  * FROM  cliente where activo= true and saldo > 0 " ,Cliente.class );  
+           
+            
+        }catch(Exception ex){
+            
+            System.out.println("error-->"+ex);
+            
+        }               
+       
+        return q.getResultList();
+    }     
         
     
 }

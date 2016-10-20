@@ -50,6 +50,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Producto.findByMax", query = "SELECT p FROM Producto p WHERE p.max = :max"),
     @NamedQuery(name = "Producto.findByExistencia", query = "SELECT p FROM Producto p WHERE p.existencia = :existencia"),
     @NamedQuery(name = "Producto.findByActivo", query = "SELECT p FROM Producto p WHERE p.activo = true"),
+    @NamedQuery(name = "Producto.findByActivoMin", query = "SELECT p FROM Producto p WHERE p.activo = true and p.existencia <= p.min  "),
+    @NamedQuery(name = "Producto.findByActivoMax", query = "SELECT p FROM Producto p WHERE p.activo = true and p.existencia >= p.max   "),    
     @NamedQuery(name = "Producto.findByUsuarioCreate", query = "SELECT p FROM Producto p WHERE p.usuarioCreate = :usuarioCreate"),
     @NamedQuery(name = "Producto.findByFechaCreate", query = "SELECT p FROM Producto p WHERE p.fechaCreate = :fechaCreate"),
     @NamedQuery(name = "Producto.findByUsuarioUpdate", query = "SELECT p FROM Producto p WHERE p.usuarioUpdate = :usuarioUpdate"),

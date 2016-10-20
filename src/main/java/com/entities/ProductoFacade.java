@@ -171,7 +171,20 @@ public class ProductoFacade extends AbstractFacade<Producto> {
              q = em.createNamedQuery("Producto.findByActivo",Producto.class) ;   
         return q.getResultList();
     }     
+    
+ 
+    public List<Producto> findAllMin() {
+        TypedQuery<Producto> q = null;         
+             q = em.createNamedQuery("Producto.findByActivoMin",Producto.class) ;   
+        return q.getResultList();
+    }       
 
+ 
+    public List<Producto> findAllMax() {
+        TypedQuery<Producto> q = null;         
+             q = em.createNamedQuery("Producto.findByActivoMax",Producto.class) ;   
+        return q.getResultList();
+    }     
     
     public List<Object[]> existenciaCategoria(){
         Query q  = null;
@@ -212,18 +225,18 @@ public class ProductoFacade extends AbstractFacade<Producto> {
        
     }   
     
-    public BigDecimal existenciaMin(){
-        BigDecimal val=new BigDecimal("0");
+    public String existenciaMin(){
+         String  val = "";
        
         
         try{           
-            Query q =  em.createNativeQuery(" SELECT IFNULL( sum(existencia) ,0) FROM  producto  where activo= true and existencia <=  min" );  
-            val = (BigDecimal)q.getSingleResult();
-            val = val.setScale(2, RoundingMode.CEILING);
+            Query q =  em.createNativeQuery(" SELECT IFNULL( count(idproducto) ,0) FROM  producto  where activo= true and existencia <=  min" );  
+            val = String.valueOf(q.getSingleResult());
+            
             
         }catch(Exception ex){
-            
-            val = new BigDecimal("0");
+            System.out.println("error en min "+ex);
+            val = "0";
             
         }               
        
@@ -231,18 +244,18 @@ public class ProductoFacade extends AbstractFacade<Producto> {
        
     }    
     
-    public BigDecimal existenciaMax(){
-        BigDecimal val=new BigDecimal("0");
+    public String existenciaMax(){
+        String val="";
        
         
         try{           
-            Query q =  em.createNativeQuery(" SELECT IFNULL( sum(existencia) ,0) FROM  producto  where activo= true and existencia  = max" );  
-            val = (BigDecimal)q.getSingleResult();
-            val = val.setScale(2, RoundingMode.CEILING);
+            Query q =  em.createNativeQuery(" SELECT IFNULL( count(idproducto) ,0) FROM  producto  where activo= true and existencia  >= max" );  
+            val = String.valueOf(q.getSingleResult());
+            
             
         }catch(Exception ex){
             
-            val = new BigDecimal("0");
+            val ="0";
             
         }               
        

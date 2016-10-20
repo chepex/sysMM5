@@ -196,12 +196,13 @@
             <div class="Container20 Flex Responsive50">
                 <div class="Card LeadenBack">
                     <div class="CardBigTopic White  ">Pagos Pendientes
-                            <i class="fa  fa-calendar-check-o   Yellow Fs40 Fright MarRight10"></i>                        
+                        <i class="fa  fa-calendar-check-o   Yellow Fs40 Fright MarRight10"></i>                        
                     </div>                    
-                    <div class="EmptyBox10"></div>                                         
-                    
+                    <div class="EmptyBox10"></div>     
                     <div class="Container100 ">
+                        <p:commandLink id="pendienteProveedor"    class="Container50" styleClass="text-decoration:none !important;   " update="growl" actionListener="#{dashboardController.consultaProveedorPendiente()}">
                         <span class="FontLatoLight Fs50 Yellow">$ ${dashboardController.pendienteProveedor}</span>                     
+                        </p:commandLink>
                     </div>
                     
                      
@@ -210,15 +211,14 @@
             <div class="Container20 Flex Responsive50">                                
                 <div class="Card LeadenBack">
                     <div class="CardBigTopic White  ">Cobros Pendientes  
-                    <i class="fa   fa-bullhorn   Yellow Fs40 Fright  "></i>
+                        <i class="fa   fa-bullhorn   Yellow Fs40 Fright  "></i>
                     </div>                    
                     <div class="EmptyBox10"></div>                      
                     <div class="Container100">
-                    <p:commandLink id="ajax3"  class="Container50" styleClass="text-decoration:none !important;   " update="growl" actionListener="#{buttonView.buttonAction}">
+                        <p:commandLink id="pendienteCliente"     class="Container50" styleClass="text-decoration:none !important;   " update="growl" actionListener="#{dashboardController.consultaClientePendiente()}">
                         <span class="FontLatoLight Fs50 Yellow" style="text-decoration:none !important; ">$${dashboardController.pendienteCliente}</span>                    
-                    </p:commandLink>                    
-                        </div>
-                    
+                        </p:commandLink>                    
+                        </div>                    
                 </div>                    
             </div>
             
@@ -227,13 +227,19 @@
                     <div class="CardBigTopic White  ">Productos</div>                                   
                          <div class="EmptyBox20"></div>
                      <div class= "Container50">
-                        <i class="fa    fa-chevron-down    Yellow Fs60    "></i>
-                        <span class="FontLatoLight Fs30 Yellow">${dashboardController.productoMin}</span>
+                        <p:commandLink id="minPorducto"     class="Container50" styleClass="text-decoration:none !important;   " update="growl" actionListener="#{dashboardController.consultaProductoMin()}"> 
+                            <i class="fa    fa-chevron-down    Yellow Fs60    "></i>                        
+                            <span class="FontLatoLight Fs30 Yellow">${dashboardController.productoMin}</span>
+                        </p:commandLink>
                      </div>
                     <div class= "Container50">
-                        <i class="fa    fa-chevron-up    Yellow Fs60    "></i>
-                        <span class="FontLatoLight Fs30 Yellow">${dashboardController.productoMax}</span>
+                        <p:commandLink id="maxPorducto"     class="Container50" styleClass="text-decoration:none !important;   " update="growl" actionListener="#{dashboardController.consultaProductoMax()}">
+                            <i class="fa    fa-chevron-up    Yellow Fs60    "></i>
+                            <span class="FontLatoLight Fs30 Yellow">${dashboardController.productoMax}</span>
+                        </p:commandLink>
+                        
                      </div>
+                         
                      
                 </div>
             </div>    
@@ -242,26 +248,29 @@
                     
                     <div class="CardBigTopic White  ">Clientes</div>
                     <div class="EmptyBox20"></div>                    
+                    <a href="cliente/List.xhtml">
                     <div class= "Container50">
+                        
                        <i class="fa  fa-user   Yellow Fs60 Fleft MarRight10"></i>
                     </div> 
-                    <div class= "Container50">
-                       <span class="FontLatoLight Fs50 Yellow">#{dashboardController.cliente}</span>
+                    <div class= "Container50">                        
+                       <span class="FontLatoLight Fs50 Yellow">#{dashboardController.cliente}</span>                       
                        </div>
-                    
+                    </a>
                 </div>
             </div>
             <div class="Container20 Flex Responsive50">
                 <div class="Card LeadenBack">
                     <div class="CardBigTopic White  ">Proveedores</div>
-                        <div class="EmptyBox20"></div>                    
+                        <div class="EmptyBox20"></div>  
+                        <a href="proveedor/List.xhtml">
                         <div class= "Container50">
                      <i class="fa   fa-user-secret   Yellow Fs60 Fleft MarRight10"></i>
                      </div>
                         <div class= "Container50">
                      <span class="FontLatoLight Fs50 Yellow">#{dashboardController.proveedor}</span>
                      </div>
-                    
+                    </a>
                     
                 </div>
             </div>            
