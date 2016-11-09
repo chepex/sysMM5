@@ -25,10 +25,20 @@ public class TransaccionBancoController implements Serializable {
     private com.entities.TransaccionBancoFacade ejbFacade;
     private List<TransaccionBanco> items = null;
     private TransaccionBanco selected;
+    private Banco banco;
 
     public TransaccionBancoController() {
     }
 
+    public Banco getBanco() {
+        return banco;
+    }
+
+    public void setBanco(Banco banco) {
+        this.banco = banco;
+    }
+
+    
     public TransaccionBanco getSelected() {
         return selected;
     }
@@ -48,7 +58,7 @@ public class TransaccionBancoController implements Serializable {
     }
 
     public TransaccionBanco prepareCreate() {
-        selected = new TransaccionBanco();
+        selected = new TransaccionBanco(0);
         initializeEmbeddableKey();
         return selected;
     }
@@ -58,6 +68,8 @@ public class TransaccionBancoController implements Serializable {
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
         }
+        
+        consulta();
     }
 
     public void update() {
@@ -73,9 +85,7 @@ public class TransaccionBancoController implements Serializable {
     }
 
     public List<TransaccionBanco> getItems() {
-        if (items == null) {
-            items = getFacade().findAll();
-        }
+       
         return items;
     }
 
@@ -154,6 +164,16 @@ public class TransaccionBancoController implements Serializable {
             }
         }
 
+    }
+    
+    public String consulta()
+    {
+        System.out.println("consulta1");
+        System.out.println("banco-->"+banco);
+        items= this.ejbFacade.findByBanco(banco);
+        System.out.println("items---:"+items);
+        System.out.println("consulta2");
+        return "ok";
     }
 
 }
