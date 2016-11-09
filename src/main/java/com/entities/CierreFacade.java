@@ -5,9 +5,11 @@
  */
 package com.entities;
 
+import java.math.BigDecimal;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -26,5 +28,24 @@ public class CierreFacade extends AbstractFacade<Cierre> {
     public CierreFacade() {
         super(Cierre.class);
     }
+    
+
+    public BigDecimal finById(){
+        BigDecimal val=new BigDecimal("0");
+       
+        
+        try{           
+             Query q =  em.createNativeQuery("SELECT IFNULL( max(idfactura_det) ,1) FROM  factura_det" );  
+            val = (BigDecimal)q.getSingleResult();
+            
+        }catch(Exception ex){
+            
+            val = new BigDecimal("1");
+            
+        }               
+       
+        return val;
+       
+    }      
     
 }

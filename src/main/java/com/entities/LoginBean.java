@@ -10,26 +10,22 @@ package com.entities;
 
  
 //import static com.sun.xml.ws.security.addressing.impl.policy.Constants.logger;
-import java.io.BufferedWriter;
 
-import java.io.FileWriter;
+
+
 import java.io.IOException;
-import java.io.PrintWriter;
+
 import java.io.Serializable;
-import java.math.BigDecimal;
-import java.text.SimpleDateFormat;
 
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.concurrent.ThreadLocalRandom;
 
 
-import javax.ejb.EJB;
+
+
 import javax.ejb.Stateless;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
+
 import javax.faces.context.ExternalContext;
 
  

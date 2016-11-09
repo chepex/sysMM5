@@ -60,6 +60,8 @@ public class Cierre implements Serializable {
     private Integer mes;
     @Column(name = "existencia")
     private Integer existencia;
+    @Column(name = "cantidad_inicial")
+    private Integer cantidadInicial;        
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "costo_unitario")
     private BigDecimal costoUnitario;
@@ -89,6 +91,16 @@ public class Cierre implements Serializable {
 
     public Cierre() {
     }
+
+    public Integer getCantidadInicial() {
+        return cantidadInicial;
+    }
+
+    public void setCantidadInicial(Integer cantidadInicial) {
+        this.cantidadInicial = cantidadInicial;
+    }
+    
+    
 
     public Cierre(Integer idcierre) {
         this.idcierre = idcierre;

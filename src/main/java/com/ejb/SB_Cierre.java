@@ -46,10 +46,7 @@ public class SB_Cierre {
             cierre.setExistencia(p.getExistencia());
             cierre.setMargen( String.valueOf(p.getMargen()));
             cierre.setFecha(new Date());
-            
-            
-            List<Object[]>  ld =  facturaDetFacade.finByMes(anio, mes, p.getIdproducto());
-            
+            List<Object[]>  ld =  facturaDetFacade.finByMes(anio, mes, p.getIdproducto());            
             if(!ld.isEmpty()){                  
                 int cantidad =Integer.valueOf( ld.get(0)[1].toString());
                 BigDecimal total = new BigDecimal(ld.get(0)[2].toString());
@@ -57,23 +54,15 @@ public class SB_Cierre {
                 cierre.setCantidadVenta(cantidad);
                 cierre.setTotalVenta(total);               
                 cierre.setTotalUtilidad(utilidad);
-            }      
-            
+            }                  
             List<Object[]>  ldc =  compraDetFacade.finByMes(anio, mes, p.getIdproducto());
-           
-            
             if(!ldc.isEmpty()){                  
                 int cantidad =Integer.valueOf( ldc.get(0)[1].toString());
-                BigDecimal total = new BigDecimal(ldc.get(0)[2].toString());
-                
+                BigDecimal total = new BigDecimal(ldc.get(0)[2].toString());                
                 cierre.setCantidadCompra(cantidad);
                 cierre.setTotaCompra(total);               
-              
             }      
-                        
-           
-            cierreFacade.edit(cierre);
-        
+            cierreFacade.edit(cierre);        
         }
         
     
