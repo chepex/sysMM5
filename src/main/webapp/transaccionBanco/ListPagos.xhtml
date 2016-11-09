@@ -18,12 +18,20 @@
                 <p:panelGrid columns="6"  style=" border-style: hidden !important;" >
                     <p:outputLabel value="Banco" for="banco" />
                     <p:selectOneMenu id="banco" filter="true" filterMatchMode="startsWith"  value="#{transaccionBancoController.banco}" required="true" requiredMessage="#{bundle.EditProductoRequiredMessage_categoriaIdcategoria}">
+                        <f:selectItem itemLabel="Selecione un banco" itemValue=""/>
                         <f:selectItems value="#{bancoController.itemsAvailableSelectOne}"
                                        var="bancoItem"
                                        itemLabel="#{bancoItem.nombre}"
                                        itemValue="#{bancoItem}"/>
+                    <p:ajax  event="itemSelect"  update="bancoIdbanco" />
                     </p:selectOneMenu>
-                  
+                    <p:outputLabel value="Cuenta" for="bancoIdbanco" />
+                    <p:selectOneMenu id="bancoIdbanco" value="#{transaccionBancoController.cuentaBanco}" required="true" requiredMessage="#{bundle.EditCuentaBancoRequiredMessage_bancoIdbanco}">
+                            <f:selectItems value="#{transaccionBancoController.banco.cuentaBancoList}"
+                                           var="cuentaBancoItem"
+                                           itemLabel="#{cuentaBancoItem.numero}"
+                                           itemValue="#{cuentaBancoItem}"/>
+                        </p:selectOneMenu>                      
                     <p:commandButton actionListener="#{transaccionBancoController.consulta}" value="Consultar" update=":TransaccionBancoListForm :growl"  />
 
                 </p:panelGrid>                

@@ -21,7 +21,7 @@
                                         completeMethod="#{bancoController.autoCompleteBanco}" 
                                         converter="#{BancoControllerConverter}"                                                                                 
                                         effect="fade" >
-                              <p:ajax  event="itemSelect"  listener="#{pagoFacturaController.consultaCuenta()}" update="@form :growl" />
+                            <p:ajax  event="itemSelect"  listener="#{pagoFacturaController.consultaCuenta()}" update="@form :growl" />
                         </p:autoComplete>                        
                         
                         <p:outputLabel value="Cuenta" for="bancoIdbanco" />

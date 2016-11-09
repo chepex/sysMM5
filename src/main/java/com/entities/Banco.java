@@ -7,14 +7,19 @@ package com.entities;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -67,7 +72,8 @@ public class Banco implements Serializable {
     @Size(max = 255)
     @Column(name = "usuario_update")
     private String usuarioUpdate;
-
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "bancoIdbanco")
+    private List<CuentaBanco> CuentaBancoList;
     public Banco() {
     }
 
@@ -138,6 +144,16 @@ public class Banco implements Serializable {
     public void setUsuarioUpdate(String usuarioUpdate) {
         this.usuarioUpdate = usuarioUpdate;
     }
+
+    public List<CuentaBanco> getCuentaBancoList() {
+        return CuentaBancoList;
+    }
+
+    public void setCuentaBancoList(List<CuentaBanco> CuentaBancoList) {
+        this.CuentaBancoList = CuentaBancoList;
+    }
+    
+    
 
     @Override
     public int hashCode() {

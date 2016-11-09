@@ -26,10 +26,21 @@ public class TransaccionBancoController implements Serializable {
     private List<TransaccionBanco> items = null;
     private TransaccionBanco selected;
     private Banco banco;
+    private CuentaBanco cuentaBanco;
 
     public TransaccionBancoController() {
     }
 
+    public CuentaBanco getCuentaBanco() {
+        return cuentaBanco;
+    }
+
+    public void setCuentaBanco(CuentaBanco cuentaBanco) {
+        this.cuentaBanco = cuentaBanco;
+    }
+
+    
+    
     public Banco getBanco() {
         return banco;
     }
@@ -170,7 +181,7 @@ public class TransaccionBancoController implements Serializable {
     {
         System.out.println("consulta1");
         System.out.println("banco-->"+banco);
-        items= this.ejbFacade.findByBanco(banco);
+        items= this.ejbFacade.findByBancoCuenta(banco,this.cuentaBanco);
         System.out.println("items---:"+items);
         System.out.println("consulta2");
         return "ok";

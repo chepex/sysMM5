@@ -31,10 +31,11 @@ public class TransaccionBancoFacade extends AbstractFacade<TransaccionBanco> {
     
     
    
-    public List<TransaccionBanco> findByBanco(Banco banco) {
+    public List<TransaccionBanco> findByBancoCuenta(Banco banco, CuentaBanco cuenta) {
         TypedQuery<TransaccionBanco> q = null;         
-             q = em.createNamedQuery("TransaccionBanco.findByBanco",TransaccionBanco.class)  
-               .setParameter("idbanco",banco.getIdbanco());
+             q = em.createNamedQuery("TransaccionBanco.findByBancoCuenta",TransaccionBanco.class)  
+               .setParameter("idbanco",banco.getIdbanco())
+               .setParameter("cuenta",cuenta.getIdcuenta());
         return q.getResultList();
     }       
         
