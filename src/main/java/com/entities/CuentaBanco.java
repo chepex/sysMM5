@@ -80,8 +80,7 @@ public class CuentaBanco implements Serializable {
     private Banco bancoIdbanco;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "cuentaBancoIdcuenta")
     private List<TransaccionBanco> transaccionBancoList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cuentaBancoIdcuenta")
-    private List<PagoCompra> pagoCompraList;
+
 
     public CuentaBanco() {
     }
@@ -180,14 +179,7 @@ public class CuentaBanco implements Serializable {
         this.transaccionBancoList = transaccionBancoList;
     }
 
-    @XmlTransient
-    public List<PagoCompra> getPagoCompraList() {
-        return pagoCompraList;
-    }
-
-    public void setPagoCompraList(List<PagoCompra> pagoCompraList) {
-        this.pagoCompraList = pagoCompraList;
-    }
+ 
 
     @Override
     public int hashCode() {

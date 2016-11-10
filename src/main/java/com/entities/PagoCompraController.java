@@ -27,6 +27,8 @@ public class PagoCompraController implements Serializable {
     @EJB
     private com.entities.TipoTransaccionFacade tipoTransaccionFacade;    
     @EJB
+    private com.entities.TransaccionBancoFacade transaccionBancoFacade;        
+    @EJB
     private com.entities.CompraFacade compraFacade;   
     @EJB
     private com.ejb.SB_Banco sb_banco;     
@@ -40,10 +42,39 @@ public class PagoCompraController implements Serializable {
     private PagoCompra selected;
     private Proveedor proveedor;
     private Compra selectedCompra;
+    private Banco banco;    
+    private CuentaBanco cuentaBanco;        
+    private String  referencia;        
 
     public PagoCompraController() {
     }
 
+    public String getReferencia() {
+        return referencia;
+    }
+
+    public void setReferencia(String referencia) {
+        this.referencia = referencia;
+    }
+    
+    public Banco getBanco() {
+        return banco;
+    }
+
+    public void setBanco(Banco banco) {
+        this.banco = banco;
+    }
+
+    public CuentaBanco getCuentaBanco() {
+        return cuentaBanco;
+    }
+
+    public void setCuentaBanco(CuentaBanco cuentaBanco) {
+        this.cuentaBanco = cuentaBanco;
+    }
+
+    
+    
     public Compra getSelectedCompra() {
         
         return selectedCompra;
@@ -106,6 +137,7 @@ public class PagoCompraController implements Serializable {
 
     public PagoCompra prepareCreate() {
         selected = new PagoCompra();
+        selected.setEfectivo(false);
         
         this.lcuentaBanco = null;
         initializeEmbeddableKey();
@@ -124,23 +156,28 @@ public class PagoCompraController implements Serializable {
         selectedCompra.getProveedorIdproveedor().setSaldo(selectedCompra.getProveedorIdproveedor().getSaldo().subtract(selected.getValor()));
         compraFacade.edit(selectedCompra);
         proveedorFacade.edit(selectedCompra.getProveedorIdproveedor());
-        
-        TransaccionBanco tb = new TransaccionBanco(0);
-        tb.setBancoIdbanco(selected.getBancoIdbanco());
-        tb.setCuentaBancoIdcuenta(selected.getCuentaBancoIdcuenta());
-        tb.setDescripcion("Pago factura :"+selected.getCompraIdcompra().getDocumento() +" Proveedor :"+selected.getCompraIdcompra().getProveedorIdproveedor().getNombre());
-        tb.setFecha(selected.getFecha());
-        TipoTransaccion tt = tipoTransaccionFacade.find(2);  
-        if(tt==null){
-            JsfUtil.addErrorMessage("No se ha definido el tipo de transaccion pago");            
-            return "error";
+        String msg = "ok";
+        if(!selected.getEfectivo()){
+            String vid =  transaccionBancoFacade.findId();
+            Integer x = Integer.valueOf(vid)+1;
+            TransaccionBanco tb = new TransaccionBanco(x);
+            tb.setBancoIdbanco(banco);
+            tb.setCuentaBancoIdcuenta(cuentaBanco);
+            tb.setDescripcion("Pago factura :"+selected.getCompraIdcompra().getDocumento() +" Proveedor :"+selected.getCompraIdcompra().getProveedorIdproveedor().getNombre());
+            tb.setFecha(selected.getFecha());
+            tb.setReferencia(referencia);
+            TipoTransaccion tt = tipoTransaccionFacade.find(2);  
+            if(tt==null){
+                JsfUtil.addErrorMessage("No se ha definido el tipo de transaccion pago");            
+                return "error";
+            }
+            tb.setTipoTransaccionIdtipoTransaccion(tt);
+            tb.setValor(selected.getValor());
+            
+            msg =     sb_banco.agregarTransaccion(tb);
+            selected.setTransaccionBanco(tb);
         }
-        tb.setTipoTransaccionIdtipoTransaccion(tt);
-        tb.setValor(selected.getValor());
-        
-        String msg =     sb_banco.agregarTransaccion(tb);
-        
-        if(msg.equals("ok")){
+        if(!msg.equals("error")){
             persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("PagoCompraCreated"));
             if (!JsfUtil.isValidationFailed()) {
                 items = null;    // Invalidate list of items to trigger re-query.
@@ -264,7 +301,7 @@ public class PagoCompraController implements Serializable {
     
     public void consultaCuenta(){
    
-    lcuentaBanco = cuentaBancoFacade.findByIdbanco(this.selected.getBancoIdbanco());
+    lcuentaBanco = cuentaBancoFacade.findByIdbanco(banco);
         if(lcuentaBanco.isEmpty()){
          JsfUtil.addErrorMessage("No se encontraron cuentas asociados a ese banco");
         }

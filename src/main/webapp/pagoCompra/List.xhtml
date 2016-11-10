@@ -84,21 +84,8 @@
                                  rows="10"
                                  rowsPerPageTemplate="10,20,30,40,50"
                                  >
-                          
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="Banco"/>
-                            </f:facet>
-                            <h:outputText value="#{item.bancoIdbanco.nombre}"/>
-                        </p:column>                          
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="Cuenta"/>
-                            </f:facet>
-                            <h:outputText value="#{item.cuentaBancoIdcuenta.numero}"/>
-                        </p:column>
-
-                        <p:column>
+                          <p:column>
+                                       
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListPagoCompraTitle_fecha}"/>
                             </f:facet>
@@ -112,7 +99,12 @@
                             </f:facet>
                             <h:outputText value="#{item.valor}"/>
                         </p:column>
-                       
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Efectivo"/>
+                            </f:facet>
+                            <p:selectBooleanCheckbox value="#{item.efectivo}" disabled="true"/>
+                        </p:column>                            
                       
                     </p:dataTable>
                     

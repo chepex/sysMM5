@@ -50,6 +50,8 @@ public class PagoCompra implements Serializable {
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "valor")
     private BigDecimal valor;
+    @Column(name = "efectivo")
+    private Boolean efectivo;    
     @Column(name = "fecha")
     @Temporal(TemporalType.DATE)
     private Date fecha;
@@ -64,13 +66,10 @@ public class PagoCompra implements Serializable {
     private String usuarioUpdate;
     @Column(name = "fecha_update")
     @Temporal(TemporalType.DATE)
-    private Date fechaUpdate;
-    @JoinColumn(name = "cuenta_banco_idcuenta", referencedColumnName = "idcuenta")
+    private Date fechaUpdate; 
+    @JoinColumn(name = "idtransaccion_banco", referencedColumnName = "idtransaccion_banco")
     @ManyToOne(optional = false)
-    private CuentaBanco cuentaBancoIdcuenta;
-    @JoinColumn(name = "banco_idbanco", referencedColumnName = "idbanco")
-    @ManyToOne(optional = false)
-    private Banco bancoIdbanco;
+    private TransaccionBanco transaccionBanco;
     @JoinColumn(name = "compra_idcompra", referencedColumnName = "idcompra")
     @ManyToOne(optional = false)
     private Compra compraIdcompra;
@@ -78,6 +77,16 @@ public class PagoCompra implements Serializable {
     public PagoCompra() {
     }
 
+    public Boolean getEfectivo() {
+        return efectivo;
+    }
+
+    public void setEfectivo(Boolean efectivo) {
+        this.efectivo = efectivo;
+    }
+
+    
+    
     public PagoCompra(Integer idpagoCompra) {
         this.idpagoCompra = idpagoCompra;
     }
@@ -138,21 +147,15 @@ public class PagoCompra implements Serializable {
         this.fechaUpdate = fechaUpdate;
     }
 
-    public CuentaBanco getCuentaBancoIdcuenta() {
-        return cuentaBancoIdcuenta;
+    public TransaccionBanco getTransaccionBanco() {
+        return transaccionBanco;
     }
 
-    public void setCuentaBancoIdcuenta(CuentaBanco cuentaBancoIdcuenta) {
-        this.cuentaBancoIdcuenta = cuentaBancoIdcuenta;
+    public void setTransaccionBanco(TransaccionBanco transaccionBanco) {
+        this.transaccionBanco = transaccionBanco;
     }
 
-    public Banco getBancoIdbanco() {
-        return bancoIdbanco;
-    }
 
-    public void setBancoIdbanco(Banco bancoIdbanco) {
-        this.bancoIdbanco = bancoIdbanco;
-    }
 
     public Compra getCompraIdcompra() {
         return compraIdcompra;
