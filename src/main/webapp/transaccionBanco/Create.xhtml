@@ -27,6 +27,14 @@
                                            itemLabel="#{cuentaBancoIdcuentaItem.numero}"
                                            itemValue="#{cuentaBancoIdcuentaItem}"/>
                         </p:selectOneMenu>                        
+                        
+                        <p:outputLabel value="Tipo" for="tipo" />
+                        <p:selectOneMenu id="tipo" value="#{transaccionBancoController.selected.tipoTransaccionIdtipoTransaccion}" required="true" requiredMessage="#{bundle.EditTransaccionBancoRequiredMessage_cuentaBancoIdcuenta}">
+                            <f:selectItems value="#{tipoTransaccionController.itemsAvailableSelectOne}"
+                                           var="tipoTransaccionItem"
+                                           itemLabel="#{tipoTransaccionItem.nombre}"
+                                           itemValue="#{tipoTransaccionItem}"/>
+                        </p:selectOneMenu>                                                
 
                         <p:outputLabel value="#{bundle.CreateTransaccionBancoLabel_descripcion}" for="descripcion" />
                         <p:inputText id="descripcion" value="#{transaccionBancoController.selected.descripcion}" title="#{bundle.CreateTransaccionBancoTitle_descripcion}" />

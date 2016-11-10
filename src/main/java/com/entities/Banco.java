@@ -6,6 +6,7 @@
 package com.entities;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
@@ -63,6 +64,8 @@ public class Banco implements Serializable {
     @Column(name = "fecha_update")
     @Temporal(TemporalType.DATE)
     private Date fechaUpdate;
+    @Column(name = "saldo")
+    private BigDecimal saldo;    
     @Size(max = 255)
     @Column(name = "nombre")
     private String nombre;
@@ -77,6 +80,16 @@ public class Banco implements Serializable {
     public Banco() {
     }
 
+    public BigDecimal getSaldo() {
+        return saldo;
+    }
+
+    public void setSaldo(BigDecimal saldo) {
+        this.saldo = saldo;
+    }
+
+    
+    
     public Banco(Integer idbanco) {
         this.idbanco = idbanco;
     }

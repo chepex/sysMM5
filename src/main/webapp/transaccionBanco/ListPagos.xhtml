@@ -67,63 +67,27 @@
                                 <f:convertDateTime pattern="MM/dd/yyyy" />
                             </h:outputText>
                         </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListTransaccionBancoTitle_fechaCreate}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.fechaCreate}">
-                                <f:convertDateTime pattern="MM/dd/yyyy" />
-                            </h:outputText>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListTransaccionBancoTitle_fechaUpdate}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.fechaUpdate}">
-                                <f:convertDateTime pattern="MM/dd/yyyy" />
-                            </h:outputText>
-                        </p:column>
+                   
+                    
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListTransaccionBancoTitle_referencia}"/>
                             </f:facet>
                             <h:outputText value="#{item.referencia}"/>
                         </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListTransaccionBancoTitle_usuarioCreate}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.usuarioCreate}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListTransaccionBancoTitle_usuarioUpdate}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.usuarioUpdate}"/>
-                        </p:column>
+             
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListTransaccionBancoTitle_valor}"/>
                             </f:facet>
                             <h:outputText value="#{item.valor}"/>
                         </p:column>
+                                         
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListTransaccionBancoTitle_cuentaBancoIdcuenta}"/>
+                                <h:outputText value="Transaccion"/>
                             </f:facet>
-                            <h:outputText value="#{item.cuentaBancoIdcuenta}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListTransaccionBancoTitle_bancoIdbanco}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.bancoIdbanco}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListTransaccionBancoTitle_tipoTransaccionIdtipoTransaccion}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.tipoTransaccionIdtipoTransaccion}"/>
+                            <h:outputText value="#{item.tipoTransaccionIdtipoTransaccion.nombre}"/>
                         </p:column>
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{transaccionBancoController.prepareCreate}" update=":TransaccionBancoCreateForm" oncomplete="PF('TransaccionBancoCreateDialog').show()"/>

@@ -23,6 +23,8 @@ public class TransaccionBancoController implements Serializable {
 
     @EJB
     private com.entities.TransaccionBancoFacade ejbFacade;
+    @EJB
+    private com.ejb.SB_Banco sb_banco;    
     private List<TransaccionBanco> items = null;
     private TransaccionBanco selected;
     private Banco banco;
@@ -75,10 +77,14 @@ public class TransaccionBancoController implements Serializable {
     }
 
     public void create() {
-        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("TransaccionBancoCreated"));
-        if (!JsfUtil.isValidationFailed()) {
-            items = null;    // Invalidate list of items to trigger re-query.
+        
+        String msg = sb_banco.agregarTransaccion(selected);
+        if(msg.equals("ok")){
+           JsfUtil.addErrorMessage("Transaccion creada correctamente");
+        }else{
+          JsfUtil.addErrorMessage("Surgio un error, " +msg);  
         }
+        
         
         consulta();
     }
@@ -182,6 +188,10 @@ public class TransaccionBancoController implements Serializable {
         System.out.println("consulta1");
         System.out.println("banco-->"+banco);
         items= this.ejbFacade.findByBancoCuenta(banco,this.cuentaBanco);
+        if(items.isEmpty()){
+               JsfUtil.addErrorMessage("No se encontraron datos");
+               
+        }
         System.out.println("items---:"+items);
         System.out.println("consulta2");
         return "ok";

@@ -6,7 +6,8 @@
 package com.entities;
 
 import java.io.Serializable;
-import java.math.BigInteger;
+import java.math.BigDecimal;
+
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -71,7 +72,7 @@ public class TransaccionBanco implements Serializable {
     @Column(name = "usuario_update")
     private String usuarioUpdate;
     @Column(name = "valor")
-    private BigInteger valor;
+    private BigDecimal valor;
     @JoinColumn(name = "cuenta_banco_idcuenta", referencedColumnName = "idcuenta")
     @ManyToOne(optional = false)
     private CuentaBanco cuentaBancoIdcuenta;
@@ -153,11 +154,11 @@ public class TransaccionBanco implements Serializable {
         this.usuarioUpdate = usuarioUpdate;
     }
 
-    public BigInteger getValor() {
+    public BigDecimal getValor() {
         return valor;
     }
 
-    public void setValor(BigInteger valor) {
+    public void setValor(BigDecimal valor) {
         this.valor = valor;
     }
 

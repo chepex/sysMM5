@@ -25,7 +25,11 @@ public class PagoCompraController implements Serializable {
     @EJB
     private com.entities.PagoCompraFacade ejbFacade;
     @EJB
+    private com.entities.TipoTransaccionFacade tipoTransaccionFacade;    
+    @EJB
     private com.entities.CompraFacade compraFacade;   
+    @EJB
+    private com.ejb.SB_Banco sb_banco;     
     @EJB
     private com.entities.CuentaBancoFacade cuentaBancoFacade;       
     @EJB
@@ -121,9 +125,31 @@ public class PagoCompraController implements Serializable {
         compraFacade.edit(selectedCompra);
         proveedorFacade.edit(selectedCompra.getProveedorIdproveedor());
         
-        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("PagoCompraCreated"));
-        if (!JsfUtil.isValidationFailed()) {
-            items = null;    // Invalidate list of items to trigger re-query.
+        TransaccionBanco tb = new TransaccionBanco(0);
+        tb.setBancoIdbanco(selected.getBancoIdbanco());
+        tb.setCuentaBancoIdcuenta(selected.getCuentaBancoIdcuenta());
+        tb.setDescripcion("Pago factura :"+selected.getCompraIdcompra().getDocumento() +" Proveedor :"+selected.getCompraIdcompra().getProveedorIdproveedor().getNombre());
+        tb.setFecha(selected.getFecha());
+        TipoTransaccion tt = tipoTransaccionFacade.find(2);  
+        if(tt==null){
+            JsfUtil.addErrorMessage("No se ha definido el tipo de transaccion pago");            
+            return "error";
+        }
+        tb.setTipoTransaccionIdtipoTransaccion(tt);
+        tb.setValor(selected.getValor());
+        
+        String msg =     sb_banco.agregarTransaccion(tb);
+        
+        if(msg.equals("ok")){
+            persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("PagoCompraCreated"));
+            if (!JsfUtil.isValidationFailed()) {
+                items = null;    // Invalidate list of items to trigger re-query.
+            }
+        
+        }else{
+            JsfUtil.addErrorMessage("Surgio un error,"+msg);            
+            return "error";
+        
         }
         consultaPagos();
         
