@@ -15,33 +15,32 @@
 
         <ui:define name="content">
             <h:form id="PagoCompraListForm">
-                <p:panelGrid columns="2" >
+                <p:panelGrid columns="4" >
                      <p:outputLabel value="Proveedor" for="proveedor" />
                           <p:autoComplete id="proveedor" minQueryLength="3" 
-                                          value="#{pagoCompraController.proveedor}"                                         
-                                         var="producto"
-                                         itemLabel="#{producto.nombre }" 
-                                         itemValue="#{producto}"
-                                         completeMethod="#{proveedorController.autoCompleteProveedor}" 
-                                        converter="#{ProveedorControllerConverter}" 
-                                                                                
-                                        effect="fade" >
-                              <p:ajax  event="itemSelect"  listener="#{pagoCompraController.consultaPendiente()}" update="@form :growl" />
+                            value="#{pagoCompraController.proveedor}"                                         
+                            var="producto"
+                            itemLabel="#{producto.nombre }" 
+                            itemValue="#{producto}"
+                            completeMethod="#{proveedorController.autoCompleteProveedor}" 
+                            converter="#{ProveedorControllerConverter}" 
+                            forceSelection="true"
+                            effect="fade" >                              
                         </p:autoComplete>  
-                      
+                        <p:commandButton id="btnConsulta" value="Consulta"   actionListener="#{pagoCompraController.consultaPendiente()}"  update="@form :growl"  />
                 </p:panelGrid>
                 <p:panel header="Facturas pendientes">
-                    <p:dataTable id="datalist" value="#{pagoCompraController.lcompra}" var="item"
-                                 selectionMode="single" selection="#{pagoCompraController.selectedCompra}"
-                                 paginator="true"
+                    <p:dataTable id="datalist" value="#{pagoCompraController.lcompra}" 
+                                 var="item"
+                                 selectionMode="single"
+                                 selection="#{pagoCompraController.selectedCompra}"                                 
                                  rowKey="#{item.idcompra}"
-                                 rows="5"
-                                 rowsPerPageTemplate="10,20,30,40,50"
-                                 >
-                        <p:ajax event="rowDblselect" update=":PagoCompraCreateForm"  listener="#{pagoCompraController.prepareCreate()}"  oncomplete="PF('PagoCompraCreateDialog').show()" />    
-                        <p:ajax event="rowSelect"   update="@form"  listener="#{pagoCompraController.consultaPagos()}"/>
-                        <p:ajax event="rowUnselect" update="@form"/>
-
+                                 rows="30"
+                                 scrollable="true" scrollHeight="250"                                 
+                                 >                        
+                        <p:ajax event="rowSelect"   update=":PagoCompraListForm:datalistPagos2"  listener="#{pagoCompraController.consultaPagos()}"/>
+                        <p:ajax event="rowUnselect" update=":PagoCompraListForm:datalistPagos2"/>
+                        
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="Documeto"/>
@@ -76,7 +75,7 @@
                     </p:dataTable>
                     Doble Click para realizar pago
                 </p:panel>
-                <p:panel header ="Pagos realizados">
+                <p:panel header ="Pagos realizados" id="datalistPagos2">
                       <p:dataTable id="datalistPagos" value="#{pagoCompraController.items}" var="item"
                                  selectionMode="single" selection="#{pagoCompraController.selected}"
                                  paginator="true"

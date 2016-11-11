@@ -37,12 +37,12 @@
                 </p:panelGrid>                
                 <p:panel header="#{bundle.ListTransaccionBancoTitle}">
                     <p:dataTable id="datalist" value="#{transaccionBancoController.items}" var="item"
-                                 selectionMode="single" selection="#{transaccionBancoController.selected}"
-                                 paginator="true"
-                                 rowKey="#{item.idtransaccionBanco}"
-                                 rows="10"
-                                 rowsPerPageTemplate="10,20,30,40,50"
-                                 >
+                        selectionMode="single" 
+                        selection="#{transaccionBancoController.selected}"                               
+                        rowKey="#{item.idtransaccionBanco}"    
+                          rows="30"
+                                 scrollable="true" scrollHeight="250"   
+                        >
 
                         <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
                         <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
