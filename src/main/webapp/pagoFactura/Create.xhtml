@@ -11,21 +11,34 @@
         <p:dialog id="PagoFacturaCreateDlg" widgetVar="PagoFacturaCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreatePagoFacturaTitle}">
             <h:form id="PagoFacturaCreateForm">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{pagoFacturaController.selected != null}">
-               <p:outputLabel value="Banco" for="idbanco" />
+                      <p:panelGrid columns="2" rendered="#{pagoFacturaController.selected != null}">
+                        
+                        <p:outputLabel value="Efectivo" for="efectivo" />
+                        <p:selectBooleanCheckbox id="efectivo" value="#{pagoFacturaController.selected.efectivo}" >
+                            <p:ajax event="change" update="@form" /> 
+                        </p:selectBooleanCheckbox>
+                        
+                        <p:outputLabel  value="#{bundle.CreatePagoCompraLabel_valor}" for="valor" />
+                        <p:inputText id="valor" value="#{pagoFacturaController.selected.valor}" title="#{bundle.CreatePagoCompraTitle_valor}" required="true" requiredMessage="#{bundle.CreatePagoCompraRequiredMessage_valor}"/>
+                        
+                    </p:panelGrid>
+                    <p:outputLabel  value="Referencia Bancaria" rendered="#{pagoCompraController.selected.efectivo!=true}"/>
+                    <p:panelGrid columns="2" id="formCreateBanco" rendered="#{pagoFacturaController.selected.efectivo!=true}">
+                    
+                    <p:outputLabel value="Banco" for="idbanco" />
                         <p:autoComplete id="idbanco" minQueryLength="3" 
-                                        value="#{pagoFacturaController.selected.bancoIdbanco}"                                         
+                                        value="#{pagoFacturaController.banco}"                                         
                                         var="banco"
                                         itemLabel="#{banco.nombre}" 
                                         itemValue="#{banco}"
                                         completeMethod="#{bancoController.autoCompleteBanco}" 
                                         converter="#{BancoControllerConverter}"                                                                                 
                                         effect="fade" >
-                            <p:ajax  event="itemSelect"  listener="#{pagoFacturaController.consultaCuenta()}" update="@form :growl" />
+                            <p:ajax  event="itemSelect"  listener="#{pagoFacturaController.consultaCuenta()}" update="bancoIdbanco :growl" />
                         </p:autoComplete>                        
                         
                         <p:outputLabel value="Cuenta" for="bancoIdbanco" />
-                        <p:selectOneMenu id="bancoIdbanco" value="#{pagoFacturaController.selected.cuentaBancoIdcuenta}" required="true" requiredMessage="#{bundle.EditCuentaBancoRequiredMessage_bancoIdbanco}">
+                        <p:selectOneMenu id="bancoIdbanco" value="#{pagoFacturaController.cuentaBanco}" required="true" requiredMessage="#{bundle.EditCuentaBancoRequiredMessage_bancoIdbanco}">
                             <f:selectItems value="#{pagoFacturaController.lcuentaBanco}"
                                            var="cuentaBancoItem"
                                            itemLabel="#{cuentaBancoItem.numero}"
@@ -33,11 +46,11 @@
                         </p:selectOneMenu>                           
 
 
-                        <p:outputLabel value="#{bundle.CreatePagoFacturaLabel_valor}" for="valor" />
-                        <p:inputText id="valor" value="#{pagoFacturaController.selected.valor}" title="#{bundle.CreatePagoFacturaTitle_valor}" required="true" requiredMessage="#{bundle.CreatePagoFacturaRequiredMessage_valor}"/>
+                        <p:outputLabel value="referencia" for="referencia" />
+                        <p:inputText id="referencia" value="#{pagoFacturaController.referencia}" required="true" />
                         
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{pagoFacturaController.create}" value="#{bundle.Save}" update="display,:PagoFacturaListForm:datalist,:growl" oncomplete="PF('PagoFacturaCreateDialog').hide();"/>
+                    <p:commandButton actionListener="#{pagoFacturaController.create}" value="#{bundle.Save}" update="display,:PagoFacturaListForm:datalist,:PagoFacturaListForm:datalistPagos,:growl" oncomplete="PF('PagoFacturaCreateDialog').hide();"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="PagoFacturaCreateDialog.hide()"/>
                 </h:panelGroup>
             </h:form>

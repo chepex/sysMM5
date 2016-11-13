@@ -378,7 +378,7 @@ public class DashboardController implements Serializable {
     
         /*Ventas*/
         List<Object[]> lv = this.facturaFacade.ventaMes();
-        if(lv!=null){            
+        if(!lv.isEmpty()){            
             Object[] vtaMes =  lv.get(0);             
             BigDecimal valor =new BigDecimal( vtaMes[1].toString());
             valor = valor.setScale(2, RoundingMode.CEILING);
@@ -390,7 +390,7 @@ public class DashboardController implements Serializable {
         /*Compras*/
         
         List<Object[]> lv2 = this.compraFacade.compraMes();
-        if(lv2!=null){   
+        if(!lv2.isEmpty()){   
             
             if(!lv2.isEmpty()) {
                 Object[] vcompraMes =  lv2.get(0);             

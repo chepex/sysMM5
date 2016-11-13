@@ -138,7 +138,7 @@ public class PagoCompraController implements Serializable {
     public PagoCompra prepareCreate() {
         selected = new PagoCompra();
         selected.setEfectivo(false);
-        
+        this.banco =null;
         this.lcuentaBanco = null;
         initializeEmbeddableKey();
         return selected;
@@ -163,7 +163,7 @@ public class PagoCompraController implements Serializable {
             TransaccionBanco tb = new TransaccionBanco(x);
             tb.setBancoIdbanco(banco);
             tb.setCuentaBancoIdcuenta(cuentaBanco);
-            tb.setDescripcion("Pago factura :"+selected.getCompraIdcompra().getDocumento() +" Proveedor :"+selected.getCompraIdcompra().getProveedorIdproveedor().getNombre());
+            tb.setDescripcion("Pago Compra :"+selected.getCompraIdcompra().getDocumento() +" Proveedor :"+selected.getCompraIdcompra().getProveedorIdproveedor().getNombre());
             tb.setFecha(selected.getFecha());
             tb.setReferencia(referencia);
             TipoTransaccion tt = tipoTransaccionFacade.find(2);  

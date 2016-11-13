@@ -12,22 +12,14 @@
             <h:form id="BancoCreateForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{bancoController.selected != null}">
-                        <p:outputLabel value="#{bundle.CreateBancoLabel_idbanco}" for="idbanco" />
-                        <p:inputText id="idbanco" value="#{bancoController.selected.idbanco}" title="#{bundle.CreateBancoTitle_idbanco}" required="true" requiredMessage="#{bundle.CreateBancoRequiredMessage_idbanco}"/>
+                        
                         <p:outputLabel value="#{bundle.CreateBancoLabel_nombre}" for="nombre" />
                         <p:inputText id="nombre" value="#{bancoController.selected.nombre}" title="#{bundle.CreateBancoTitle_nombre}" required="true" requiredMessage="#{bundle.CreateBancoRequiredMessage_nombre}"/>
                         <p:outputLabel value="#{bundle.CreateBancoLabel_descripcion}" for="descripcion" />
                         <p:inputText id="descripcion" value="#{bancoController.selected.descripcion}" title="#{bundle.CreateBancoTitle_descripcion}" />
                         <p:outputLabel value="#{bundle.CreateBancoLabel_activo}" for="activo" />
-                        <p:selectBooleanCheckbox id="activo" value="#{bancoController.selected.activo}" required="true" requiredMessage="#{bundle.EditBancoRequiredMessage_activo}"/>
-                        <p:outputLabel value="#{bundle.CreateBancoLabel_usuarioCreate}" for="usuarioCreate" />
-                        <p:inputText id="usuarioCreate" value="#{bancoController.selected.usuarioCreate}" title="#{bundle.CreateBancoTitle_usuarioCreate}" />
-                        <p:outputLabel value="#{bundle.CreateBancoLabel_fechaCreate}" for="fechaCreate" />
-                        <p:calendar id="fechaCreate" pattern="MM/dd/yyyy" value="#{bancoController.selected.fechaCreate}" title="#{bundle.EditBancoTitle_fechaCreate}"  showOn="button"/>
-                        <p:outputLabel value="#{bundle.CreateBancoLabel_usuarioUpdate}" for="usuarioUpdate" />
-                        <p:inputText id="usuarioUpdate" value="#{bancoController.selected.usuarioUpdate}" title="#{bundle.CreateBancoTitle_usuarioUpdate}" />
-                        <p:outputLabel value="#{bundle.CreateBancoLabel_fechaUpdate}" for="fechaUpdate" />
-                        <p:calendar id="fechaUpdate" pattern="MM/dd/yyyy" value="#{bancoController.selected.fechaUpdate}" title="#{bundle.EditBancoTitle_fechaUpdate}"  showOn="button"/>
+                        <p:selectBooleanCheckbox value="#{bancoController.selected.activo}"  id="activo"/>
+                        
                     </p:panelGrid>
                     <p:commandButton actionListener="#{bancoController.create}" value="#{bundle.Save}" update="display,:BancoListForm:datalist,:growl" oncomplete="PF('BancoCreateDialog').hide();"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="BancoCreateDialog.hide()"/>

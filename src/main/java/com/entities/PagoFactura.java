@@ -66,19 +66,35 @@ public class PagoFactura implements Serializable {
     private String usuarioUpdate;
     @Column(name = "valor")
     private BigDecimal valor;
+    @Column(name = "efectivo")
+    private Boolean efectivo;       
     @JoinColumn(name = "factura_idfactura", referencedColumnName = "idfactura")
     @ManyToOne(optional = false)
     private Factura facturaIdfactura;
-    @JoinColumn(name = "cuenta_banco_idcuenta", referencedColumnName = "idcuenta")
+    @JoinColumn(name = "idtransaccion_banco", referencedColumnName = "idtransaccion_banco")
     @ManyToOne(optional = false)
-    private CuentaBanco cuentaBancoIdcuenta;
-    @JoinColumn(name = "banco_idbanco", referencedColumnName = "idbanco")
-    @ManyToOne(optional = false)
-    private Banco bancoIdbanco;
+    private TransaccionBanco transaccionBanco;    
 
     public PagoFactura() {
     }
 
+    public Boolean getEfectivo() {
+        return efectivo;
+    }
+
+    public void setEfectivo(Boolean efectivo) {
+        this.efectivo = efectivo;
+    }
+
+    public TransaccionBanco getTransaccionBanco() {
+        return transaccionBanco;
+    }
+
+    public void setTransaccionBanco(TransaccionBanco transaccionBanco) {
+        this.transaccionBanco = transaccionBanco;
+    }
+
+    
     public PagoFactura(Integer idpagoFactura) {
         this.idpagoFactura = idpagoFactura;
     }
@@ -147,22 +163,6 @@ public class PagoFactura implements Serializable {
 
     public void setFacturaIdfactura(Factura facturaIdfactura) {
         this.facturaIdfactura = facturaIdfactura;
-    }
-
-    public CuentaBanco getCuentaBancoIdcuenta() {
-        return cuentaBancoIdcuenta;
-    }
-
-    public void setCuentaBancoIdcuenta(CuentaBanco cuentaBancoIdcuenta) {
-        this.cuentaBancoIdcuenta = cuentaBancoIdcuenta;
-    }
-
-    public Banco getBancoIdbanco() {
-        return bancoIdbanco;
-    }
-
-    public void setBancoIdbanco(Banco bancoIdbanco) {
-        this.bancoIdbanco = bancoIdbanco;
     }
 
     @Override

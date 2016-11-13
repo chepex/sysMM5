@@ -70,7 +70,9 @@
                             <h:outputText value="#{item.saldo}"/>
                         </p:column>  
                         <f:facet name="footer">
-                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="Pagar"   actionListener="#{pagoCompraController.prepareCreate()}"  oncomplete="PF('PagoCompraCreateDialog').show()" update=":PagoCompraCreateForm" />
+                            <p:commandButton id="deleteButton"  icon="fa fa-money "  value="Pagar"   actionListener="#{pagoCompraController.prepareCreate()}"  oncomplete="PF('PagoCompraCreateDialog').show()" update=":PagoCompraCreateForm" >
+                              
+                            </p:commandButton>
                          </f:facet>                 
                     </p:dataTable>
                     Doble Click para realizar pago
@@ -78,10 +80,10 @@
                 <p:panel header ="Pagos realizados" id="datalistPagos2">
                       <p:dataTable id="datalistPagos" value="#{pagoCompraController.items}" var="item"
                                  selectionMode="single" selection="#{pagoCompraController.selected}"
-                                 paginator="true"
+                             
                                  rowKey="#{item.idpagoCompra}"
-                                 rows="10"
-                                 rowsPerPageTemplate="10,20,30,40,50"
+                                    rows="30"
+                                 scrollable="true" scrollHeight="250"    
                                  >
                           <p:column>
                                        

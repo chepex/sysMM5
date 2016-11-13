@@ -29,17 +29,54 @@ public class PagoFacturaController implements Serializable {
     @EJB
     private com.entities.ClienteFacade clienteFacade;     
     @EJB
-    private com.entities.CuentaBancoFacade cuentaBancoFacade;      
+    private com.entities.CuentaBancoFacade cuentaBancoFacade;  
+    @EJB
+    private com.entities.TransaccionBancoFacade transaccionBancoFacade;      
+    @EJB
+    private com.entities.TipoTransaccionFacade tipoTransaccionFacade;      
+    @EJB
+    private com.ejb.SB_Banco sb_banco;   
+    
     private List<PagoFactura> items = null;
     private PagoFactura selected;
     private Cliente cliente;
     private List<Factura> lfactura ;
     private Factura selectedFactura ;
     private List<CuentaBanco> lcuentaBanco = null;     
-
+    private Banco banco;
+    private CuentaBanco cuentaBanco;
+    private String referencia;
+    
+    
     public PagoFacturaController() {
     }
 
+    public String getReferencia() {
+        return referencia;
+    }
+
+    public void setReferencia(String referencia) {
+        this.referencia = referencia;
+    }
+    
+
+    public Banco getBanco() {
+        return banco;
+    }
+
+    public void setBanco(Banco banco) {
+        this.banco = banco;
+    }
+
+    public CuentaBanco getCuentaBanco() {
+        return cuentaBanco;
+    }
+
+    public void setCuentaBanco(CuentaBanco cuentaBanco) {
+        this.cuentaBanco = cuentaBanco;
+    }
+
+    
     public List<CuentaBanco> getLcuentaBanco() {
         return lcuentaBanco;
     }
@@ -105,22 +142,49 @@ public class PagoFacturaController implements Serializable {
         return selected;
     }
 
-    public void create() {
-        
-        selected.setFecha(new Date());
-        
-        selectedFactura.setSaldo(selectedFactura.getSaldo().subtract(selected.getValor()));
-     
+    public String create() {
+        String msg ="";
+                
+        selected.setFecha(new Date());        
+        selectedFactura.setSaldo(selectedFactura.getSaldo().subtract(selected.getValor()));     
         selectedFactura.getClienteIdcliente().setSaldo(selectedFactura.getClienteIdcliente().getSaldo().subtract(selected.getValor()));
-        selected.setFacturaIdfactura(selectedFactura);
-        
+        selected.setFacturaIdfactura(selectedFactura);        
         clienteFacade.edit(selectedFactura.getClienteIdcliente());
         facturaFacade.edit(selectedFactura);
-        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("PagoFacturaCreated"));
-        if (!JsfUtil.isValidationFailed()) {
+        
+        if(!selected.getEfectivo()){
+            String vid =  transaccionBancoFacade.findId();
+            Integer x = Integer.valueOf(vid)+1;
+            TransaccionBanco tb = new TransaccionBanco(x);
+            tb.setBancoIdbanco(banco);
+            tb.setCuentaBancoIdcuenta(cuentaBanco);
+            tb.setDescripcion("Abono factura :"+selected.getFacturaIdfactura().getDocumento() +" Proveedor :"+selected.getFacturaIdfactura().getClienteIdcliente().getNombre());
+            tb.setFecha(selected.getFecha());
+            tb.setReferencia(referencia);
+            TipoTransaccion tt = tipoTransaccionFacade.find(1);  
+            if(tt==null){
+                JsfUtil.addErrorMessage("No se ha definido el tipo de transaccion pago");            
+                return "error";
+            }
+            tb.setTipoTransaccionIdtipoTransaccion(tt);
+            tb.setValor(selected.getValor());
+            
+            msg =     sb_banco.agregarTransaccion(tb);
+            selected.setTransaccionBanco(tb);
+        }    
+        if(msg.equals("ok")){
+            persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("PagoFacturaCreated"));
+            if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
+            }
+        }else{
+            JsfUtil.addErrorMessage("Surgio un error,"+msg);            
+            return "error";        
         }
         consulta();
+        
+        return "";
+        
         
     }
 
@@ -222,6 +286,7 @@ public class PagoFacturaController implements Serializable {
     
     public void consulta(){
      lfactura = facturaFacade.findByClientePendiente(this.cliente);
+     items  = this.ejbFacade.findByCompra(selectedFactura);
     }
     
     public void consultaPendiente(){
@@ -242,7 +307,7 @@ public class PagoFacturaController implements Serializable {
 
     public void consultaCuenta(){
    
-    lcuentaBanco = cuentaBancoFacade.findByIdbanco(this.selected.getBancoIdbanco());
+    lcuentaBanco = cuentaBancoFacade.findByIdbanco(this.banco);
         if(lcuentaBanco.isEmpty()){
          JsfUtil.addErrorMessage("No se encontraron cuentas asociados a ese banco");
         }

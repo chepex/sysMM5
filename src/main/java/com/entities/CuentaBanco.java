@@ -73,8 +73,7 @@ public class CuentaBanco implements Serializable {
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "saldo")
     private BigDecimal saldo;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cuentaBancoIdcuenta")
-    private List<PagoFactura> pagoFacturaList;
+
     @JoinColumn(name = "banco_idbanco", referencedColumnName = "idbanco")
     @ManyToOne(optional = false)
     private Banco bancoIdbanco;
@@ -153,14 +152,7 @@ public class CuentaBanco implements Serializable {
         this.saldo = saldo;
     }
 
-    @XmlTransient
-    public List<PagoFactura> getPagoFacturaList() {
-        return pagoFacturaList;
-    }
 
-    public void setPagoFacturaList(List<PagoFactura> pagoFacturaList) {
-        this.pagoFacturaList = pagoFacturaList;
-    }
 
     public Banco getBancoIdbanco() {
         return bancoIdbanco;

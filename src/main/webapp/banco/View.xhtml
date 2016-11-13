@@ -12,26 +12,14 @@
             <h:form id="BancoViewForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{bancoController.selected != null}">
-                        <h:outputText value="#{bundle.ViewBancoLabel_idbanco}"/>
-                        <h:outputText value="#{bancoController.selected.idbanco}" title="#{bundle.ViewBancoTitle_idbanco}"/>
+                      
                         <h:outputText value="#{bundle.ViewBancoLabel_nombre}"/>
                         <h:outputText value="#{bancoController.selected.nombre}" title="#{bundle.ViewBancoTitle_nombre}"/>
                         <h:outputText value="#{bundle.ViewBancoLabel_descripcion}"/>
                         <h:outputText value="#{bancoController.selected.descripcion}" title="#{bundle.ViewBancoTitle_descripcion}"/>
                         <h:outputText value="#{bundle.ViewBancoLabel_activo}"/>
                         <p:selectBooleanCheckbox value="#{bancoController.selected.activo}" disabled="true"/>
-                        <h:outputText value="#{bundle.ViewBancoLabel_usuarioCreate}"/>
-                        <h:outputText value="#{bancoController.selected.usuarioCreate}" title="#{bundle.ViewBancoTitle_usuarioCreate}"/>
-                        <h:outputText value="#{bundle.ViewBancoLabel_fechaCreate}"/>
-                        <h:outputText value="#{bancoController.selected.fechaCreate}" title="#{bundle.ViewBancoTitle_fechaCreate}">
-                            <f:convertDateTime pattern="MM/dd/yyyy" />
-                        </h:outputText>
-                        <h:outputText value="#{bundle.ViewBancoLabel_usuarioUpdate}"/>
-                        <h:outputText value="#{bancoController.selected.usuarioUpdate}" title="#{bundle.ViewBancoTitle_usuarioUpdate}"/>
-                        <h:outputText value="#{bundle.ViewBancoLabel_fechaUpdate}"/>
-                        <h:outputText value="#{bancoController.selected.fechaUpdate}" title="#{bundle.ViewBancoTitle_fechaUpdate}">
-                            <f:convertDateTime pattern="MM/dd/yyyy" />
-                        </h:outputText>
+                        
                     </p:panelGrid>
                     <p:commandButton value="#{bundle.Close}" onclick="BancoViewDialog.hide()"/>
                 </h:panelGroup>

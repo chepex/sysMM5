@@ -4,6 +4,7 @@ import com.entities.util.JsfUtil;
 import com.entities.util.JsfUtil.PersistAction;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -41,7 +42,7 @@ public class BancoController implements Serializable {
     }
 
     protected void initializeEmbeddableKey() {
-        selected.setIdbanco(1);
+        selected.setIdbanco(0);
     }
 
     private BancoFacade getFacade() {
@@ -50,11 +51,14 @@ public class BancoController implements Serializable {
 
     public Banco prepareCreate() {
         selected = new Banco();
+        selected.setSaldo(BigDecimal.ZERO);
+        System.out.println("saldo--->"+selected.getSaldo());
         initializeEmbeddableKey();
         return selected;
     }
 
     public void create() {
+        
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("BancoCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.

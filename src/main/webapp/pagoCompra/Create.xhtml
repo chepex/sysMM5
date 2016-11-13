@@ -34,7 +34,7 @@
                                         completeMethod="#{bancoController.autoCompleteBanco}" 
                                         converter="#{BancoControllerConverter}"                                                                                 
                                         effect="fade" >
-                              <p:ajax  event="itemSelect"  listener="#{pagoCompraController.consultaCuenta()}" update="@form :growl" />
+                              <p:ajax  event="itemSelect"  listener="#{pagoCompraController.consultaCuenta()}" update="bancoIdbanco :growl" />
                         </p:autoComplete>                          
                         
                         

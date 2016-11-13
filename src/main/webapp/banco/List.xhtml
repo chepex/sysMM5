@@ -22,12 +22,7 @@
                                  >
                         <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
                         <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListBancoTitle_idbanco}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.idbanco}"/>
-                        </p:column>
+                      
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListBancoTitle_nombre}"/>
@@ -48,32 +43,11 @@
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListBancoTitle_usuarioCreate}"/>
+                                <h:outputText value="Disponible"/>
                             </f:facet>
-                            <h:outputText value="#{item.usuarioCreate}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListBancoTitle_fechaCreate}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.fechaCreate}">
-                                <f:convertDateTime pattern="MM/dd/yyyy" />
-                            </h:outputText>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListBancoTitle_usuarioUpdate}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.usuarioUpdate}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListBancoTitle_fechaUpdate}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.fechaUpdate}">
-                                <f:convertDateTime pattern="MM/dd/yyyy" />
-                            </h:outputText>
-                        </p:column>
+                            <h:outputText value="#{item.saldo}"/>
+                        </p:column>               
+                      
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="Crear" actionListener="#{bancoController.prepareCreate}" update=":BancoCreateForm" oncomplete="PF('BancoCreateDialog').show()"/>
                             <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":BancoViewForm" oncomplete="PF('BancoViewDialog').show()" disabled="#{empty bancoController.selected}"/>

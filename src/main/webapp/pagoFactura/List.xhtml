@@ -32,10 +32,10 @@
                 <p:panel header="#{bundle.ListPagoFacturaTitle}">
                     <p:dataTable id="datalist" value="#{pagoFacturaController.lfactura}" var="item"
                                  selectionMode="single" selection="#{pagoFacturaController.selectedFactura}"
-                                 paginator="true"
+                              
                                  rowKey="#{item.idfactura}"
-                                 rows="10"
-                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 rows="30"
+                                 scrollable="true" scrollHeight="250"      
                                  >
 
                         <p:ajax event="rowSelect"   update="@form" listener="#{pagoFacturaController.consultaPagos()}" />
@@ -87,25 +87,13 @@
                 
                 <p:panel header ="Pagos realizados">
                       <p:dataTable id="datalistPagos" value="#{pagoFacturaController.items}" var="item"
-                                 selectionMode="single" selection="#{pagoFacturaController.selected}"
-                                 paginator="true"
+                                 selectionMode="single" selection="#{pagoFacturaController.selected}"                                
                                  rowKey="#{item.idpagoFactura}"
-                                 rows="10"
-                                 rowsPerPageTemplate="10,20,30,40,50"
+                                  rows="30"
+                                 scrollable="true" scrollHeight="250"      
                                  >
                           
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="Banco"/>
-                            </f:facet>
-                            <h:outputText value="#{item.bancoIdbanco.nombre}"/>
-                        </p:column>                          
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="Cuenta"/>
-                            </f:facet>
-                            <h:outputText value="#{item.cuentaBancoIdcuenta.numero}"/>
-                        </p:column>
+                    
 
                         <p:column>
                             <f:facet name="header">
