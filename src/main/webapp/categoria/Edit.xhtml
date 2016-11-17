@@ -13,13 +13,28 @@
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{categoriaController.selected != null}">
                         <p:outputLabel value="#{bundle.EditCategoriaLabel_idcategoria}" for="idcategoria" />
-                        <p:inputText id="idcategoria"  disabled="true" value="#{categoriaController.selected.idcategoria}" title="#{bundle.EditCategoriaTitle_idcategoria}" required="true" requiredMessage="#{bundle.EditCategoriaRequiredMessage_idcategoria}"/>
+                        <p:inputText id="idcategoria" value="#{categoriaController.selected.idcategoria}" title="#{bundle.EditCategoriaTitle_idcategoria}" required="true" requiredMessage="#{bundle.EditCategoriaRequiredMessage_idcategoria}"/>
                         <p:outputLabel value="#{bundle.EditCategoriaLabel_nombre}" for="nombre" />
                         <p:inputText id="nombre" value="#{categoriaController.selected.nombre}" title="#{bundle.EditCategoriaTitle_nombre}" />
                         <p:outputLabel value="#{bundle.EditCategoriaLabel_activo}" for="activo" />
                         <p:selectBooleanCheckbox id="activo" value="#{categoriaController.selected.activo}" />
+                        <p:outputLabel value="#{bundle.EditCategoriaLabel_usuarioCreate}" for="usuarioCreate" />
+                        <p:inputText id="usuarioCreate" value="#{categoriaController.selected.usuarioCreate}" title="#{bundle.EditCategoriaTitle_usuarioCreate}" />
+                        <p:outputLabel value="#{bundle.EditCategoriaLabel_fechaCreate}" for="fechaCreate" />
+                        <p:calendar id="fechaCreate" pattern="MM/dd/yyyy" value="#{categoriaController.selected.fechaCreate}" title="#{bundle.EditCategoriaTitle_fechaCreate}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditCategoriaLabel_usuarioUpdate}" for="usuarioUpdate" />
+                        <p:inputText id="usuarioUpdate" value="#{categoriaController.selected.usuarioUpdate}" title="#{bundle.EditCategoriaTitle_usuarioUpdate}" />
+                        <p:outputLabel value="#{bundle.EditCategoriaLabel_fechaUpdate}" for="fechaUpdate" />
+                        <p:calendar id="fechaUpdate" pattern="MM/dd/yyyy" value="#{categoriaController.selected.fechaUpdate}" title="#{bundle.EditCategoriaTitle_fechaUpdate}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditCategoriaLabel_clasificacionIdclasificacion}" for="clasificacionIdclasificacion" />
+                        <p:selectOneMenu id="clasificacionIdclasificacion" value="#{categoriaController.selected.clasificacionIdclasificacion}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{clasificacionController.itemsAvailableSelectOne}"
+                                           var="clasificacionIdclasificacionItem"
+                                           itemValue="#{clasificacionIdclasificacionItem}"/>
+                        </p:selectOneMenu>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{categoriaController.update}" value="#{bundle.Save}" update="display,:CategoriaListForm:datalist,:growl" oncomplete="PF('CategoriaEditDialog').hide();"/>
+                    <p:commandButton actionListener="#{categoriaController.update}" value="#{bundle.Save}" update="display,:CategoriaListForm:datalist,:growl" oncomplete="handleSubmit(args, 'CategoriaEditDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="CategoriaEditDialog.hide()"/>
                 </h:panelGroup>
             </h:form>

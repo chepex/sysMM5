@@ -17,23 +17,23 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-@Named("categoriaController")
+@Named("rubroController")
 @SessionScoped
-public class CategoriaController implements Serializable {
+public class RubroController implements Serializable {
 
     @EJB
-    private com.entities.CategoriaFacade ejbFacade;
-    private List<Categoria> items = null;
-    private Categoria selected;
+    private com.entities.RubroFacade ejbFacade;
+    private List<Rubro> items = null;
+    private Rubro selected;
 
-    public CategoriaController() {
+    public RubroController() {
     }
 
-    public Categoria getSelected() {
+    public Rubro getSelected() {
         return selected;
     }
 
-    public void setSelected(Categoria selected) {
+    public void setSelected(Rubro selected) {
         this.selected = selected;
     }
 
@@ -43,36 +43,36 @@ public class CategoriaController implements Serializable {
     protected void initializeEmbeddableKey() {
     }
 
-    private CategoriaFacade getFacade() {
+    private RubroFacade getFacade() {
         return ejbFacade;
     }
 
-    public Categoria prepareCreate() {
-        selected = new Categoria();
+    public Rubro prepareCreate() {
+        selected = new Rubro();
         initializeEmbeddableKey();
         return selected;
     }
 
     public void create() {
-        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("CategoriaCreated"));
+        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("RubroCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
 
     public void update() {
-        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("CategoriaUpdated"));
+        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("RubroUpdated"));
     }
 
     public void destroy() {
-        persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("CategoriaDeleted"));
+        persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("RubroDeleted"));
         if (!JsfUtil.isValidationFailed()) {
             selected = null; // Remove selection
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
 
-    public List<Categoria> getItems() {
+    public List<Rubro> getItems() {
         if (items == null) {
             items = getFacade().findAll();
         }
@@ -107,29 +107,29 @@ public class CategoriaController implements Serializable {
         }
     }
 
-    public Categoria getCategoria(java.lang.Integer id) {
+    public Rubro getRubro(java.lang.Integer id) {
         return getFacade().find(id);
     }
 
-    public List<Categoria> getItemsAvailableSelectMany() {
+    public List<Rubro> getItemsAvailableSelectMany() {
         return getFacade().findAll();
     }
 
-    public List<Categoria> getItemsAvailableSelectOne() {
+    public List<Rubro> getItemsAvailableSelectOne() {
         return getFacade().findAll();
     }
 
-    @FacesConverter(forClass = Categoria.class)
-    public static class CategoriaControllerConverter implements Converter {
+    @FacesConverter(forClass = Rubro.class)
+    public static class RubroControllerConverter implements Converter {
 
         @Override
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            CategoriaController controller = (CategoriaController) facesContext.getApplication().getELResolver().
-                    getValue(facesContext.getELContext(), null, "categoriaController");
-            return controller.getCategoria(getKey(value));
+            RubroController controller = (RubroController) facesContext.getApplication().getELResolver().
+                    getValue(facesContext.getELContext(), null, "rubroController");
+            return controller.getRubro(getKey(value));
         }
 
         java.lang.Integer getKey(String value) {
@@ -149,11 +149,11 @@ public class CategoriaController implements Serializable {
             if (object == null) {
                 return null;
             }
-            if (object instanceof Categoria) {
-                Categoria o = (Categoria) object;
-                return getStringKey(o.getIdcategoria());
+            if (object instanceof Rubro) {
+                Rubro o = (Rubro) object;
+                return getStringKey(o.getIdrubro());
             } else {
-                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), Categoria.class.getName()});
+                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), Rubro.class.getName()});
                 return null;
             }
         }

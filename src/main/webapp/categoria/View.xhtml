@@ -18,6 +18,20 @@
                         <h:outputText value="#{categoriaController.selected.nombre}" title="#{bundle.ViewCategoriaTitle_nombre}"/>
                         <h:outputText value="#{bundle.ViewCategoriaLabel_activo}"/>
                         <p:selectBooleanCheckbox value="#{categoriaController.selected.activo}" disabled="true"/>
+                        <h:outputText value="#{bundle.ViewCategoriaLabel_usuarioCreate}"/>
+                        <h:outputText value="#{categoriaController.selected.usuarioCreate}" title="#{bundle.ViewCategoriaTitle_usuarioCreate}"/>
+                        <h:outputText value="#{bundle.ViewCategoriaLabel_fechaCreate}"/>
+                        <h:outputText value="#{categoriaController.selected.fechaCreate}" title="#{bundle.ViewCategoriaTitle_fechaCreate}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewCategoriaLabel_usuarioUpdate}"/>
+                        <h:outputText value="#{categoriaController.selected.usuarioUpdate}" title="#{bundle.ViewCategoriaTitle_usuarioUpdate}"/>
+                        <h:outputText value="#{bundle.ViewCategoriaLabel_fechaUpdate}"/>
+                        <h:outputText value="#{categoriaController.selected.fechaUpdate}" title="#{bundle.ViewCategoriaTitle_fechaUpdate}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewCategoriaLabel_clasificacionIdclasificacion}"/>
+                        <h:outputText value="#{categoriaController.selected.clasificacionIdclasificacion}" title="#{bundle.ViewCategoriaTitle_clasificacionIdclasificacion}"/>
                     </p:panelGrid>
                     <p:commandButton value="#{bundle.Close}" onclick="CategoriaViewDialog.hide()"/>
                 </h:panelGroup>

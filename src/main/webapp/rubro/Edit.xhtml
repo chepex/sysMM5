@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="RubroEditDlg" widgetVar="RubroEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditRubroTitle}">
+            <h:form id="RubroEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{rubroController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditRubroLabel_idrubro}" for="idrubro" />
+                        <p:inputText id="idrubro" value="#{rubroController.selected.idrubro}" title="#{bundle.EditRubroTitle_idrubro}" required="true" requiredMessage="#{bundle.EditRubroRequiredMessage_idrubro}"/>
+                        <p:outputLabel value="#{bundle.EditRubroLabel_nombre}" for="nombre" />
+                        <p:inputText id="nombre" value="#{rubroController.selected.nombre}" title="#{bundle.EditRubroTitle_nombre}" required="true" requiredMessage="#{bundle.EditRubroRequiredMessage_nombre}"/>
+                        <p:outputLabel value="#{bundle.EditRubroLabel_activo}" for="activo" />
+                        <p:selectBooleanCheckbox id="activo" value="#{rubroController.selected.activo}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{rubroController.update}" value="#{bundle.Save}" update="display,:RubroListForm:datalist,:growl" oncomplete="handleSubmit(args, 'RubroEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="RubroEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

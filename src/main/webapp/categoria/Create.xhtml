@@ -12,13 +12,21 @@
             <h:form id="CategoriaCreateForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{categoriaController.selected != null}">
-                        
+                        <p:outputLabel value="#{bundle.CreateCategoriaLabel_idcategoria}" for="idcategoria" />
+                        <p:inputText id="idcategoria" value="#{categoriaController.selected.idcategoria}" title="#{bundle.CreateCategoriaTitle_idcategoria}" required="true" requiredMessage="#{bundle.CreateCategoriaRequiredMessage_idcategoria}"/>
                         <p:outputLabel value="#{bundle.CreateCategoriaLabel_nombre}" for="nombre" />
                         <p:inputText id="nombre" value="#{categoriaController.selected.nombre}" title="#{bundle.CreateCategoriaTitle_nombre}" />
                         <p:outputLabel value="#{bundle.CreateCategoriaLabel_activo}" for="activo" />
                         <p:selectBooleanCheckbox id="activo" value="#{categoriaController.selected.activo}" />
+                       
+                        <p:outputLabel value="#{bundle.CreateCategoriaLabel_clasificacionIdclasificacion}" for="clasificacionIdclasificacion" />
+                        <p:selectOneMenu id="clasificacionIdclasificacion" value="#{categoriaController.selected.clasificacionIdclasificacion}" >
+                            <f:selectItems value="#{clasificacionController.itemsAvailableSelectOne}"
+                                           var="clasificacionIdclasificacionItem"
+                                           itemValue="#{clasificacionIdclasificacionItem}"/>
+                        </p:selectOneMenu>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{categoriaController.create}" value="#{bundle.Save}" update="display,:CategoriaListForm:datalist,:growl" oncomplete="PF('CategoriaCreateDialog').hide();"/>
+                    <p:commandButton actionListener="#{categoriaController.create}" value="#{bundle.Save}" update="display,:CategoriaListForm:datalist,:growl" oncomplete="handleSubmit(args,'CategoriaCreateDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="CategoriaCreateDialog.hide()"/>
                 </h:panelGroup>
             </h:form>

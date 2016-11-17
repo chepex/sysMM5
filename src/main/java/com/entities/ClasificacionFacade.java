@@ -14,7 +14,7 @@ import javax.persistence.PersistenceContext;
  * @author mmixco
  */
 @Stateless
-public class CategoriaFacade extends AbstractFacade<Categoria> {
+public class ClasificacionFacade extends AbstractFacade<Clasificacion> {
 
     @PersistenceContext(unitName = "sysMMXPU")
     private EntityManager em;
@@ -24,8 +24,8 @@ public class CategoriaFacade extends AbstractFacade<Categoria> {
         return em;
     }
 
-    public CategoriaFacade() {
-        super(Categoria.class);
+    public ClasificacionFacade() {
+        super(Clasificacion.class);
     }
     
 }
