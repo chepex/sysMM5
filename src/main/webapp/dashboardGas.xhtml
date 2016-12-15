@@ -1,0 +1,34 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+
+
+    <ui:define name="head">
+        <h:outputScript name="js/maps.js" library="olympos-layout" /> 
+    </ui:define>
+
+    <ui:define name="content">
+        <style>
+            
+            .ui-commandlink {
+ 
+    text-decoration: none !important;
+}
+        </style>
+     
+        <h:form id="formDashboard"  >       
+        
+        <div class="Container100">
+            <div class="Card">
+                <p:gmap center="13.900406, -88.756749" zoom="9" type="ROADMAP" 
+                        model="#{dashboardController.gasolineras}" 
+                        style="height:600px; border:solid 1px #ccc;"   />
+            </div>
+        </div>
+       </h:form>
+    </ui:define>
+
+</ui:composition>

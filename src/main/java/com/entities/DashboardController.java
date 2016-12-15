@@ -28,6 +28,10 @@ import org.primefaces.model.chart.BarChartModel;
 
 import org.primefaces.model.chart.ChartSeries;
 import org.primefaces.model.chart.PieChartModel;
+import org.primefaces.model.map.DefaultMapModel;
+import org.primefaces.model.map.LatLng;
+import org.primefaces.model.map.MapModel;
+import org.primefaces.model.map.Marker;
 
  
 /**
@@ -41,6 +45,8 @@ public class DashboardController implements Serializable {
     
    @EJB
    private FacturaFacade facturaFacade; 
+   @EJB
+   private CompaniaFacade companiaFacade;    
    @EJB
    private CompraFacade compraFacade; 
    @EJB
@@ -75,10 +81,22 @@ public class DashboardController implements Serializable {
    private List<TransaccionCaja> ltcaja;
    private List<Cliente> lcliente;   
    private List<Proveedor> lproveedor;      
- 
+   private MapModel gasolineras;
+   
     public DashboardController() {
     }
 
+    public MapModel getGasolineras() {
+        addMapModel1();
+        return gasolineras;
+    }
+
+    public void setGasolineras(MapModel gasolineras) {
+        this.gasolineras = gasolineras;
+    }
+
+    
+    
     public List<Proveedor> getLproveedor() {
         return lproveedor;
     }
@@ -540,7 +558,22 @@ public class DashboardController implements Serializable {
         FacesContext.getCurrentInstance().getExternalContext().redirect("dashboard/ListProveedor.xhtml");
     }
        
-   
+    public void addMapModel1() {
+        gasolineras = new DefaultMapModel();
+        System.out.println("<--->"); 
+        //Shared coordinates
+        List<Compania> lv = this.companiaFacade.findAll();
+        System.out.println("lv--->"+lv);
+        for(Compania v :lv){
+            Double lat =  Double.parseDouble(v.getLatitud());
+            Double lon =  Double.parseDouble(v.getLongitud());            
+            LatLng coord1 = new LatLng(lat, lon);   
+             System.out.println("nombre--->"+ v.getNombre());
+            Marker marker1 = new Marker(coord1, v.getNombre(), null, "texaco-logo.png");
+            gasolineras.addOverlay(marker1);
+        }        
+        
+    }     
     
  
 }
