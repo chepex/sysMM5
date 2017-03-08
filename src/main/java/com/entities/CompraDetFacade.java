@@ -19,7 +19,7 @@ import javax.persistence.Query;
  */
 @Stateless
 public class CompraDetFacade extends AbstractFacade<CompraDet> {
-    @PersistenceContext(unitName = "sysMMXPU")
+    @PersistenceContext(unitName = "sysMMXPU2")
     private EntityManager em;
 
     @Override

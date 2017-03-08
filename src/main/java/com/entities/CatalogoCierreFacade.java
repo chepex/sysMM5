@@ -15,7 +15,7 @@ import javax.persistence.PersistenceContext;
  */
 @Stateless
 public class CatalogoCierreFacade extends AbstractFacade<CatalogoCierre> {
-    @PersistenceContext(unitName = "sysMMXPU")
+    @PersistenceContext(unitName = "sysMMXPU2")
     private EntityManager em;
 
     @Override

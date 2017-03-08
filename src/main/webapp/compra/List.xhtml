@@ -14,23 +14,26 @@
         </ui:define>
 
         <ui:define name="content">
-            <style>
-                
-            </style>
+           
             <h:form id="CompraListForm">
-                <div style="position: absolute; right: 20px;">
-                <p:commandButton id="buscarButton"   icon="ui-icon-search" value="Ctrl+B"  update=":BuscarForm" oncomplete="PF('BUscarDialog').show()" disabled="#{!empty compraController.selected}"/>                
-                <p:commandButton actionListener="#{compraController.prepareCreate()}"   icon="ui-icon-plus" value="F6" update="@form" disabled="#{!empty compraController.selected}"/>
-                <p:commandButton actionListener="#{compraController.create()}"   icon="ui-icon-disk" value="F7" update="CompraListForm :growl" disabled="#{empty compraController.selected}"/>
-                <p:commandButton actionListener="#{compraController.limpiar()}"   icon="ui-icon-closethick" value="F9" update="@form" disabled="#{empty compraController.selected}"/>
-                </div>
                 
-                <p:panelGrid columns="2"  style=" border-style: hidden !important;" >
-                    
-                    
-                </p:panelGrid>
-                <p:panel header="Compras" >
-                    <p:panelGrid columns="6"  style=" border-style: hidden !important;" rendered="#{compraController.selected != null}">
+                  <div class="Container100">
+                      <div class="Card">
+                          <div class="Container80">
+                              <h1>Formulario de Compras</h1>
+                          </div>
+                          <div class="Container20">
+                          <p:commandButton id="buscarButton"   icon="fa  fa-search  Fs16 White"   value="Ctrl+B"  update=":BuscarForm" oncomplete="PF('BUscarDialog').show()" disabled="#{!empty compraController.selected}"/>
+                          <p:commandButton actionListener="#{compraController.prepareCreate()}"   icon="fa  fa-plus  Fs16 White" value="F6" update="@form" disabled="#{!empty compraController.selected}"/>
+                          <p:commandButton actionListener="#{compraController.create()}"   icon="fa  fa-save  Fs16 White" value="F7" update="CompraListForm :growl" disabled="#{empty compraController.selected}"/>
+                          <p:commandButton actionListener="#{compraController.limpiar()}"   icon="fa  fa-close  Fs16 White" value="F9" update="@form" disabled="#{empty compraController.selected}"/>                 
+                          </div>
+                        </div>
+                </div>
+                  <div class="SeparatorFull"></div>
+               
+                <p:panel header="Compra" >
+                    <p:panelGrid columns="6"    rendered="#{compraController.selected != null}">
                         <p:outputLabel value="Proveedor" for="proveedorIdproveedor" />
                         <p:autoComplete id="proveedorIdproveedor" minQueryLength="3" 
                                         value="#{compraController.selected.proveedorIdproveedor}"
@@ -57,6 +60,9 @@
                     </p:panelGrid>
                     
                 </p:panel>
+                 
+                <br/>
+                 <p:panel header="Detalle de Compra" >
                 <p:panel   >
                     <p:panelGrid columns="9"  style=" border-style: hidden !important;" rendered="#{compraController.selected != null}">
                         <p:outputLabel value="Producto" for="producto" />
@@ -84,10 +90,11 @@
                         <p:outputLabel value="Existencia" for="existencia" /> 
                         <p:inputNumber id="existencia" value="#{compraController.existencia}"  disabled="true"  />                          
                         
-                        <p:commandButton actionListener="#{compraController.addDetalle()}"   icon="ui-icon-plus" style="margin-top: 0px !important;"  update="@form  :growl"/>
+                        <p:commandButton actionListener="#{compraController.addDetalle()}"   icon="fa  fa-plus  Fs16 White" style="margin-top: 0px !important;"  update="@form  :growl"/>
                     </p:panelGrid>
                 </p:panel>  
-                <p:panel header="Detalle" >
+              
+               
                     <p:dataTable id="datalist" value="#{compraController.detCompra}" var="item"
                                  selectionMode="single" selection="#{compraDetController.selected}"
                                   scrollable="true" scrollHeight="250"
@@ -95,6 +102,12 @@
                                  
                                
                                  >
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Codigo"/>
+                            </f:facet>
+                            <h:outputText value="#{item.productoIdproducto.idproducto}"/>
+                        </p:column>
                          <p:column>
                             <f:facet name="header">
                                 <h:outputText value="Producto"/>

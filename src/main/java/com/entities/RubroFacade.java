@@ -16,7 +16,7 @@ import javax.persistence.PersistenceContext;
 @Stateless
 public class RubroFacade extends AbstractFacade<Rubro> {
 
-    @PersistenceContext(unitName = "sysMMXPU")
+    @PersistenceContext(unitName = "sysMMXPU2")
     private EntityManager em;
 
     @Override

@@ -20,7 +20,7 @@ import javax.persistence.TypedQuery;
  */
 @Stateless
 public class ProveedorFacade extends AbstractFacade<Proveedor> {
-    @PersistenceContext(unitName = "sysMMXPU")
+    @PersistenceContext(unitName = "sysMMXPU2")
     private EntityManager em;
 
     @Override

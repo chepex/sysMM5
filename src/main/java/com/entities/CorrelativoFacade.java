@@ -17,7 +17,7 @@ import javax.persistence.TypedQuery;
  */
 @Stateless
 public class CorrelativoFacade extends AbstractFacade<Correlativo> {
-    @PersistenceContext(unitName = "sysMMXPU")
+    @PersistenceContext(unitName = "sysMMXPU2")
     private EntityManager em;
 
     @Override

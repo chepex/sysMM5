@@ -16,7 +16,7 @@ import javax.persistence.PersistenceContext;
 @Stateless
 public class ClasificacionFacade extends AbstractFacade<Clasificacion> {
 
-    @PersistenceContext(unitName = "sysMMXPU")
+    @PersistenceContext(unitName = "sysMMXPU2")
     private EntityManager em;
 
     @Override

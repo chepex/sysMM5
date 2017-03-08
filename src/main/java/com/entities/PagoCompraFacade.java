@@ -17,7 +17,7 @@ import javax.persistence.TypedQuery;
  */
 @Stateless
 public class PagoCompraFacade extends AbstractFacade<PagoCompra> {
-    @PersistenceContext(unitName = "sysMMXPU")
+    @PersistenceContext(unitName = "sysMMXPU2")
     private EntityManager em;
 
     @Override

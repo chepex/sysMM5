@@ -21,7 +21,7 @@ import javax.persistence.TypedQuery;
  */
 @Stateless
 public class CajaChicaFacade extends AbstractFacade<CajaChica> {
-    @PersistenceContext(unitName = "sysMMXPU")
+    @PersistenceContext(unitName = "sysMMXPU2")
     private EntityManager em;
 
     @Override
