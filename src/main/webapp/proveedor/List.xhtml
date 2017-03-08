@@ -184,7 +184,14 @@
                                 <h:outputText value="saldo"/>
                             </f:facet>
                             <h:outputText value="#{item.saldo}"/>
-                        </p:column>                          
+                        </p:column>  
+                         
+                            <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="TipoPago"/>
+                            </f:facet>
+                                <h:outputText value="#{item.tipoPagoIdtipoPago.nombre}"/>
+                        </p:column>    
                          
                        
                          <f:facet name="footer">

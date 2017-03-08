@@ -47,13 +47,13 @@
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListCompraDetTitle_productoIdproducto}"/>
                             </f:facet>
-                            <h:outputText value="#{item.bancoIdbanco.nombre}"/>
+                            <h:outputText value="#{item.transaccionBanco.bancoIdbanco.nombre}"/>
                         </p:column>    
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListCompraDetTitle_cantidad}"/>
+                                <h:outputText value="Numero cuenta"/>
                             </f:facet>
-                            <h:outputText value="#{item.cuentaBancoIdcuenta.numero}"/>
+                            <h:outputText value="#{item.transaccionBanco.cuentaBancoIdcuenta.numero}"/>
                         </p:column>  
                         <p:column>
                             <f:facet name="header">

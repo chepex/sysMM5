@@ -125,11 +125,11 @@ public class CompraFacade extends AbstractFacade<Compra> {
         Query q  = null;
         List<Object[]> lo = null;       
         String query="                     " +
-        "   SELECT m.nombre ,sum(total) " +
+        "   SELECT m.nombre ,sum(total) , m.idmes " +
         " FROM sysmmx.compra f, sysmmx.meses m" +
         " where  DATE_FORMAT(fecha, '%Y-%m-%d') between CONCAT(DATE_FORMAT(CURDATE(), '%Y-%m-') , '01') and DATE_FORMAT(CURDATE(), '%Y-%m-%d')  " +
         " and DATE_FORMAT(fecha, '%m')  = m.idmes" +
-        " group by m.nombre " +
+        " group by m.nombre , m.idmes " +
         " order by   m.idmes  ";                             
         try{            
             q=  em.createNativeQuery(query);          
@@ -145,11 +145,11 @@ public class CompraFacade extends AbstractFacade<Compra> {
         Query q  = null;
         List<Object[]> lo = null;       
         String query="                     " +
-        "   SELECT m.nombre ,sum(total) " +
+        "   SELECT m.nombre ,sum(total) , m.idmes " +
         " FROM sysmmx.compra f, sysmmx.meses m" +
         " where  DATE_FORMAT(fecha, '%Y-%m-%d') between CONCAT(DATE_FORMAT(now(), '%Y') ,'-01-01') and DATE_FORMAT(now(), '%Y-%m-%d')" +
         " and DATE_FORMAT(fecha, '%m')  = m.idmes" +
-        " group by m.nombre\n" +
+        " group by m.nombre,  m.idmes " +
         " order by   m.idmes  ";                             
         try{            
             q=  em.createNativeQuery(query);          
@@ -165,11 +165,11 @@ public class CompraFacade extends AbstractFacade<Compra> {
         Query q  = null;
         List<Object[]> lo = null;  
        
-        String query=" SELECT m.nombre ,sum(total) " +
+        String query=" SELECT m.nombre ,sum(total) , m.idmes " +
         " FROM sysmmx.compra f, sysmmx.meses m" +
         " where  DATE_FORMAT(fecha, '%Y-%m-%d') between CONCAT(DATE_FORMAT(DATE_SUB(CURDATE(), INTERVAL 365 DAY), '%Y') ,'-01-01') and DATE_FORMAT(DATE_SUB(CURDATE(), INTERVAL 365 DAY), '%Y-%m-%d')" +
         " and DATE_FORMAT(fecha, '%m')  = m.idmes" +
-        " group by m.nombre" +
+        " group by m.nombre,  m.idmes " +
         " order by   m.idmes ";                             
         try{            
             q=  em.createNativeQuery(query);  
