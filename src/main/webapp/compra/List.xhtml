@@ -19,10 +19,10 @@
                 
                   <div class="Container100">
                       <div class="Card">
-                          <div class="Container80">
+                          <div class="Container70">
                               <h1>Formulario de Compras</h1>
                           </div>
-                          <div class="Container20">
+                          <div class="Container30">
                           <p:commandButton id="buscarButton"   icon="fa  fa-search  Fs16 White"   value="Ctrl+B"  update=":BuscarForm" oncomplete="PF('BUscarDialog').show()" disabled="#{!empty compraController.selected}"/>
                           <p:commandButton actionListener="#{compraController.prepareCreate()}"   icon="fa  fa-plus  Fs16 White" value="F6" update="@form" disabled="#{!empty compraController.selected}"/>
                           <p:commandButton actionListener="#{compraController.create()}"   icon="fa  fa-save  Fs16 White" value="F7" update="CompraListForm :growl" disabled="#{empty compraController.selected}"/>
@@ -32,7 +32,7 @@
                 </div>
                   <div class="SeparatorFull"></div>
                
-                <p:panel header="Compra" >
+                <p:panel header="Datos" >
                     <p:panelGrid columns="6"    rendered="#{compraController.selected != null}">
                         <p:outputLabel value="Proveedor" for="proveedorIdproveedor" />
                         <p:autoComplete id="proveedorIdproveedor" minQueryLength="3" 
@@ -61,20 +61,18 @@
                     
                 </p:panel>
                  
-                <br/>
+                    
                  <p:panel header="Detalle de Compra" >
                 <p:panel   >
                     <p:panelGrid columns="9"  style=" border-style: hidden !important;" rendered="#{compraController.selected != null}">
                         <p:outputLabel value="Producto" for="producto" />
                         <p:autoComplete id="producto" minQueryLength="3" 
-                                        value="#{compraController.productoIdproducto}"
-                                         
+                                        value="#{compraController.productoIdproducto}"                                         
                                          var="producto"
                                          itemLabel="#{producto.nombre}" 
                                          itemValue="#{producto}"
                                         completeMethod="#{productoController.autoCompleteProducto}" 
-                                        converter="#{ProductoControllerConverter}" 
-                                                                                
+                                        converter="#{ProductoControllerConverter}"                                                                                 
                                         effect="fade" >
                               <p:ajax  event="itemSelect"  listener="#{compraController.updateExistencia}" update="existencia vprecio" />
                         </p:autoComplete>
@@ -97,7 +95,7 @@
                
                     <p:dataTable id="datalist" value="#{compraController.detCompra}" var="item"
                                  selectionMode="single" selection="#{compraDetController.selected}"
-                                  scrollable="true" scrollHeight="250"
+                                  scrollable="true" scrollHeight="150"
                                  rowKey="#{item.idcompraDet}"
                                  
                                

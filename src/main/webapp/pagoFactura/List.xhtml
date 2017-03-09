@@ -15,8 +15,16 @@
 
         <ui:define name="content">
             <h:form id="PagoFacturaListForm">
-                   <p:panelGrid columns="2" >
-                     <p:outputLabel value="Cliente" for="cliente" />
+                
+                  <div class="Container100">
+                      <div class="Card">
+                          <div class="Container60">
+                              <h1>Pago de Factura</h1>
+                          </div>
+                          <div class="Container40"    >
+                               <p:panelGrid columns="2"  style="float: right !important; ">
+                                   
+                                   <p:outputLabel value="Cliente" for="cliente"   />
                           <p:autoComplete id="cliente" minQueryLength="3" 
                                         value="#{pagoFacturaController.cliente}"                                         
                                         var="cliente"
@@ -29,13 +37,18 @@
                         </p:autoComplete>  
                       
                 </p:panelGrid>
-                <p:panel header="#{bundle.ListPagoFacturaTitle}">
+                          </div>
+                      </div>
+                  </div>
+               
+                   <div class="SeparatorFull"></div>
+                <p:panel header="Datos">
                     <p:dataTable id="datalist" value="#{pagoFacturaController.lfactura}" var="item"
                                  selectionMode="single" selection="#{pagoFacturaController.selectedFactura}"
                               
                                  rowKey="#{item.idfactura}"
                                  rows="30"
-                                 scrollable="true" scrollHeight="250"      
+                                 scrollable="true" scrollHeight="150"      
                                  >
 
                         <p:ajax event="rowSelect"   update="@form" listener="#{pagoFacturaController.consultaPagos()}" />

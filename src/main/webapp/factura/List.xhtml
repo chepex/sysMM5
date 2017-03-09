@@ -14,14 +14,21 @@
 
         <ui:define name="content">
             <h:form id="FacturaListForm">
-                 <div style="position: absolute; right: 20px;">
-                <p:commandButton id="buscarButton"   icon="ui-icon-search" value="Ctrl+B"  update=":BuscarForm" oncomplete="PF('BUscarDialog').show()" disabled="#{!empty facturaController.selected}"/>                
-                <p:commandButton actionListener="#{facturaController.prepareCreate()}"   icon="ui-icon-plus" value="F6" update="@form" disabled="#{!empty facturaController.selected}"/>
-                <p:commandButton actionListener="#{facturaController.create()}"   icon="ui-icon-disk" value="F7" update="FacturaListForm :growl" disabled="#{empty facturaController.selected}"/>
-                <p:commandButton actionListener="#{facturaController.limpiar()}"   icon="ui-icon-closethick" value="F9" update="@form" disabled="#{empty facturaController.selected}"/>
+                <div class="Container100">
+                    <div class="Card">
+                        <div class="Container70">
+                            <h1>Formulario de Venta</h1>
+                        </div>
+                        <div class="Container30">
+                          <p:commandButton id="buscarButton"   icon="fa  fa-search  Fs16 White" value="Ctrl+B"  update=":BuscarForm" oncomplete="PF('BUscarDialog').show()" disabled="#{!empty facturaController.selected}"/>                
+                          <p:commandButton actionListener="#{facturaController.prepareCreate()}"   icon="fa  fa-plus  Fs16 White" value="F6" update="@form" disabled="#{!empty facturaController.selected}"/>
+                          <p:commandButton actionListener="#{facturaController.create()}"   icon="fa  fa-save  Fs16 White" value="F7" update="FacturaListForm :growl" disabled="#{empty facturaController.selected}"/>
+                          <p:commandButton actionListener="#{facturaController.limpiar()}"   icon="fa  fa-close  Fs16 White" value="F9" update="@form" disabled="#{empty facturaController.selected}"/>
+                        </div>
+                    </div>
                 </div>
-
-            <p:panel header="Ventas" >
+ <div class="SeparatorFull"></div>
+            <p:panel header="Datos" >
                     <p:panelGrid columns="6"  style=" border-style: hidden !important;" rendered="#{facturaController.selected != null}">
                         
                        
@@ -76,7 +83,7 @@
                         <p:outputLabel value="Existencia" for="existencia" /> 
                         <p:inputNumber id="existencia" value="#{facturaController.existencia}"  disabled="true"  />                         
                         
-                        <p:commandButton actionListener="#{facturaController.addDetalle()}"   icon="ui-icon-plus" style="margin-top: 0px !important;"  update="@form :growl"/>
+                        <p:commandButton actionListener="#{facturaController.addDetalle()}"   icon="fa  fa-plus  Fs16 White" style="margin-top: 0px !important;"  update="@form :growl"/>
                     </p:panelGrid>
                 </p:panel>  
                 <p:panel header="Detalle" >
@@ -85,7 +92,7 @@
                                  
                                   rowKey="#{item.idfacturaDet}"
                                  rows="30"
-                                  scrollable="true" scrollHeight="250"
+                                  scrollable="true" scrollHeight="150"
                                  >
                          <p:column>
                             <f:facet name="header">

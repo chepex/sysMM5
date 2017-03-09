@@ -48,6 +48,7 @@ public class CategoriaController implements Serializable {
     }
 
     public Categoria prepareCreate() {
+        System.out.println("aqui --");
         selected = new Categoria();
         initializeEmbeddableKey();
         return selected;
