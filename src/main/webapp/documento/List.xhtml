@@ -53,9 +53,9 @@
                             <p:selectBooleanCheckbox value="#{item.activo}" disabled="true"/>
                         </p:column>
                         <f:facet name="footer">
-                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{documentoController.prepareCreate}" update=":DocumentoCreateForm" oncomplete="PF('DocumentoCreateDialog').show()"/>
-                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":DocumentoViewForm" oncomplete="PF('DocumentoViewDialog').show()" disabled="#{empty documentoController.selected}"/>
-                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":DocumentoEditForm" oncomplete="PF('DocumentoEditDialog').show()" disabled="#{empty documentoController.selected}"/>
+                            <p:commandButton id="createButton" icon="fa fa-plus White"   value="#{bundle.Create}" actionListener="#{documentoController.prepareCreate}" update=":DocumentoCreateForm" oncomplete="PF('DocumentoCreateDialog').show()"/>
+                            <p:commandButton id="viewButton"   icon="fa fa-search White" value="#{bundle.View}" update=":DocumentoViewForm" oncomplete="PF('DocumentoViewDialog').show()" disabled="#{empty documentoController.selected}"/>
+                            <p:commandButton id="editButton"   icon="fa fa-pencil White" value="#{bundle.Edit}" update=":DocumentoEditForm" oncomplete="PF('DocumentoEditDialog').show()" disabled="#{empty documentoController.selected}"/>
                             
                         </f:facet>
                     </p:dataTable>

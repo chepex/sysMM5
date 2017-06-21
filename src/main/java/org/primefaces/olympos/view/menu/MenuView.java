@@ -59,7 +59,7 @@ public class MenuView {
         secondSubmenu.addElement(item);
         
         item = new DefaultMenuItem("Redirect");
-        item.setIcon("ui-icon-search");
+        item.setIcon("fa fa-search White");
         item.setCommand("#{menuView.redirect}");
 		secondSubmenu.addElement(item);
 

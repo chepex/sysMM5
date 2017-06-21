@@ -14,14 +14,7 @@ package com.entities;
 
 
 import java.io.IOException;
-
 import java.io.Serializable;
-
-
-
-
-
-
 import javax.ejb.Stateless;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;

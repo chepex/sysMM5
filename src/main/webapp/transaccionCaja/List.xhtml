@@ -82,9 +82,9 @@
                             <h:outputText value="#{item.idusuario}"/>
                         </p:column>
                         <f:facet name="footer">
-                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{transaccionCajaController.prepareCreate}" update=":TransaccionCajaCreateForm" oncomplete="PF('TransaccionCajaCreateDialog').show()"/>
-                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":TransaccionCajaViewForm" oncomplete="PF('TransaccionCajaViewDialog').show()" disabled="#{empty transaccionCajaController.selected}"/>
-                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":TransaccionCajaEditForm" oncomplete="PF('TransaccionCajaEditDialog').show()" disabled="#{empty transaccionCajaController.selected}"/>
+                            <p:commandButton id="createButton" icon="fa fa-plus White"   value="#{bundle.Create}" actionListener="#{transaccionCajaController.prepareCreate}" update=":TransaccionCajaCreateForm" oncomplete="PF('TransaccionCajaCreateDialog').show()"/>
+                            <p:commandButton id="viewButton"   icon="fa fa-search White" value="#{bundle.View}" update=":TransaccionCajaViewForm" oncomplete="PF('TransaccionCajaViewDialog').show()" disabled="#{empty transaccionCajaController.selected}"/>
+                            <p:commandButton id="editButton"   icon="fa fa-pencil White" value="#{bundle.Edit}" update=":TransaccionCajaEditForm" oncomplete="PF('TransaccionCajaEditDialog').show()" disabled="#{empty transaccionCajaController.selected}"/>
                             <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{transaccionCajaController.destroy}" update=":growl,datalist" disabled="#{empty transaccionCajaController.selected}"/>
                         </f:facet>
                     </p:dataTable>

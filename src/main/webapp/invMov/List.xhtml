@@ -16,8 +16,8 @@
         <ui:define name="content">
             <h:form id="InvMovListForm">
                 <div style="position: absolute; right: 20px;">
-                    <p:commandButton id="buscarButton"   icon="ui-icon-search" value="Ctrl+B"  update=":BuscarForm" oncomplete="PF('BUscarDialog').show()" disabled="#{!empty invMovController.selected}"/>                
-                    <p:commandButton actionListener="#{invMovController.prepareCreate()}"   icon="ui-icon-plus" value="F6" update="@form" disabled="#{!empty invMovController.selected}"/>
+                    <p:commandButton id="buscarButton"   icon="fa fa-search White" value="Ctrl+B"  update=":BuscarForm" oncomplete="PF('BUscarDialog').show()" disabled="#{!empty invMovController.selected}"/>                
+                    <p:commandButton actionListener="#{invMovController.prepareCreate()}"   icon="fa fa-plus White" value="F6" update="@form" disabled="#{!empty invMovController.selected}"/>
                     <p:commandButton actionListener="#{invMovController.create()}"   icon="ui-icon-disk" value="F7" update="InvMovListForm :growl" disabled="#{empty invMovController.selected}"/>
                     <p:commandButton actionListener="#{invMovController.limpiar()}"   icon="ui-icon-closethick" value="F9" update="@form" disabled="#{empty invMovController.selected}"/>
                 </div> 
@@ -70,7 +70,7 @@
                         <p:outputLabel value="Existencia" for="existencia" /> 
                         <p:inputNumber id="existencia" value="#{invMovController.existencia}"  disabled="true"  />                           
                         
-                        <p:commandButton actionListener="#{invMovController.addDetalle()}"   icon="ui-icon-plus" style="margin-top: 0px !important;"  update="@form :growl"/>
+                        <p:commandButton actionListener="#{invMovController.addDetalle()}"   icon="fa fa-plus White" style="margin-top: 0px !important;"  update="@form :growl"/>
                     </p:panelGrid>
                 </p:panel>                      
                     

@@ -16,8 +16,8 @@
             
             <div class="Card">
             <div class="Container100 Responsive100 NoIndent ui-fluid">
-            <div class="Container20 Responsive50"  > <p:commandButton id="buscarButton"    icon="ui-icon-search" value="Ctrl+B"  update="@form" oncomplete="PF('BUscarDialog').show()"  />  </div>              
-            <div class="Container20 Responsive50"  > <p:commandButton  value="Aperturar"    icon="ui-icon-plus"   actionListener="#{cajaChicaController.prepareCreate}" update=":CajaChicaCreateForm" oncomplete="PF('CajaChicaCreateDialog').show()"/> </div>              
+            <div class="Container20 Responsive50"  > <p:commandButton id="buscarButton"    icon="fa fa-search White" value="Ctrl+B"  update="@form" oncomplete="PF('BUscarDialog').show()"  />  </div>              
+            <div class="Container20 Responsive50"  > <p:commandButton  value="Aperturar"    icon="fa fa-plus White"   actionListener="#{cajaChicaController.prepareCreate}" update=":CajaChicaCreateForm" oncomplete="PF('CajaChicaCreateDialog').show()"/> </div>              
             <div class="Container20 Responsive50"  > <p:commandButton value="Cerrar"   actionListener="#{cajaChicaController.cerrar}"   icon="ui-icon-disk" update="@form :growl"  rendered="#{cajaChicaController.selected!=null}" disabled="#{ cajaChicaController.selected.abierta==false}" /> </div>              
             <div class="Container20 Responsive50"  > <p:commandButton value="Limpiar"    actionListener="#{cajaChicaController.limpiar}"   icon="ui-icon-closethick"  update="@form" disabled="#{empty cajaChicaController.selected}"/> </div>                          
             </div>  
@@ -53,7 +53,7 @@
                 <p:inputText id="referencia"   value="#{cajaChicaController.referencia}"/>             
                     </div>
                 <div class="Container20 Responsive50"  > 
-                <p:commandButton value="Agregar"        icon="ui-icon-plus"   actionListener="#{cajaChicaController.addDetalle}" update="@form :growl"  disabled="#{cajaChicaController.selected.abierta==false}"/>
+                <p:commandButton value="Agregar"        icon="fa fa-plus White"   actionListener="#{cajaChicaController.addDetalle}" update="@form :growl"  disabled="#{cajaChicaController.selected.abierta==false}"/>
                 </div>
             </div>
                 </div>
@@ -166,7 +166,7 @@
                     </p:dataTable>        
                  <div class="Container25">
                       
-                     <p:commandButton id="createButton" icon="ui-icon-plus"  actionListener="#{cajaChicaController.eliminar}"  disabled="#{cajaChicaController.selected.abierta==false}" value="Eliminar"   update="@form :growl" />  
+                     <p:commandButton id="createButton" icon="fa fa-plus White"  actionListener="#{cajaChicaController.eliminar}"  disabled="#{cajaChicaController.selected.abierta==false}" value="Eliminar"   update="@form :growl" />  
             </div>
        </div>   
 

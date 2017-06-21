@@ -14,7 +14,13 @@
     </properties>
 
 <dependencies>
-    
+       <!-- https://mvnrepository.com/artifact/com.oracle.coherence.incubator/coherence-common -->
+<dependency>
+    <groupId>com.oracle.coherence.incubator</groupId>
+    <artifactId>coherence-common</artifactId>
+    <version>12.5.0</version>
+</dependency>
+
     <!-- https://mvnrepository.com/artifact/org.primefaces/primefaces -->
     <dependency>
         <groupId>org.primefaces</groupId>
@@ -108,7 +114,7 @@
             <version>2.5.2</version>
             <scope>provided</scope>
         </dependency>
-        <dependency>
+    <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-web-api</artifactId>
             <version>7.0</version>

@@ -47,9 +47,9 @@
                             <p:selectBooleanCheckbox value="#{item.activo}" disabled="true"/>
                         </p:column>
                         <f:facet name="footer">
-                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{bodegaController.prepareCreate}" update=":BodegaCreateForm" oncomplete="PF('BodegaCreateDialog').show()"/>
-                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":BodegaViewForm" oncomplete="PF('BodegaViewDialog').show()" disabled="#{empty bodegaController.selected}"/>
-                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":BodegaEditForm" oncomplete="PF('BodegaEditDialog').show()" disabled="#{empty bodegaController.selected}"/>
+                            <p:commandButton id="createButton" icon="fa fa-plus White"   value="#{bundle.Create}" actionListener="#{bodegaController.prepareCreate}" update=":BodegaCreateForm" oncomplete="PF('BodegaCreateDialog').show()"/>
+                            <p:commandButton id="viewButton"   icon="fa fa-search White" value="#{bundle.View}" update=":BodegaViewForm" oncomplete="PF('BodegaViewDialog').show()" disabled="#{empty bodegaController.selected}"/>
+                            <p:commandButton id="editButton"   icon="fa fa-pencil White" value="#{bundle.Edit}" update=":BodegaEditForm" oncomplete="PF('BodegaEditDialog').show()" disabled="#{empty bodegaController.selected}"/>
                             
                         </f:facet>
                     </p:dataTable>

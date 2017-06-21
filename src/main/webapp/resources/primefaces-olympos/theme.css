@@ -503,7 +503,7 @@ label.ui-state-error {
 .ui-icon-cart {
   background-position: -48px -112px;
 }
-.ui-icon-pencil {
+.fa fa-pencil White {
   background-position: -64px -112px;
 }
 .ui-icon-clock {
@@ -521,7 +521,7 @@ label.ui-state-error {
 .ui-icon-zoomout {
   background-position: -144px -112px;
 }
-.ui-icon-search {
+.fa fa-search White {
   background-position: -160px -112px;
 }
 .ui-icon-wrench {
@@ -542,10 +542,10 @@ label.ui-state-error {
 .ui-icon-cancel {
   background-position: 0 -128px;
 }
-.ui-icon-plus {
+.fa fa-plus White {
   background-position: -16px -128px;
 }
-.ui-icon-plusthick {
+.fa fa-plus Whitethick {
   background-position: -32px -128px;
 }
 .ui-icon-minus {
@@ -1088,7 +1088,7 @@ label {
   background-position: center !important;
   background-size: 110%;
 }
-.ui-datatable table tbody tr td .ui-row-editor .ui-icon-pencil {
+.ui-datatable table tbody tr td .ui-row-editor .fa fa-pencil White {
   background-image: url("#{resource['primefaces-olympos:images/pen-gray.svg']}");
   background-position: center !important;
   background-size: 120%;
@@ -2455,7 +2455,7 @@ hr.ui-widget-header {
   border: solid 1px #778d9b;
   background-color: #fbfcfd;
 }
-.ui-tree-horizontal .ui-icon-plus {
+.ui-tree-horizontal .fa fa-plus White {
   background-image: url("#{resource['primefaces-olympos:images/plus-sign-navy.svg']}");
   background-position: center !important;
   background-repeat: no-repeat;
@@ -3203,7 +3203,7 @@ hr.ui-widget-header {
   background-repeat: no-repeat;
   background-size: 100%;
 }
-.ui-dialog-docking-zone .ui-icon-plus {
+.ui-dialog-docking-zone .fa fa-plus White {
   background-image: url("#{resource['primefaces-olympos:images/plus-sign.svg']}");
   background-position: center !important;
   background-repeat: no-repeat;
@@ -3366,7 +3366,7 @@ hr.ui-widget-header {
 .ui-fieldset-legend.ui-state-hover {
   background-color: #0893c7;
 }
-.ui-fieldset-legend .ui-icon-plusthick {
+.ui-fieldset-legend .fa fa-plus Whitethick {
   background-image: url("#{resource['primefaces-olympos:images/plus-sign.svg']}");
   background-position: center !important;
   background-repeat: no-repeat;
@@ -3959,7 +3959,7 @@ hr.ui-widget-header {
   background-position: center !important;
   background-size: 110% !important;
 }
-.ui-panel .ui-panel-titlebar .ui-icon-plusthick {
+.ui-panel .ui-panel-titlebar .fa fa-plus Whitethick {
   background-image: url("#{resource['primefaces-olympos:images/plus-sign-navy.svg']}") !important;
   background-position: center !important;
   background-size: 110% !important;
@@ -4104,7 +4104,7 @@ hr.ui-widget-header {
 .ui-selectonemenu-panel {
   background-color: #fafafa;
 }
-.ui-selectonemenu-panel .ui-selectonemenu-filter-container .ui-icon-search {
+.ui-selectonemenu-panel .ui-selectonemenu-filter-container .fa fa-search White {
   width: 30px;
   height: 30px;
   background-size: 100%;
@@ -4198,7 +4198,7 @@ hr.ui-widget-header {
   width: 75%;
   padding-left: 30px !important;
 }
-.ui-selectcheckboxmenu-panel .ui-selectcheckboxmenu-filter-container .ui-icon-search {
+.ui-selectcheckboxmenu-panel .ui-selectcheckboxmenu-filter-container .fa fa-search White {
   width: 30px;
   height: 30px;
   top: 0px !important;
@@ -4636,7 +4636,7 @@ hr.ui-widget-header {
 .ui-selectonelistbox .ui-selectlistbox-item.ui-state-highlight td {
   color: #525252 !important;
 }
-.ui-selectonelistbox .ui-selectlistbox-filter-container .ui-icon-search {
+.ui-selectonelistbox .ui-selectlistbox-filter-container .fa fa-search White {
   width: 30px;
   height: 30px;
   background-size: 100%;
@@ -4658,7 +4658,7 @@ hr.ui-widget-header {
   font-family: 'latoregular';
   border-radius: 4px !important;
 }
-.ui-selectmanymenu .ui-selectlistbox-filter-container .ui-icon-search {
+.ui-selectmanymenu .ui-selectlistbox-filter-container .fa fa-search White {
   width: 30px;
   height: 30px;
   background-size: 100%;
@@ -5263,8 +5263,8 @@ table tbody tr td {
 .ui-fileupload-simple input[type="file"] {
   z-index: 999;
 }
-.ui-fileupload-choose .ui-icon-plusthick,
-.ui-fileupload-simple .ui-icon-plusthick {
+.ui-fileupload-choose .fa fa-plus Whitethick,
+.ui-fileupload-simple .fa fa-plus Whitethick {
   background-image: url("#{resource['primefaces-olympos:images/plus-sign.svg']}") !important;
   background-position: center !important;
   background-size: 100% !important;

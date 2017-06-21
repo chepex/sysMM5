@@ -20,16 +20,16 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
-import org.primefaces.model.chart.Axis;
-import org.primefaces.model.chart.AxisType;
-import org.primefaces.model.chart.DateAxis;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+ 
 import org.primefaces.model.chart.LineChartModel;
-import org.primefaces.model.chart.LineChartSeries;
+ 
 
 @ManagedBean(name = "productoController")
 @SessionScoped
 public class ProductoController implements Serializable {
-
+     
     @EJB
     private com.entities.ProductoFacade ejbFacade;
     @EJB
@@ -283,6 +283,21 @@ public class ProductoController implements Serializable {
         }else{
             this.items = this.ejbFacade.findByCategoria(this.categoria);
         }
+        System.out.println("<--------------------------->");
+        System.out.println("<--------------------------->");
+            HttpServletRequest httpResponse = (HttpServletRequest)  FacesContext.getCurrentInstance().getExternalContext().getRequest();         
+            Cookie[] cookies = httpResponse.getCookies();
+        for (int i = 0; i < cookies.length; i++) {
+            System.out.println("Name: " + cookies[i].getName() + "; Value: " + cookies[i].getValue());            
+        }
+      /*  System.out.println("conectado-->"+test.isConec());
+        System.out.println("conectado-->"+test.isConec());
+        System.out.println("conectado-->"+test.isConec());*/
+          /*System.out.println("<--------------------------->");
+        System.out.println("<--------------------------->");
+        HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);  
+        System.out.println("---->"+session.getAttribute("SSUSUARIO"));
+        */
         
      this.selected= null;
      this.lcompras = null;

@@ -90,9 +90,9 @@
                             <h:outputText value="#{item.bodegaIdbodega}"/>
                         </p:column>
                         <f:facet name="footer">
-                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{invMovController.prepareCreate}" update=":InvMovCreateForm" oncomplete="PF('InvMovCreateDialog').show()"/>
-                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":InvMovViewForm" oncomplete="PF('InvMovViewDialog').show()" disabled="#{empty invMovController.selected}"/>
-                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":InvMovEditForm" oncomplete="PF('InvMovEditDialog').show()" disabled="#{empty invMovController.selected}"/>
+                            <p:commandButton id="createButton" icon="fa fa-plus White"   value="#{bundle.Create}" actionListener="#{invMovController.prepareCreate}" update=":InvMovCreateForm" oncomplete="PF('InvMovCreateDialog').show()"/>
+                            <p:commandButton id="viewButton"   icon="fa fa-search White" value="#{bundle.View}" update=":InvMovViewForm" oncomplete="PF('InvMovViewDialog').show()" disabled="#{empty invMovController.selected}"/>
+                            <p:commandButton id="editButton"   icon="fa fa-pencil White" value="#{bundle.Edit}" update=":InvMovEditForm" oncomplete="PF('InvMovEditDialog').show()" disabled="#{empty invMovController.selected}"/>
                             <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{invMovController.destroy}" update=":growl,datalist" disabled="#{empty invMovController.selected}"/>
                         </f:facet>
                     </p:dataTable>

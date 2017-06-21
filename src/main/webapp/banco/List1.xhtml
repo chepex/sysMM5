@@ -80,9 +80,9 @@ asd
                             </h:outputText>
                         </p:column>
                         <f:facet name="footer">
-                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="Crear" actionListener="#{bancoController.prepareCreate}" update=":BancoCreateForm" oncomplete="PF('BancoCreateDialog').show()"/>
-                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":BancoViewForm" oncomplete="PF('BancoViewDialog').show()" disabled="#{empty bancoController.selected}"/>
-                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":BancoEditForm" oncomplete="PF('BancoEditDialog').show()" disabled="#{empty bancoController.selected}"/>
+                            <p:commandButton id="createButton" icon="fa fa-plus White"   value="Crear" actionListener="#{bancoController.prepareCreate}" update=":BancoCreateForm" oncomplete="PF('BancoCreateDialog').show()"/>
+                            <p:commandButton id="viewButton"   icon="fa fa-search White" value="#{bundle.View}" update=":BancoViewForm" oncomplete="PF('BancoViewDialog').show()" disabled="#{empty bancoController.selected}"/>
+                            <p:commandButton id="editButton"   icon="fa fa-pencil White" value="#{bundle.Edit}" update=":BancoEditForm" oncomplete="PF('BancoEditDialog').show()" disabled="#{empty bancoController.selected}"/>
                             <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{bancoController.destroy}" update=":growl,datalist" disabled="#{empty bancoController.selected}"/>
                         </f:facet>
                     </p:dataTable>

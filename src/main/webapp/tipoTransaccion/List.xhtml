@@ -80,9 +80,9 @@
                             <h:outputText value="#{item.usuarioUpdate}"/>
                         </p:column>
                         <f:facet name="footer">
-                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{tipoTransaccionController.prepareCreate}" update=":TipoTransaccionCreateForm" oncomplete="PF('TipoTransaccionCreateDialog').show()"/>
-                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":TipoTransaccionViewForm" oncomplete="PF('TipoTransaccionViewDialog').show()" disabled="#{empty tipoTransaccionController.selected}"/>
-                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":TipoTransaccionEditForm" oncomplete="PF('TipoTransaccionEditDialog').show()" disabled="#{empty tipoTransaccionController.selected}"/>
+                            <p:commandButton id="createButton" icon="fa fa-plus White"   value="#{bundle.Create}" actionListener="#{tipoTransaccionController.prepareCreate}" update=":TipoTransaccionCreateForm" oncomplete="PF('TipoTransaccionCreateDialog').show()"/>
+                            <p:commandButton id="viewButton"   icon="fa fa-search White" value="#{bundle.View}" update=":TipoTransaccionViewForm" oncomplete="PF('TipoTransaccionViewDialog').show()" disabled="#{empty tipoTransaccionController.selected}"/>
+                            <p:commandButton id="editButton"   icon="fa fa-pencil White" value="#{bundle.Edit}" update=":TipoTransaccionEditForm" oncomplete="PF('TipoTransaccionEditDialog').show()" disabled="#{empty tipoTransaccionController.selected}"/>
                             <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{tipoTransaccionController.destroy}" update=":growl,datalist" disabled="#{empty tipoTransaccionController.selected}"/>
                         </f:facet>
                     </p:dataTable>

@@ -16,7 +16,7 @@
                     <p:outputLabel value="Fecha" for="finicio" />                    
                     <p:calendar id="finicio" pattern="dd-MM-yyyy"  value="#{cajaChicaController.vfecha}" showOn="button"/>                    
                     
-                    <p:commandButton actionListener="#{cajaChicaController.buscar}" value="Buscar" oncomplete="PF('BUscarDialog').hide();"   icon="ui-icon-search" update=":CajaChicaListForm :growl" />
+                    <p:commandButton actionListener="#{cajaChicaController.buscar}" value="Buscar" oncomplete="PF('BUscarDialog').hide();"   icon="fa fa-search White" update=":CajaChicaListForm :growl" />
                     </p:panelGrid>
                 </h:panelGroup>
             </h:form>

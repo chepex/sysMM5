@@ -21,7 +21,9 @@ $.fn.clickOff = function(callback, selfDestroy) {
  * PrimeFaces Olympos Layout
  */
 var Olympos = {
-  
+    
+   
+        
     init: function() {
         this.menuWrapper = $('#layout-menu-cover');
         this.menu = $('#layout-menu');
@@ -34,6 +36,7 @@ var Olympos = {
         this.expandedMenuitems = this.expandedMenuitems||[];
         
         this.bindEvents();
+        
     },
     
     bindEvents: function() {

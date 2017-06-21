@@ -21,9 +21,13 @@ text-align: left ! important
             </style>
            
             <h:form id="ProductoListForm">
-                
-               
-                    <p:panelGrid columns="6"  style=" border-style: hidden !important;" >
+                                <div class="Container100">
+                    <div class="Card">
+                        <div class="Container40">
+                            <h1>Formulario de Producto</h1>
+                        </div>
+                        <div class="Container60">
+                         <p:panelGrid columns="6"  style=" border-style: hidden !important;" >
                         <p:outputLabel value="Categoria" for="categoriaIdcategoria" />
                         <p:selectOneMenu id="categoriaIdcategoria" filter="true" filterMatchMode="startsWith"  value="#{productoController.categoria}" required="true" requiredMessage="#{bundle.EditProductoRequiredMessage_categoriaIdcategoria}">
                             <f:selectItems value="#{categoriaController.itemsAvailableSelectOne}"
@@ -36,6 +40,12 @@ text-align: left ! important
                         <p:commandButton actionListener="#{productoController.consultaCategoria}" value="Consultar" update=":ProductoListForm2 :growl"  />
                         
                     </p:panelGrid>
+                        </div>
+                    </div>
+                </div>
+ <div class="SeparatorFull"></div>
+               
+                  
                     </h:form>
                <h:form id="ProductoListForm2">
                    
@@ -119,9 +129,9 @@ text-align: left ! important
                         </p:column>
                          
                         <f:facet name="footer">
-                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{productoController.prepareCreate}" update=":ProductoCreateForm" oncomplete="PF('ProductoCreateDialog').show()"/>
-                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":ProductoViewForm" oncomplete="PF('ProductoViewDialog').show()" disabled="#{empty productoController.selected}"/>
-                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":ProductoEditForm" oncomplete="PF('ProductoEditDialog').show()" disabled="#{empty productoController.selected}"/>
+                            <p:commandButton id="createButton" icon="fa fa-plus White"   value="#{bundle.Create}" actionListener="#{productoController.prepareCreate}" update=":ProductoCreateForm" oncomplete="PF('ProductoCreateDialog').show()"/>
+                            <p:commandButton id="viewButton"   icon="fa fa-search White" value="#{bundle.View}" update=":ProductoViewForm" oncomplete="PF('ProductoViewDialog').show()" disabled="#{empty productoController.selected}"/>
+                            <p:commandButton id="editButton"   icon="fa fa-pencil White" value="#{bundle.Edit}" update=":ProductoEditForm" oncomplete="PF('ProductoEditDialog').show()" disabled="#{empty productoController.selected}"/>
                             
                         </f:facet>
                     </p:dataTable>

@@ -72,9 +72,9 @@
                             <p:selectBooleanCheckbox value="#{item.activo}" disabled="true"/>
                         </p:column>
                         <f:facet name="footer">
-                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{correlativoController.prepareCreate}" update=":CorrelativoCreateForm" oncomplete="PF('CorrelativoCreateDialog').show()"/>
-                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":CorrelativoViewForm" oncomplete="PF('CorrelativoViewDialog').show()" disabled="#{empty correlativoController.selected}"/>
-                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":CorrelativoEditForm" oncomplete="PF('CorrelativoEditDialog').show()" disabled="#{empty correlativoController.selected}"/>
+                            <p:commandButton id="createButton" icon="fa fa-plus White"   value="#{bundle.Create}" actionListener="#{correlativoController.prepareCreate}" update=":CorrelativoCreateForm" oncomplete="PF('CorrelativoCreateDialog').show()"/>
+                            <p:commandButton id="viewButton"   icon="fa fa-search White" value="#{bundle.View}" update=":CorrelativoViewForm" oncomplete="PF('CorrelativoViewDialog').show()" disabled="#{empty correlativoController.selected}"/>
+                            <p:commandButton id="editButton"   icon="fa fa-pencil White" value="#{bundle.Edit}" update=":CorrelativoEditForm" oncomplete="PF('CorrelativoEditDialog').show()" disabled="#{empty correlativoController.selected}"/>
                            
                         </f:facet>
                     </p:dataTable>

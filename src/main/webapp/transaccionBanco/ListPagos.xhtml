@@ -90,9 +90,9 @@
                             <h:outputText value="#{item.tipoTransaccionIdtipoTransaccion.nombre}"/>
                         </p:column>
                         <f:facet name="footer">
-                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{transaccionBancoController.prepareCreate}" update=":TransaccionBancoCreateForm" oncomplete="PF('TransaccionBancoCreateDialog').show()"/>
-                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":TransaccionBancoViewForm" oncomplete="PF('TransaccionBancoViewDialog').show()" disabled="#{empty transaccionBancoController.selected}"/>
-                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":TransaccionBancoEditForm" oncomplete="PF('TransaccionBancoEditDialog').show()" disabled="#{empty transaccionBancoController.selected}"/>
+                            <p:commandButton id="createButton" icon="fa fa-plus White"   value="#{bundle.Create}" actionListener="#{transaccionBancoController.prepareCreate}" update=":TransaccionBancoCreateForm" oncomplete="PF('TransaccionBancoCreateDialog').show()"/>
+                            <p:commandButton id="viewButton"   icon="fa fa-search White" value="#{bundle.View}" update=":TransaccionBancoViewForm" oncomplete="PF('TransaccionBancoViewDialog').show()" disabled="#{empty transaccionBancoController.selected}"/>
+                            <p:commandButton id="editButton"   icon="fa fa-pencil White" value="#{bundle.Edit}" update=":TransaccionBancoEditForm" oncomplete="PF('TransaccionBancoEditDialog').show()" disabled="#{empty transaccionBancoController.selected}"/>
                             <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{transaccionBancoController.destroy}" update=":growl,datalist" disabled="#{empty transaccionBancoController.selected}"/>
                         </f:facet>
                     </p:dataTable>
