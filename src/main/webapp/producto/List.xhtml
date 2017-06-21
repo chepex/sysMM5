@@ -26,20 +26,19 @@ text-align: left ! important
                         <div class="Container40">
                             <h1>Formulario de Producto</h1>
                         </div>
-                        <div class="Container60">
-                         <p:panelGrid columns="6"  style=" border-style: hidden !important;" >
-                        <p:outputLabel value="Categoria" for="categoriaIdcategoria" />
-                        <p:selectOneMenu id="categoriaIdcategoria" filter="true" filterMatchMode="startsWith"  value="#{productoController.categoria}" required="true" requiredMessage="#{bundle.EditProductoRequiredMessage_categoriaIdcategoria}">
-                            <f:selectItems value="#{categoriaController.itemsAvailableSelectOne}"
+                        <div class="Container60 White Responsive100    	TexAlRight ">
+                            <p:panelGrid columns="6" layout="grid" class="TexAlRight" style="border:0px !important; background:none;"   >
+                               <p:outputLabel value="Categoria:" for="categoriaIdcategoria" />
+                                <p:selectOneMenu id="categoriaIdcategoria" filter="true" filterMatchMode="startsWith"  value="#{productoController.categoria}" required="true" requiredMessage="#{bundle.EditProductoRequiredMessage_categoriaIdcategoria}">
+                                <f:selectItems value="#{categoriaController.itemsAvailableSelectOne}"
                                            var="categoriaIdcategoriaItem"
                                            itemLabel="#{categoriaIdcategoriaItem.nombre}"
                                            itemValue="#{categoriaIdcategoriaItem}"/>
-                        </p:selectOneMenu>
-                        <p:outputLabel value="nombre" for="nombre" />
-                        <p:inputText value="#{productoController.nombre}" id="nombre" />
-                        <p:commandButton actionListener="#{productoController.consultaCategoria}" value="Consultar" update=":ProductoListForm2 :growl"  />
+                                </p:selectOneMenu>
+                                <p:inputText value="#{productoController.nombre}" id="nombre" placeholder="Nombre" />
+                                <p:commandButton actionListener="#{productoController.consultaCategoria}" value="Consultar" update=":ProductoListForm2 :growl"  />
                         
-                    </p:panelGrid>
+                            </p:panelGrid>
                         </div>
                     </div>
                 </div>

@@ -15,9 +15,14 @@
 
         <ui:define name="content">
             <h:form id="PagoCompraListForm">
-                <p:panelGrid columns="4" >
-                     <p:outputLabel value="Proveedor" for="proveedor" />
-                          <p:autoComplete id="proveedor" minQueryLength="3" 
+                
+                 <div class="Container100">
+                    <div class="Card">
+                        <div class="Container40">
+                            <h1>Formulario de Pago a Proveedor</h1>
+                        </div>
+                        <div class="Container60   Responsive100  TexAlRight ">                            
+                           <p:autoComplete id="proveedor" minQueryLength="3" 
                             value="#{pagoCompraController.proveedor}"                                         
                             var="producto"
                             itemLabel="#{producto.nombre }" 
@@ -25,10 +30,19 @@
                             completeMethod="#{proveedorController.autoCompleteProveedor}" 
                             converter="#{ProveedorControllerConverter}" 
                             forceSelection="true"
+                            placeholder="Nombre"
                             effect="fade" >                              
                         </p:autoComplete>  
-                        <p:commandButton id="btnConsulta" value="Consulta"   actionListener="#{pagoCompraController.consultaPendiente()}"  update="@form :growl"  />
-                </p:panelGrid>
+                        <p:commandButton id="btnConsulta" value="Consulta"   actionListener="#{pagoCompraController.consultaPendiente()}"  update="@form :growl"  />  
+                        <p:commandButton actionListener="#{pagoCompraController.limpiar()}" value="Limpiar" update="@form :growl"  />
+                        
+                        </div>
+                    </div>
+                </div>
+                <div class="SeparatorFull"></div>
+
+                
+               
                 <p:panel header="Facturas pendientes">
                     <p:dataTable id="datalist" value="#{pagoCompraController.lcompra}" 
                                  var="item"
@@ -38,8 +52,8 @@
                                  rows="30"
                                  scrollable="true" scrollHeight="250"                                 
                                  >                        
-                        <p:ajax event="rowSelect"   update=":PagoCompraListForm:datalistPagos2"  listener="#{pagoCompraController.consultaPagos()}"/>
-                        <p:ajax event="rowUnselect" update=":PagoCompraListForm:datalistPagos2"/>
+                        <p:ajax event="rowSelect"   update=":PagoCompraListForm:datalistPagos2 pagoButton"  listener="#{pagoCompraController.consultaPagos()}"/>
+                        <p:ajax event="rowUnselect" update=":PagoCompraListForm:datalistPagos2 pagoButton"/>
                         
                         <p:column>
                             <f:facet name="header">
@@ -70,7 +84,7 @@
                             <h:outputText value="#{item.saldo}"/>
                         </p:column>  
                         <f:facet name="footer">
-                            <p:commandButton id="deleteButton"  icon="fa fa-money "  value="Pagar"   actionListener="#{pagoCompraController.prepareCreate()}"  oncomplete="PF('PagoCompraCreateDialog').show()" update=":PagoCompraCreateForm" >
+                            <p:commandButton id="pagoButton"  icon="fa fa-money " disabled="#{pagoCompraController.selectedCompra==null}"  value="Pagar"   actionListener="#{pagoCompraController.prepareCreate()}"  oncomplete="PF('PagoCompraCreateDialog').show()" update=":PagoCompraCreateForm" >
                               
                             </p:commandButton>
                          </f:facet>                 

@@ -4,6 +4,8 @@ import com.entities.util.JsfUtil;
 import com.entities.util.JsfUtil.PersistAction;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -314,5 +316,16 @@ public class PagoCompraController implements Serializable {
         }
         
     }
+    
+    public void limpiar(){
+        selected= null;
+        this.referencia =null;
+        this.banco = null;
+        selectedCompra = null;
+        lcompra.clear();
+        proveedor = null;
+        items = null;
+        System.out.println("limpiando2");
+    }      
 
 }

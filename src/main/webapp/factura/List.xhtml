@@ -16,10 +16,10 @@
             <h:form id="FacturaListForm">
                 <div class="Container100">
                     <div class="Card">
-                        <div class="Container70">
+                        <div class="Container70 ">
                             <h1>Formulario de Venta</h1>
                         </div>
-                        <div class="Container30">
+                        <div class="Container30 TexAlRight">
                           <p:commandButton id="buscarButton"   icon="fa  fa-search  Fs16 White" value="Ctrl+B"  update=":BuscarForm" oncomplete="PF('BUscarDialog').show()" disabled="#{!empty facturaController.selected}"/>                
                           <p:commandButton actionListener="#{facturaController.prepareCreate()}"   icon="fa  fa-plus  Fs16 White" value="F6" update="@form" disabled="#{!empty facturaController.selected}"/>
                           <p:commandButton actionListener="#{facturaController.create()}"   icon="fa  fa-save  Fs16 White" value="F7" update="FacturaListForm :growl" disabled="#{empty facturaController.selected}"/>

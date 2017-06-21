@@ -22,7 +22,7 @@
                           <div class="Container70">
                               <h1>Formulario de Compras</h1>
                           </div>
-                          <div class="Container30">
+                          <div class="Container30 TexAlRight Responsive100">
                           <p:commandButton id="buscarButton"   icon="fa  fa-search  Fs16 White"   value="Ctrl+B"  update=":BuscarForm" oncomplete="PF('BUscarDialog').show()" disabled="#{!empty compraController.selected}"/>
                           <p:commandButton actionListener="#{compraController.prepareCreate()}"   icon="fa  fa-plus  Fs16 White" value="F6" update="@form" disabled="#{!empty compraController.selected}"/>
                           <p:commandButton actionListener="#{compraController.create()}"   icon="fa  fa-save  Fs16 White" value="F7" update="CompraListForm :growl" disabled="#{empty compraController.selected}"/>

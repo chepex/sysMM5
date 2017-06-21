@@ -15,6 +15,22 @@
 
         <ui:define name="content">
             <h:form id="CorrelativoListForm">
+                
+                  <div class="Container100">
+                    <div class="Card">
+                        <div class="Container40">
+                            <h1>Formulario de Corelativos</h1>
+                        </div>
+                        <div class="Container60   Responsive100  TexAlRight ">
+                            <p:commandButton id="createButton" icon="fa fa-plus White"   value="#{bundle.Create}" actionListener="#{correlativoController.prepareCreate}" update=":CorrelativoCreateForm" oncomplete="PF('CorrelativoCreateDialog').show()"/>
+                            <p:commandButton id="viewButton"   icon="fa fa-search White" value="#{bundle.View}" update=":CorrelativoViewForm" oncomplete="PF('CorrelativoViewDialog').show()" disabled="#{empty correlativoController.selected}"/>
+                            <p:commandButton id="editButton"   icon="fa fa-pencil White" value="#{bundle.Edit}" update=":CorrelativoEditForm" oncomplete="PF('CorrelativoEditDialog').show()" disabled="#{empty correlativoController.selected}"/>
+                           
+                        </div>
+                    </div>
+                </div>
+                <div class="SeparatorFull"></div>
+                
                 <p:panel header="#{bundle.ListCorrelativoTitle}">
                     <p:dataTable id="datalist" value="#{correlativoController.items}" var="item"
                                  selectionMode="single" selection="#{correlativoController.selected}"
@@ -24,8 +40,8 @@
                                  rowsPerPageTemplate="10,20,30,40,50"
                                  >
 
-                        <p:ajax event="rowSelect"   update="createButton viewButton editButton "/>
-                        <p:ajax event="rowUnselect" update="createButton viewButton editButton "/>
+                        <p:ajax event="rowSelect"   update="CorrelativoListForm:createButton CorrelativoListForm:viewButton CorrelativoListForm:editButton "/>
+                        <p:ajax event="rowUnselect" update="CorrelativoListForm:createButton CorrelativoListForm:viewButton CorrelativoListForm:editButton "/>
 
                         <p:column>
                             <f:facet name="header">

@@ -18,9 +18,9 @@
                 <div class="Container100">
                     <div class="Card">
                         <div class="Container40">
-                            <h1>Formulario de Rubro</h1>
+                            <h1>Formulario de Clasificación</h1>
                         </div>
-                        <div class="Container60 layout-topbar-right ">
+                        <div class="Container60   Responsive100  TexAlRight ">
                          
                             <p:commandButton id="createButton" icon="fa fa-plus White"   value="#{bundle.Create}" actionListener="#{clasificacionController.prepareCreate}" update=":ClasificacionCreateForm" oncomplete="PF('ClasificacionCreateDialog').show()"/>
                             <p:commandButton id="viewButton"   icon="fa fa-search White" value="#{bundle.View}" update=":ClasificacionViewForm" oncomplete="PF('ClasificacionViewDialog').show()" disabled="#{empty clasificacionController.selected}"/>

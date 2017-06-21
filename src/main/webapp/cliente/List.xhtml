@@ -21,12 +21,23 @@ text-align: left ! important
             </style>            
             
             <h:form id="ClienteListForm2">
-                <p:panelGrid  columns="4">
-                    <p:outputLabel>Nombre</p:outputLabel>
-                    <p:inputText value="#{clienteController.valorBuscar}"></p:inputText>
-                    <p:commandButton actionListener="#{clienteController.buscar()}" update=":ClienteListForm :ClienteListForm3"  value="Consultar"/>
-                    <p:commandButton actionListener="#{clienteController.limpiar()}" update=":ClienteListForm :ClienteListForm3"  value="Limpiar"/>
-                </p:panelGrid>
+                
+                 <div class="Container100">
+                    <div class="Card">
+                        <div class="Container40">
+                            <h1>Formulario de Proveedor</h1>
+                        </div>
+                        <div class="Container60   Responsive100  TexAlRight ">                            
+                           
+                            <p:inputText value="#{clienteController.valorBuscar}" placeholder="Nombre"></p:inputText>
+                            <p:commandButton actionListener="#{clienteController.buscar()}" update=":ClienteListForm :ClienteListForm3"  value="Consultar"/>
+                            <p:commandButton actionListener="#{clienteController.limpiar()}" update=":ClienteListForm :ClienteListForm3"  value="Limpiar"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="SeparatorFull"></div>
+                
+                
             </h:form>  
                 <h:form id="ClienteListForm">
                 <p:panel header="Clientes"  toggleable="true">
