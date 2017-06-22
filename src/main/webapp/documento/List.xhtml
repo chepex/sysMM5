@@ -15,6 +15,23 @@
 
         <ui:define name="content">
             <h:form id="DocumentoListForm">
+                
+                <div class="Container100">
+                    <div class="Card">
+                        <div class="Container40">
+                            <h1>Formulario de Documento</h1>
+                        </div>
+                        <div class="Container60   Responsive100  TexAlRight ">                            
+                           
+                            <p:commandButton id="createButton" icon="fa fa-plus White"   value="#{bundle.Create}" actionListener="#{documentoController.prepareCreate}" update=":DocumentoCreateForm" oncomplete="PF('DocumentoCreateDialog').show()"/>
+                            <p:commandButton id="viewButton"   icon="fa fa-search White" value="#{bundle.View}" update=":DocumentoViewForm" oncomplete="PF('DocumentoViewDialog').show()" disabled="#{empty documentoController.selected}"/>
+                            <p:commandButton id="editButton"   icon="fa fa-pencil White" value="#{bundle.Edit}" update=":DocumentoEditForm" oncomplete="PF('DocumentoEditDialog').show()" disabled="#{empty documentoController.selected}"/>
+                            
+                        </div>
+                    </div>
+                </div>
+                <div class="SeparatorFull"></div>
+                
                 <p:panel header="#{bundle.ListDocumentoTitle}">
                     <p:dataTable id="datalist" value="#{documentoController.items}" var="item"
                                  selectionMode="single" selection="#{documentoController.selected}"
@@ -24,8 +41,8 @@
                                  rowsPerPageTemplate="10,20,30,40,50"
                                  >
 
-                        <p:ajax event="rowSelect"   update="createButton viewButton editButton "/>
-                        <p:ajax event="rowUnselect" update="createButton viewButton editButton "/>
+                        <p:ajax event="rowSelect"   update="DocumentoListForm:createButton DocumentoListForm:viewButton DocumentoListForm:editButton "/>
+                        <p:ajax event="rowUnselect" update="DocumentoListForm:createButton DocumentoListForm:viewButton DocumentoListForm:editButton "/>
 
                      
                         <p:column>
@@ -53,10 +70,7 @@
                             <p:selectBooleanCheckbox value="#{item.activo}" disabled="true"/>
                         </p:column>
                         <f:facet name="footer">
-                            <p:commandButton id="createButton" icon="fa fa-plus White"   value="#{bundle.Create}" actionListener="#{documentoController.prepareCreate}" update=":DocumentoCreateForm" oncomplete="PF('DocumentoCreateDialog').show()"/>
-                            <p:commandButton id="viewButton"   icon="fa fa-search White" value="#{bundle.View}" update=":DocumentoViewForm" oncomplete="PF('DocumentoViewDialog').show()" disabled="#{empty documentoController.selected}"/>
-                            <p:commandButton id="editButton"   icon="fa fa-pencil White" value="#{bundle.Edit}" update=":DocumentoEditForm" oncomplete="PF('DocumentoEditDialog').show()" disabled="#{empty documentoController.selected}"/>
-                            
+                           
                         </f:facet>
                     </p:dataTable>
                 </p:panel>

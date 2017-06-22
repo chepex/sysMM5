@@ -316,7 +316,7 @@ public class CajaChicaController implements Serializable {
            // ltransaccion =  selected.getTransaccionCajaList();
         }        
             JsfUtil.addSuccessMessage("Consulta realizada correctamente");
-        
+            System.out.println("seleted-->"+selected);
         return msg;
     
     }

@@ -15,8 +15,15 @@
 
         <ui:define name="content">
             <h:form id="TransaccionBancoListForm">
-                <p:panelGrid columns="6"  style=" border-style: hidden !important;" >
-                    <p:outputLabel value="Banco" for="banco" />
+                
+                <div class="Container100">
+                    <div class="Card">
+                        <div class="Container60">
+                            <h1>Formulario de Transaccion</h1>
+                        </div>
+                        <div class="Container40   Responsive100  TexAlRight ">   
+                            <h:panelGrid columns="6" columnClasses="TexAlRight">
+                            <p:outputLabel value="Banco" for="banco" />
                     <p:selectOneMenu id="banco" filter="true" filterMatchMode="startsWith"  value="#{transaccionBancoController.banco}" required="true" requiredMessage="#{bundle.EditProductoRequiredMessage_categoriaIdcategoria}">
                         <f:selectItem itemLabel="Selecione un banco" itemValue=""/>
                         <f:selectItems value="#{bancoController.itemsAvailableSelectOne}"
@@ -33,7 +40,14 @@
                                            itemValue="#{cuentaBancoItem}"/>
                         </p:selectOneMenu>                      
                     <p:commandButton actionListener="#{transaccionBancoController.consulta}" value="Consultar" update=":TransaccionBancoListForm :growl"  />
-
+                    </h:panelGrid>
+                        </div>
+                    </div>
+                </div>
+                <div class="SeparatorFull"></div>
+                                
+                <p:panelGrid columns="6"  style=" border-style: hidden !important;" >
+                  
                 </p:panelGrid>                
                 <p:panel header="#{bundle.ListTransaccionBancoTitle}">
                     <p:dataTable id="datalist" value="#{transaccionBancoController.items}" var="item"

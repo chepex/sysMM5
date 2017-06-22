@@ -15,20 +15,37 @@
 
         <ui:define name="content">
             <h:form id="CierreListForm">
-                <p:panelGrid  columns="4">
-                    <p:outputLabel>Mes abierto</p:outputLabel>
-                    <p:selectOneMenu id="mes" value="#{cierreController.catalgoCierre}" required="true" requiredMessage="#{bundle.EditProductoRequiredMessage_categoriaIdcategoria}">
-                            <f:selectItems value="#{catalogoCierreController.itemsAvailableSelectOne}"
-                                           var="catalogoCierreItem"
-                                           itemLabel="#{catalogoCierreItem.anio}-#{catalogoCierreItem.mes}"
-                                           itemValue="#{catalogoCierreItem}"/>
-                        </p:selectOneMenu>                    
-                    <p:commandButton actionListener="#{cierreController.cerrar()}" update="@form :growl"  value="Cerrar">
-                          <p:confirm header="Confirmation" message="Esta seguro que desa ejecutar este cierre?" icon="ui-icon-alert" />
-                    </p:commandButton>
-                    
-                    
-                </p:panelGrid>                
+                <div class="Container100">
+                    <div class="Card">
+                        <div class="Container80">
+                            <h1>Formulario de Cierre</h1>
+                        </div>
+                        <div class="Container20   Responsive100   TexAlRight  ">                            
+                          
+                            <h:panelGrid columns="3" columnClasses="TexAlRight">
+                                <p:outputLabel>Mes abierto</p:outputLabel>
+                         
+                                <p:selectOneMenu id="mes" value="#{cierreController.catalgoCierre}" required="true" requiredMessage="#{bundle.EditProductoRequiredMessage_categoriaIdcategoria}">
+                                        <f:selectItems value="#{catalogoCierreController.itemsAvailableSelectOne}"
+                                                       var="catalogoCierreItem"
+                                                       itemLabel="#{catalogoCierreItem.anio}-#{catalogoCierreItem.mes}"
+                                                       itemValue="#{catalogoCierreItem}"/>
+                                    </p:selectOneMenu>                    
+                           
+                                <p:commandButton actionListener="#{cierreController.cerrar()}" update="@form :growl"  value="Cerrar">
+                                      <p:confirm header="Confirmation" message="Esta seguro que desa ejecutar este cierre?" icon="ui-icon-alert" />
+                                </p:commandButton>                    
+                                </h:panelGrid>
+                           </div>
+                           
+                             
+                        </div>
+                    </div>
+             
+                <div class="SeparatorFull"></div>
+                                
+                
+                              
                 
                 <p:panel header="Cierre">
                     <p:dataTable id="datalist" value="#{cierreController.items}" var="item"
