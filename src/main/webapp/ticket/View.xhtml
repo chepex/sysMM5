@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TicketViewDlg" widgetVar="TicketViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewTicketTitle}">
+            <h:form id="TicketViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{ticketController.selected != null}">
+                        <h:outputText value="#{bundle.ViewTicketLabel_idticket}"/>
+                        <h:outputText value="#{ticketController.selected.idticket}" title="#{bundle.ViewTicketTitle_idticket}"/>
+                        <h:outputText value="#{bundle.ViewTicketLabel_fechaCreacion}"/>
+                        <h:outputText value="#{ticketController.selected.fechaCreacion}" title="#{bundle.ViewTicketTitle_fechaCreacion}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewTicketLabel_idusuarioAsignado}"/>
+                        <h:outputText value="#{ticketController.selected.idusuarioAsignado}" title="#{bundle.ViewTicketTitle_idusuarioAsignado}"/>
+                        <h:outputText value="#{bundle.ViewTicketLabel_titulo}"/>
+                        <h:outputText value="#{ticketController.selected.titulo}" title="#{bundle.ViewTicketTitle_titulo}"/>
+                        <h:outputText value="#{bundle.ViewTicketLabel_fechaAsignado}"/>
+                        <h:outputText value="#{ticketController.selected.fechaAsignado}" title="#{bundle.ViewTicketTitle_fechaAsignado}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewTicketLabel_fechaFinalizado}"/>
+                        <h:outputText value="#{ticketController.selected.fechaFinalizado}" title="#{bundle.ViewTicketTitle_fechaFinalizado}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewTicketLabel_idusuario}"/>
+                        <h:outputText value="#{ticketController.selected.idusuario}" title="#{bundle.ViewTicketTitle_idusuario}"/>
+                        <h:outputText value="#{bundle.ViewTicketLabel_idestado}"/>
+                        <h:outputText value="#{ticketController.selected.idestado}" title="#{bundle.ViewTicketTitle_idestado}"/>
+                        <h:outputText value="#{bundle.ViewTicketLabel_iddepto}"/>
+                        <h:outputText value="#{ticketController.selected.iddepto}" title="#{bundle.ViewTicketTitle_iddepto}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="TicketViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

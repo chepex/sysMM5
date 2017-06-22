@@ -1,0 +1,121 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+
+    <ui:composition   template="/WEB-INF/template.xhtml"> 
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListBancoTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="content">  
+            <h:form id="TicketListForm">
+                
+                        
+          
+            <div class="Container100">
+            <div class="Card">
+               <div class="Container40">
+                   <h1>Mis TIcket </h1>
+               </div>
+               <div class="Container60   Responsive100  TexAlRight ">                                            
+                 <p:commandButton id="createButton" icon="fa fa-plus White"   value="#{bundle.Create}" actionListener="#{ticketController.prepareCreate}" update=":TicketCreateForm" oncomplete="PF('TicketCreateDialog').show()"/>
+                            <p:commandButton id="viewButton"   icon="fa fa-search White" value="#{bundle.View}" update=":TicketViewForm" oncomplete="PF('TicketViewDialog').show()" disabled="#{empty ticketController.selected}"/>
+                            <p:commandButton id="editButton"   icon="fa fa-pencil White" value="#{bundle.Edit}" update=":TicketEditForm" oncomplete="PF('TicketEditDialog').show()" disabled="#{empty ticketController.selected}"/>
+                            <p:commandButton id="deleteButton" icon="fa fa-trash White"  value="#{bundle.Delete}" actionListener="#{ticketController.destroy}" update=":growl,datalist" disabled="#{empty ticketController.selected}">
+                                <p:confirm header="Confirmation" message="Desea eliminar este registro ?" icon="ui-icon-alert" />
+                            </p:commandButton>
+                            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                                <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                            </p:confirmDialog>
+               </div>
+                </div>
+            </div>
+            <div class="SeparatorFull"></div>    
+                <p:panel header="#{bundle.ListTicketTitle}">
+                    <p:dataTable id="datalist" value="#{ticketController.items}" var="item"
+                                 selectionMode="single" selection="#{ticketController.selected}"                           
+                                 rowKey="#{item.idticket}"
+                                 scrollable="true" 
+                                 scrollHeight="250"
+                                 >
+
+                        <p:ajax event="rowSelect"   update="TicketListForm:createButton TicketListForm:viewButton TicketListForm:editButton TicketListForm:deleteButton"/>
+                        <p:ajax event="rowUnselect" update="TicketListForm:createButton TicketListForm:viewButton TicketListForm:editButton TicketListForm:deleteButton"/>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTicketTitle_idticket}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idticket}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTicketTitle_fechaCreacion}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.fechaCreacion}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTicketTitle_idusuarioAsignado}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idusuarioAsignado}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTicketTitle_titulo}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.titulo}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTicketTitle_fechaAsignado}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.fechaAsignado}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTicketTitle_fechaFinalizado}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.fechaFinalizado}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTicketTitle_idusuario}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idusuario}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTicketTitle_idestado}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idestado}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTicketTitle_iddepto}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.iddepto}"/>
+                        </p:column>
+                        <f:facet name="footer">
+                           
+                        </f:facet>
+                    </p:dataTable>
+                </p:panel>
+            </h:form>
+
+            <ui:include src="Create.xhtml"/>
+            <ui:include src="Edit.xhtml"/>
+            <ui:include src="View.xhtml"/>
+         </ui:define>
+    </ui:composition>
+
+</ui:composition>

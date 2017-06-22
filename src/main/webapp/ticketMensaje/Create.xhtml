@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TicketMensajeCreateDlg" widgetVar="TicketMensajeCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateTicketMensajeTitle}">
+            <h:form id="TicketMensajeCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{ticketMensajeController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateTicketMensajeLabel_idticketMensaje}" for="idticketMensaje" />
+                        <p:inputText id="idticketMensaje" value="#{ticketMensajeController.selected.idticketMensaje}" title="#{bundle.CreateTicketMensajeTitle_idticketMensaje}" required="true" requiredMessage="#{bundle.CreateTicketMensajeRequiredMessage_idticketMensaje}"/>
+                        <p:outputLabel value="#{bundle.CreateTicketMensajeLabel_descripcion}" for="descripcion" />
+                        <p:inputText id="descripcion" value="#{ticketMensajeController.selected.descripcion}" title="#{bundle.CreateTicketMensajeTitle_descripcion}" required="true" requiredMessage="#{bundle.CreateTicketMensajeRequiredMessage_descripcion}"/>
+                        <p:outputLabel value="#{bundle.CreateTicketMensajeLabel_fecha}" for="fecha" />
+                        <p:calendar id="fecha" pattern="MM/dd/yyyy" value="#{ticketMensajeController.selected.fecha}" title="#{bundle.EditTicketMensajeTitle_fecha}" required="true" requiredMessage="#{bundle.EditTicketMensajeRequiredMessage_fecha}" showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateTicketMensajeLabel_correlativo}" for="correlativo" />
+                        <p:inputText id="correlativo" value="#{ticketMensajeController.selected.correlativo}" title="#{bundle.CreateTicketMensajeTitle_correlativo}" required="true" requiredMessage="#{bundle.CreateTicketMensajeRequiredMessage_correlativo}"/>
+                        <p:outputLabel value="#{bundle.CreateTicketMensajeLabel_idticket}" for="idticket" />
+                        <p:selectOneMenu id="idticket" value="#{ticketMensajeController.selected.idticket}" required="true" requiredMessage="#{bundle.EditTicketMensajeRequiredMessage_idticket}">
+                            <f:selectItems value="#{ticketController.itemsAvailableSelectOne}"
+                                           var="idticketItem"
+                                           itemValue="#{idticketItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateTicketMensajeLabel_idusuario}" for="idusuario" />
+                        <p:selectOneMenu id="idusuario" value="#{ticketMensajeController.selected.idusuario}" required="true" requiredMessage="#{bundle.EditTicketMensajeRequiredMessage_idusuario}">
+                            <f:selectItems value="#{usuarioController.itemsAvailableSelectOne}"
+                                           var="idusuarioItem"
+                                           itemValue="#{idusuarioItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{ticketMensajeController.create}" value="#{bundle.Save}" update="display,:TicketMensajeListForm:datalist,:growl" onclick="TicketMensajeCreateDialog.hide()"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="TicketMensajeCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

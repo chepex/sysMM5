@@ -1,0 +1,59 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+
+    <ui:composition   template="/WEB-INF/template.xhtml"> 
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListBancoTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="content">  
+            <h:form id="DeptoListForm">
+                <p:panel header="#{bundle.ListDeptoTitle}">
+                    <p:dataTable id="datalist" value="#{deptoController.items}" var="item"
+                                 selectionMode="single" selection="#{deptoController.selected}"                           
+                                 rowKey="#{item.iddepto}"
+                                 scrollable="true" 
+                                 scrollHeight="250"
+                                 >
+
+                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDeptoTitle_iddepto}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.iddepto}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDeptoTitle_nombre}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nombre}"/>
+                        </p:column>
+                        <f:facet name="footer">
+                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{deptoController.prepareCreate}" update=":DeptoCreateForm" oncomplete="PF('DeptoCreateDialog').show()"/>
+                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":DeptoViewForm" oncomplete="PF('DeptoViewDialog').show()" disabled="#{empty deptoController.selected}"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":DeptoEditForm" oncomplete="PF('DeptoEditDialog').show()" disabled="#{empty deptoController.selected}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{deptoController.destroy}" update=":growl,datalist" disabled="#{empty deptoController.selected}">
+                                <p:confirm header="Confirmation" message="Desea eliminar este registro ?" icon="ui-icon-alert" />
+                            </p:commandButton>
+                            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                                <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                            </p:confirmDialog>
+                        </f:facet>
+                    </p:dataTable>
+                </p:panel>
+            </h:form>
+
+            <ui:include src="Create.xhtml"/>
+            <ui:include src="Edit.xhtml"/>
+            <ui:include src="View.xhtml"/>
+        </ui:define>
+    </ui:composition>
+
+</ui:composition>

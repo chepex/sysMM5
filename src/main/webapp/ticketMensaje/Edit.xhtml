@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TicketMensajeEditDlg" widgetVar="TicketMensajeEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditTicketMensajeTitle}">
+            <h:form id="TicketMensajeEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{ticketMensajeController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditTicketMensajeLabel_idticketMensaje}" for="idticketMensaje" />
+                        <p:inputText id="idticketMensaje" value="#{ticketMensajeController.selected.idticketMensaje}" title="#{bundle.EditTicketMensajeTitle_idticketMensaje}" required="true" requiredMessage="#{bundle.EditTicketMensajeRequiredMessage_idticketMensaje}"/>
+                        <p:outputLabel value="#{bundle.EditTicketMensajeLabel_descripcion}" for="descripcion" />
+                        <p:inputText id="descripcion" value="#{ticketMensajeController.selected.descripcion}" title="#{bundle.EditTicketMensajeTitle_descripcion}" required="true" requiredMessage="#{bundle.EditTicketMensajeRequiredMessage_descripcion}"/>
+                        <p:outputLabel value="#{bundle.EditTicketMensajeLabel_fecha}" for="fecha" />
+                        <p:calendar id="fecha" pattern="MM/dd/yyyy" value="#{ticketMensajeController.selected.fecha}" title="#{bundle.EditTicketMensajeTitle_fecha}" required="true" requiredMessage="#{bundle.EditTicketMensajeRequiredMessage_fecha}" showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditTicketMensajeLabel_correlativo}" for="correlativo" />
+                        <p:inputText id="correlativo" value="#{ticketMensajeController.selected.correlativo}" title="#{bundle.EditTicketMensajeTitle_correlativo}" required="true" requiredMessage="#{bundle.EditTicketMensajeRequiredMessage_correlativo}"/>
+                        <p:outputLabel value="#{bundle.EditTicketMensajeLabel_idticket}" for="idticket" />
+                        <p:selectOneMenu id="idticket" value="#{ticketMensajeController.selected.idticket}" required="true" requiredMessage="#{bundle.EditTicketMensajeRequiredMessage_idticket}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{ticketController.itemsAvailableSelectOne}"
+                                           var="idticketItem"
+                                           itemValue="#{idticketItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditTicketMensajeLabel_idusuario}" for="idusuario" />
+                        <p:selectOneMenu id="idusuario" value="#{ticketMensajeController.selected.idusuario}" required="true" requiredMessage="#{bundle.EditTicketMensajeRequiredMessage_idusuario}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{usuarioController.itemsAvailableSelectOne}"
+                                           var="idusuarioItem"
+                                           itemValue="#{idusuarioItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{ticketMensajeController.update}" value="#{bundle.Save}" update="display,:TicketMensajeListForm:datalist,:growl" onclick="TicketMensajeEditDialog.hide()"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="TicketMensajeEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

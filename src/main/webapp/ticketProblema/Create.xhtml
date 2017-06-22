@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TicketProblemaCreateDlg" widgetVar="TicketProblemaCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateTicketProblemaTitle}">
+            <h:form id="TicketProblemaCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{ticketProblemaController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateTicketProblemaLabel_idticketProblema}" for="idticketProblema" />
+                        <p:inputText id="idticketProblema" value="#{ticketProblemaController.selected.idticketProblema}" title="#{bundle.CreateTicketProblemaTitle_idticketProblema}" required="true" requiredMessage="#{bundle.CreateTicketProblemaRequiredMessage_idticketProblema}"/>
+                        <p:outputLabel value="#{bundle.CreateTicketProblemaLabel_nombre}" for="nombre" />
+                        <p:inputText id="nombre" value="#{ticketProblemaController.selected.nombre}" title="#{bundle.CreateTicketProblemaTitle_nombre}" />
+                        <p:outputLabel value="#{bundle.CreateTicketProblemaLabel_activo}" for="activo" />
+                        <p:inputText id="activo" value="#{ticketProblemaController.selected.activo}" title="#{bundle.CreateTicketProblemaTitle_activo}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{ticketProblemaController.create}" value="#{bundle.Save}" update="display,:TicketProblemaListForm:datalist,:growl" onclick="TicketProblemaCreateDialog.hide()"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="TicketProblemaCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

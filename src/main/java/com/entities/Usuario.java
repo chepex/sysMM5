@@ -5,6 +5,7 @@
  */
 package com.entities;
 
+import com.ticket.Depto;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -80,6 +81,9 @@ public class Usuario implements Serializable {
     private Rol rolIdrol;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuarioIdusuario")
     private List<InvMov> invMovList;
+    @JoinColumn(name = "iddepto", referencedColumnName = "iddepto")
+    @ManyToOne
+    private Depto iddepto;    
 
     public Usuario() {
     }

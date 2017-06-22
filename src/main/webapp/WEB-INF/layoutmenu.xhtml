@@ -19,6 +19,11 @@
                 <p:menuitem id="om_sm15" value="Rol"  icon="icon-user106"   outcome="/rol/List.xhtml" />
                 <p:menuitem id="om_sm16" value="Usuario" icon="icon-user7"   outcome="/usuario/List.xhtml" />                            
                 <p:menuitem id="om_sm17" value="Correlativos" outcome="/correlativo/List.xhtml" icon=" icon-documents7" />
+                <p:menuitem id="om_sm18" value="Estado Ticket" outcome="/ticketEstado/List.xhtml" icon="fa fa-ellipsis-v" />
+                <p:menuitem id="om_sm19" value="TIcket Problema" outcome="/ticketProblema/List.xhtml" icon="fa fa-ellipsis-v" />
+                <p:menuitem id="om_sm20" value="TIcket Solucion" outcome="/ticketSolucion/List.xhtml" icon="fa fa-ellipsis-v" />
+                <p:menuitem id="om_sm21" value="Depto" outcome="/depto/List.xhtml" icon="fa fa-building-o" />
+                
             </p:submenu>
             <p:submenu label="Compras"  icon="fa  fa-shopping-cart">
                 <p:menuitem value="Proveedor" outcome="/proveedor/List.xhtml" icon="icon-businessman233" />
@@ -43,7 +48,13 @@
                 <p:menuitem value="Transaccion" outcome="/transaccionBanco/ListPagos.xhtml" icon="fa fa-mail-reply  " />                
                 <p:menuitem value="Caja Chica" outcome="/cajaChica/List.xhtml" icon="icon-archive24" />
             </p:submenu>
-                </p:submenu>  
+            <p:submenu label="Ticket"  icon="icon-archive24">
+                <p:menuitem value="Mis Ticket" outcome="/ticket/List2.xhtml" icon="icon-add20" actionListener="#{ticketController.prepareCreate()}" />
+                <p:menuitem value="Depto Ticket" outcome="/ticket/List.xhtml" icon="fa fa-align-justify " />                
+                <p:menuitem value="Dashboard" outcome="/ticket/List.xhtml" icon="icon-teacher43" />                
+                
+            </p:submenu>                
+            </p:submenu>  
         </po:menu>
     </h:form>
 

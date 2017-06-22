@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TicketCreateDlg" widgetVar="TicketCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateTicketTitle}">
+            <h:form id="TicketCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{ticketController.selected != null}">
+                      
+
+
+                        <p:outputLabel value="#{bundle.CreateTicketLabel_titulo}" for="titulo" />
+                        <p:inputText id="titulo" value="#{ticketController.selected.titulo}" title="#{bundle.CreateTicketTitle_titulo}" required="true" requiredMessage="#{bundle.CreateTicketRequiredMessage_titulo}"/>
+
+
+                        <p:outputLabel value="#{bundle.CreateTicketLabel_iddepto}" for="iddepto" />
+                        <p:selectOneMenu id="iddepto" value="#{ticketController.selected.iddepto}" required="true" requiredMessage="#{bundle.EditTicketRequiredMessage_iddepto}">
+                            <f:selectItems value="#{deptoController.itemsAvailableSelectOne}"
+                                           var="iddeptoItem"
+                                           itemLabel="#{iddeptoItem.nombre}"
+                                           itemValue="#{iddeptoItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="Descripcion:" for="msg" />
+                        <p:inputTextarea id="msg" rows="10" cols="50" required="true" value="#{ticketController.msg}"   />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{ticketController.create}" value="#{bundle.Save}" update="display,:TicketListForm:datalist,:growl" onclick="TicketCreateDialog.hide()"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="TicketCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
