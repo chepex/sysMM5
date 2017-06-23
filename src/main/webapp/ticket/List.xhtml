@@ -21,14 +21,81 @@
                <div class="Container40">
                    <h1>Depto TIcket </h1>
                </div>
-               <div class="Container60   Responsive100  TexAlRight ">                                            
-                 <p:commandButton id="createButton" icon="fa fa-plus White"   value="Nuevo TIcket" actionListener="#{ticketController.prepareCreate}" update="TicketCreateForm" oncomplete="PF('TicketCreateDialog').show()"/>
-                           
+                <div class="Container60   Responsive100  TexAlRight ">                                                                  
+                    <p:commandButton id="createButton" icon="fa fa-plus White"   value="Nuevo TIcket" actionListener="#{ticketController.prepareCreate}" update="TicketCreateForm" oncomplete="PF('TicketCreateDialog').show()"/>    
+                    <p:commandButton id="filtroButton" icon="fa fa-search White"   value="Filtrar" update="TicketFiltroForm"     oncomplete="PF('TicketFiltroDialog').show()" />
                </div>
                 </div>
             </div>
             <div class="SeparatorFull"></div>  
             
+                <div class="Container100 NoIndent Flex FlexWrap">
+                    <div class="Container25 Responsive50 Flex">
+                        <div class="Card">
+                            <span class="FontLatoBlack Black Opac80 Fleft Fs13 DispBlock">
+                                <span class="FontLatoRegular Blue   Fs30 DispBlock ">TICKET CREADOS</span>
+                                
+                            </span><div class="SeparatorFull "></div>  
+                            <div class="EmptyBox10"></div>
+                            <div class="Container20 NoIndent ui-fluid Responsive100">
+                                <i class="fa fa-plus  Blue Fs60 Fleft"></i>
+                            </div>
+                            <div class="Container80 NoIndent ui-fluid Responsive100  ">       
+                                
+                                 
+                                <span class="FontLatoRegular Blue  Fs40 DispBlock ">Total   #{ticketController.creados}</span>
+                            </div>
+                            <div class="SeparatorFull "></div>  
+                            <div class="Container100 NoIndent ui-fluid Responsive100 TexAlRight">    
+                                Ultimos 30 dias 
+                            </div>     
+                        </div>
+                    </div>
+                    <div class="Container25 Responsive50 Flex">
+                        <div class="Card">
+                            <span class="FontLatoBlack Black Opac80 Fleft Fs13 DispBlock">
+                                <span class="FontLatoRegular Green   Fs30 DispBlock ">TICKET ASIGNADOS</span>
+                                
+                            </span><div class="SeparatorFull "></div>  
+                            <div class="EmptyBox10"></div>
+                            <div class="Container20 NoIndent ui-fluid Responsive100">
+                                <i class="fa fa-user-plus  Green Fs60 Fleft"></i>
+                            </div>
+                            <div class="Container80 NoIndent ui-fluid Responsive100  ">       
+                                
+                                 
+                                <span class="FontLatoRegular Green  Fs40 DispBlock ">Total   #{ticketController.asignados}</span>
+                            </div>
+                            <div class="SeparatorFull "></div>  
+                            <div class="Container100 NoIndent ui-fluid Responsive100 TexAlRight">    
+                                Ultimos 30 dias 
+                            </div>     
+                        </div>
+                    </div>                    
+                    <div class="Container25 Responsive50 Flex">
+                        <div class="Card">
+                            <span class="FontLatoBlack Black Opac80 Fleft Fs13 DispBlock">
+                                <span class="FontLatoRegular  Red  Fs30 DispBlock ">TICKET FINALIZADOS</span>
+                                
+                            </span><div class="SeparatorFull "></div>  
+                            <div class="EmptyBox10"></div>
+                            <div class="Container20 NoIndent ui-fluid Responsive100">
+                                <i class="fa  fa-close   Red Fs60 Fleft"></i>
+                            </div>
+                            <div class="Container80 NoIndent ui-fluid Responsive100  ">       
+                                
+                                 
+                                <span class="FontLatoRegular Red  Fs40 DispBlock ">Total   #{ticketController.finalizados}</span>
+                            </div>
+                            <div class="SeparatorFull "></div>  
+                            <div class="Container100 NoIndent ui-fluid Responsive100 TexAlRight">    
+                                Ultimos 30 dias 
+                            </div>     
+                        </div>
+                    </div>                    
+                </div>                
+                   
+                <div class="SeparatorFull"></div>                       
                 <p:panel header="ticket">
                     <p:dataTable id="datalist" value="#{ticketController.items}" var="item"
                                  selectionMode="single" selection="#{ticketController.selected}"                           
@@ -38,13 +105,13 @@
                                  >
                         <p:ajax event="rowSelect"  listener="#{ticketController.llenarMensajes()}"  update="TicketListForm2 addMsg btnasignar  btnFinalizar"/>
                         <p:ajax event="rowUnselect"  listener="#{ticketController.llenarMensajes()}" update="TicketListForm2 addMsg btnasignar btnFinalizar"/>
-                        <p:column>
+                        <p:column filterBy="#{item.idticket}">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListTicketTitle_idticket}"/>
                             </f:facet>
                             <h:outputText value="#{item.idticket}"/>
                         </p:column>
-                        <p:column>
+                        <p:column  sortBy="#{item.fechaCreacion}">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListTicketTitle_fechaCreacion}"/>
                             </f:facet>
@@ -58,19 +125,19 @@
                             </f:facet>
                             <h:outputText value="#{item.titulo}"/>
                         </p:column>
-                        <p:column>
+                        <p:column filterBy="#{item.idusuario.usuario}" sortBy="#{item.idusuario.usuario}">
                             <f:facet name="header">
                                 <h:outputText value="Solicitante"/>
                             </f:facet>
                             <h:outputText value="#{item.idusuario.usuario}"/>
                         </p:column>
-                        <p:column>
+                        <p:column filterBy="#{item.iddepto.nombre}" sortBy="#{item.iddepto.nombre}">
                             <f:facet name="header">
                                 <h:outputText value="Depto"/>
                             </f:facet>
                             <h:outputText value="#{item.iddepto.nombre}"/>
                         </p:column>
-                        <p:column>
+                        <p:column filterBy="#{item.idusuarioAsignado.usuario}" sortBy="#{item.idusuarioAsignado.usuario}">
                             <f:facet name="header">
                                 <h:outputText value="Responsable"/>
                             </f:facet>
@@ -84,7 +151,7 @@
                                 <f:convertDateTime pattern="MM/dd/yyyy" />
                             </h:outputText>
                         </p:column>
-                        <p:column>
+                        <p:column   sortBy="#{item.fechaFinalizado}">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListTicketTitle_fechaFinalizado}"/>
                             </f:facet>
@@ -93,7 +160,7 @@
                             </h:outputText>
                         </p:column>
                        
-                        <p:column>
+                        <p:column filterBy="#{item.idestado.nombre}" sortBy="#{item.idestado.nombre}">
                             <f:facet name="header">
                                 <h:outputText value="Estado"/>
                             </f:facet>
@@ -116,8 +183,10 @@
                             <i class="icon-office-worker2 Fs50 Navy Fleft"></i>
                             <span class="  Fs14 Navy "> Usuario: </span>
                             <span class="FontLatoBlack Fs14 Navy Opac80">    #{car.idusuario.usuario}</span><br/>
+                            <span class="  Fs14 Navy "> Departamento: </span>
+                            <span class="FontLatoBlack Fs14 Navy Opac80">    #{car.idusuario.iddepto.nombre}</span><br/>
                             <span class="  Fs14 Navy "> Fecha: </span>
-                            <span class="FontLatoBlack Fs14 Navy Opac80">    #{car.fecha}</span><br/>
+                            <span class="FontLatoBlack Fs14 Navy Opac80">    #{  ticketController.stringfecha(car.fecha)  } </span><br/>
                          <br/>
                          <br/>
                          <span class="FontLatoLight Fs12 Navy">Mensaje:   </span>
@@ -135,6 +204,7 @@
             <ui:include src="addMsg.xhtml"/>
             <ui:include src="Asignar.xhtml"/>
             <ui:include src="Finalizar.xhtml"/>
+            <ui:include src="Filtro.xhtml"/>
             
         
            

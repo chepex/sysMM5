@@ -44,6 +44,70 @@ public class TicketFacade extends AbstractFacade<Ticket> {
        
         return val;
        
-    }     
+    }   
+    
+    public Long totalCreados( ){
+        Long val=new Long("0");
+       
+          
+            Query q =  em.createNativeQuery(" select COUNT(*) from ticket " +
+                        "  where fecha_creacion " +
+                        "  between DATE_ADD(CURDATE(), INTERVAL -30 DAY)  " +
+                        "  AND CURDATE()    " );  
+           
+            val = (Long)q.getSingleResult();
+          
+            System.out.println("val-->"+val);
+            System.out.println("val-->"+val);
+            System.out.println("val-->"+val);
+               
+       
+        return val;
+       
+    }    
+    
+    public Long totalFinalizados( ){
+        Long val=new Long("0");
+       
+          
+            Query q =  em.createNativeQuery(" select COUNT(*) from ticket " +
+                        "  where fecha_finalizado " +
+                        "  between DATE_ADD(CURDATE(), INTERVAL -30 DAY)  " +
+                        "  AND CURDATE()    " );  
+           
+            val = (Long)q.getSingleResult();
+          
+            System.out.println("val-->"+val);
+            System.out.println("val-->"+val);
+            System.out.println("val-->"+val);
+               
+       
+        return val;
+       
+    }   
+    
+    public Long totalAsignados( ){
+        Long val=new Long("0");
+       
+          
+            Query q =  em.createNativeQuery(" select COUNT(*) from ticket " +
+                        "  where fecha_asignado " +
+                        "  between DATE_ADD(CURDATE(), INTERVAL -30 DAY)  " +
+                        "  AND CURDATE()    " );  
+           
+            val = (Long)q.getSingleResult();
+          
+            System.out.println("val-->"+val);
+            System.out.println("val-->"+val);
+            System.out.println("val-->"+val);
+               
+       
+        return val;
+       
+    }      
+        
+    
+    
+
     
 }

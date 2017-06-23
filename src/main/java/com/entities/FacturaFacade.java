@@ -69,7 +69,7 @@ public List<Factura> findByClienteFecha(Date fi, Date ff, Cliente client) {
             System.out.println("::::"+ex);
         }
        return lo;        
-  } 
+    } 
 
     public List<Object[]> ventaMes(){
         Query q  = null;

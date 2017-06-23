@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TicketFiltroDlg" widgetVar="TicketFiltroDialog" modal="true" resizable="false" appendTo="@(body)" header="Filtrars">
+            <h:form id="TicketFiltroForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid style="margin-top:20px">
+                        <p:row>
+                            <p:column colspan="1">
+                                <p:outputLabel value="Estado" for="estado" />
+                            </p:column>
+                            <p:column colspan="2">
+                                <p:selectOneMenu id="estado"   required="true" value="#{ticketController.estado}"  >
+                                       
+                                         <f:selectItems value="#{ticketEstadoController.itemsAvailableSelectOne}"
+                                                             var="estadoItem"
+                                                             itemLabel="#{estadoItem.nombre}"
+                                                             itemValue="#{estadoItem}"/>
+                                </p:selectOneMenu>     
+                            </p:column>                                
+                        </p:row>
+                        <p:row>
+                              <p:column colspan="1">
+                                  <p:outputLabel value="Solicitante" for="solicitante" />
+                              </p:column>
+                              <p:column colspan="2">
+                                    <p:selectOneMenu id="solicitante"  required="true"  value="#{ticketController.solicitante}"  >
+                                        
+                                        <f:selectItems value="#{usuarioController.itemsAvailableSelectOne}"
+                                                var="usuarioItem"
+                                                itemLabel="#{usuarioItem.usuario}"
+                                                itemValue="#{usuarioItem}"/>
+                                    </p:selectOneMenu> 
+                              </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column >
+                                <p:outputLabel value="Fecha Creacion:"  />
+                            </p:column>
+                            <p:column >
+                                <p:calendar id="fechai"  required="true" value="#{ticketController.fi}" showOn="button" />
+                             
+                                <p:outputLabel value=" Al "  />
+                             
+                                <p:calendar id="fechaf"  required="true" value="#{ticketController.ff}" showOn="button" />
+                            </p:column>
+                        </p:row>
+                        
+                        
+                        
+                    </p:panelGrid>
+                    <div class="Card TexAlRight">
+                        <p:commandButton actionListener="#{ticketController.asignar}" icon="fa fa-search White" value="Consultar" update="display,:TicketListForm:datalist,:growl" onclick="TicketCreateDialog.hide()"/>
+                        <p:commandButton value="#{bundle.Cancel}" onclick="TicketCreateDialog.hide()"/>
+                    </div>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

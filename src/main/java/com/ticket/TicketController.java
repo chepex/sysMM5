@@ -3,15 +3,16 @@ package com.ticket;
 import com.entities.Usuario;
 import com.entities.util.JsfUtil;
 import com.entities.util.JsfUtil.PersistAction;
+import com.entities.util.ManejadorFechas;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.inject.Named;
@@ -35,9 +36,83 @@ public class TicketController implements Serializable {
     private List<TicketMensaje> lmensaje = new ArrayList<TicketMensaje>();
     private Ticket selected;
     private String msg;
-
+    private String estado;
+    private Usuario solicitante;
+    private Date fi;
+    private Date ff;
+    private long creados;
+    private long finalizados;
+    private long asignados;
+    
+    
     public TicketController() {
     }
+
+    public long getFinalizados() {
+        return finalizados;
+    }
+
+    public void setFinalizados(long finalizados) {
+        this.finalizados = finalizados;
+    }
+
+    public long getAsignados() {
+        return asignados;
+    }
+
+    public void setAsignados(long asignados) {
+        this.asignados = asignados;
+    }
+
+    
+    
+    public long getCreados() {
+        return creados;
+    }
+
+    public void setCreados(long creados) {
+        this.creados = creados;
+    }
+
+    
+    
+    public Date getFi() {
+        return fi;
+    }
+
+    public void setFi(Date fi) {
+        this.fi = fi;
+    }
+
+    public Date getFf() {
+        return ff;
+    }
+
+    public void setFf(Date ff) {
+        this.ff = ff;
+    }
+
+    
+    
+    public Usuario getSolicitante() {
+        return solicitante;
+    }
+
+    public void setSolicitante(Usuario solicitante) {
+        this.solicitante = solicitante;
+    }
+
+    
+    
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+    
+    
 
     public List<TicketMensaje> getLmensaje() {
         return lmensaje;
@@ -85,6 +160,13 @@ public class TicketController implements Serializable {
         return selected;
     }
 
+    
+    
+    @PostConstruct
+    public void init() {              
+         llenarDashboard();         
+    }
+    
     
     public void addMensaje(){
         Usuario us = new Usuario ();
@@ -285,8 +367,21 @@ public class TicketController implements Serializable {
         System.out.println(" vacia-->");
         System.out.println(" vacia-->");
        }
-        
+        llenarDashboard();
     
+    }
+    
+    public void llenarDashboard(){
+    
+        creados= this.ejbFacade.totalCreados();
+        finalizados= this.ejbFacade.totalFinalizados();
+        asignados= this.ejbFacade.totalAsignados();
+    
+    }
+    
+    public String stringfecha( Date d){
+        return ManejadorFechas.DateToString2(d);
+        
     }
 
 }

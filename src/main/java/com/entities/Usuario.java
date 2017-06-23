@@ -88,6 +88,16 @@ public class Usuario implements Serializable {
     public Usuario() {
     }
 
+    public Depto getIddepto() {
+        return iddepto;
+    }
+
+    public void setIddepto(Depto iddepto) {
+        this.iddepto = iddepto;
+    }
+    
+    
+
     public Usuario(Integer idusuario) {
         this.idusuario = idusuario;
     }
