@@ -16,6 +16,9 @@
 
 
                         <p:outputLabel value="#{bundle.CreateTicketLabel_titulo}" for="titulo" />
+                        
+                      
+                        
                         <p:inputText id="titulo" value="#{ticketController.selected.titulo}" title="#{bundle.CreateTicketTitle_titulo}" required="true" requiredMessage="#{bundle.CreateTicketRequiredMessage_titulo}"/>
 
 
@@ -27,7 +30,21 @@
                                            itemValue="#{iddeptoItem}"/>
                         </p:selectOneMenu>
                         <p:outputLabel value="Descripcion:" for="msg" />
-                        <p:inputTextarea id="msg" rows="10" cols="50" required="true" value="#{ticketController.msg}"   />
+                        <p:textEditor  id="msg" widgetVar="editor2" value="#{ticketController.msg}" height="300" style="margin-bottom:10px" placeholder="Enter your content">
+                            <f:facet name="toolbar">
+                                 <span class="ql-formats">
+                                    <button class="ql-bold"></button>
+                                    <button class="ql-italic"></button>
+                                    <button class="ql-underline"></button>
+                                    <button class="ql-strike"></button>
+                                </span>
+                                <span class="ql-formats">
+                                    <select class="ql-font"></select>
+                                    <select class="ql-size"></select>
+                                </span>
+                            </f:facet>
+                        </p:textEditor>
+                        
                     </p:panelGrid>
                     <p:commandButton actionListener="#{ticketController.create}" value="#{bundle.Save}" update="display,:TicketListForm:datalist,:growl" onclick="TicketCreateDialog.hide()"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="TicketCreateDialog.hide()"/>

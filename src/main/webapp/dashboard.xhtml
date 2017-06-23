@@ -1,4 +1,4 @@
-<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
@@ -11,6 +11,7 @@
     </ui:define>
 
     <ui:define name="content">
+      
         <style>
             
             .ui-commandlink {
@@ -106,11 +107,11 @@
             }
             
            </script>
-        <h:form id="formDashboard"  >    
-   
+        <h:form id="formDashboard"   >    
+       
         <!-- top buttons-->
         
-          <p:poll id="mas" interval="60" listener="#{dashboardController.init}" update="formDashboard" /> 
+          <p:poll id="mas" interval="15" listener="#{dashboardController.init}" update="formDashboard" /> 
         <!-- top boxes-->
         <div class="Container100 NoIndent Flex FlexWrap">
             <div class="Container25 Responsive50 Flex">

@@ -103,7 +103,7 @@
                         <f:facet name="footer">
                             <p:commandButton id="addMsg"   icon=" fa-commenting-o fa White" value="Agregar Mensaje" update=":msgForm " oncomplete="PF('msgDialog').show()" disabled="#{empty ticketController.selected or ticketController.selected.idestado.idticketEstado ==3}"/>
                           <p:commandButton id="btnasignar"   styleClass="GreenButton" icon=" fa-user-plus fa White" value="Asignar" update=":TicketAsignarForm " oncomplete="PF('TicketAsignarDialog').show()" disabled="#{empty ticketController.selected  or ticketController.selected.idestado.idticketEstado ==3}"/>
-                          <p:commandButton id="btnFinalizar"  styleClass="RedButton"  icon="  fa-check-square-o fa White" value="Finalizar" update=":msgForm " oncomplete="PF('msgDialog').show()" disabled="#{empty ticketController.selected  or ticketController.selected.idestado.idticketEstado ==3}"/>
+                          <p:commandButton id="btnFinalizar"  styleClass="RedButton"  icon="  fa-check-square-o fa White" value="Finalizar" update=":TicketFinalizarForm " oncomplete="PF('TicketFinalizarDialog').show()" disabled="#{empty ticketController.selected  or ticketController.selected.idestado.idticketEstado ==3}"/>
                         </f:facet>
                     </p:dataTable>
                 </p:panel>
@@ -119,8 +119,9 @@
                             <span class="  Fs14 Navy "> Fecha: </span>
                             <span class="FontLatoBlack Fs14 Navy Opac80">    #{car.fecha}</span><br/>
                          <br/>
+                         <br/>
                          <span class="FontLatoLight Fs12 Navy">Mensaje:   </span>
-                            <h:outputText value="   #{car.descripcion}" style="font-weight: bold"/>
+                            <h:outputText value="#{car.descripcion}" escape="false" />                           
                          </div>
                      </div>
                     <hr />
@@ -133,6 +134,7 @@
             <ui:include src="View.xhtml"/>
             <ui:include src="addMsg.xhtml"/>
             <ui:include src="Asignar.xhtml"/>
+            <ui:include src="Finalizar.xhtml"/>
             
         
            

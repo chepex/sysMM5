@@ -22,7 +22,7 @@
             <h:form id="ListCompra">    
                 <p:panel header="Compra del mes">
                     <p:dataTable id="datalist" value="#{dashboardController.lcompra}" var="item"
-                         selectionMode="single" selection="#{facturaController.selected}"                          
+                         selectionMode="single" selection="#{compraController.selected}"                          
                          rowKey="#{item.idcompra}"
                         scrollable="true" 
                       scrollHeight="450"

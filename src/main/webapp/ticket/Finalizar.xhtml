@@ -8,23 +8,29 @@
 
     <ui:composition>
 
-        <p:dialog id="TicketAsignarDlg" widgetVar="TicketAsignarDialog" modal="true" resizable="false" appendTo="@(body)" header="Asignar">
-            <h:form id="TicketAsignarForm">
+        <p:dialog id="TicketFinalizarDlg" widgetVar="TicketFinalizarDialog" modal="true" resizable="false" appendTo="@(body)" header="Finalizar">
+            <h:form id="TicketFinalizarForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{ticketController.selected != null}">
                       
-
- 
-
-                        <p:outputLabel value="Responsable" for="usuario" />
-                        <p:selectOneMenu id="usuario" value="#{ticketController.selected.idusuarioAsignado}" required="true" >
-                            <f:selectItems value="#{usuarioController.itemsAvailableSelectOne}"
-                                           var="usuarioItem"
-                                           itemLabel="#{usuarioItem.usuario}"
-                                           itemValue="#{usuarioItem}"/>
+                        <p:outputLabel value="Problema:" for="idProblema" />
+                        <p:selectOneMenu id="idProblema" value="#{ticketController.selected.idticketProblema}" required="true" >
+                            <f:selectItems value="#{ticketProblemaController.itemsAvailableSelectOne}"
+                                           var="problemaItem"
+                                           itemLabel="#{problemaItem.nombre}"
+                                           itemValue="#{problemaItem}"/>
                         </p:selectOneMenu>
-                        <p:outputLabel value="Descripcion:" for="msg" />
                         
+                        <p:outputLabel value="Solucion:" for="solucion" />
+                        <p:selectOneMenu id="solucion" value="#{ticketController.selected.idticketSolucion}" required="true" >
+                            <f:selectItems value="#{ticketSolucionController.itemsAvailableSelectOne}"
+                                           var="solucionItem"
+                                           itemLabel="#{solucionItem.nombre}"
+                                           itemValue="#{solucionItem}"/>
+                        </p:selectOneMenu>                        
+ 
+ 
+                        <p:outputLabel value="Descripcion:" for="msg" />
                         <p:textEditor  id="msg" widgetVar="editor2" value="#{ticketController.msg}" height="100" style="margin-bottom:10px" placeholder="Enter your content">
                             <f:facet name="toolbar">
                                  <span class="ql-formats">

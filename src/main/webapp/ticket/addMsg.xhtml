@@ -14,7 +14,21 @@
                     <p:panelGrid columns="2" rendered="#{ticketController.selected != null}">
                       
                         <p:outputLabel value="Descripcion:" for="msg" />
-                        <p:inputTextarea id="msg" rows="10" cols="50" required="true" value="#{ticketController.msg}"   />
+                      
+                        <p:textEditor  id="msg" widgetVar="editor2" value="#{ticketController.msg}" height="100" style="margin-bottom:10px" placeholder="Enter your content">
+                            <f:facet name="toolbar">
+                                 <span class="ql-formats">
+                                    <button class="ql-bold"></button>
+                                    <button class="ql-italic"></button>
+                                    <button class="ql-underline"></button>
+                                    <button class="ql-strike"></button>
+                                </span>
+                                <span class="ql-formats">
+                                    <select class="ql-font"></select>
+                                    <select class="ql-size"></select>
+                                </span>
+                            </f:facet>
+                        </p:textEditor>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{ticketController.addMensaje}" value="#{bundle.Save}" update=":TicketListForm2,:growl" onclick="TicketCreateDialog.hide()"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="TicketCreateDialog.hide()"/>
