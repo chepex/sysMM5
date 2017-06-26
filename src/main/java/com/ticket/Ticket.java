@@ -41,6 +41,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Ticket.findByIdticket", query = "SELECT t FROM Ticket t WHERE t.idticket = :idticket"),
     @NamedQuery(name = "Ticket.findByFechaCreacion", query = "SELECT t FROM Ticket t WHERE t.fechaCreacion = :fechaCreacion"),
     @NamedQuery(name = "Ticket.findByIdusuarioAsignado", query = "SELECT t FROM Ticket t WHERE t.idusuarioAsignado = :idusuarioAsignado"),
+    @NamedQuery(name = "Ticket.findByUsuario", query = "SELECT t FROM Ticket t WHERE t.idusuarioAsignado.idusuario = :idusuario"),
+    @NamedQuery(name = "Ticket.findByDepto", query = "SELECT t FROM Ticket t WHERE t.iddepto.iddepto = :iddepto"),
     @NamedQuery(name = "Ticket.findByTitulo", query = "SELECT t FROM Ticket t WHERE t.titulo = :titulo"),
     @NamedQuery(name = "Ticket.findByFechaAsignado", query = "SELECT t FROM Ticket t WHERE t.fechaAsignado = :fechaAsignado"),
     @NamedQuery(name = "Ticket.findByFechaFinalizado", query = "SELECT t FROM Ticket t WHERE t.fechaFinalizado = :fechaFinalizado")})

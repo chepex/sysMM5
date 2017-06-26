@@ -46,7 +46,7 @@
                             </f:facet>
                         </p:textEditor>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{ticketController.asignar}" value="#{bundle.Save}" update="display,:TicketListForm:datalist,:growl" onclick="TicketCreateDialog.hide()"/>
+                    <p:commandButton actionListener="#{ticketController.finalizar}" value="#{bundle.Save}" update="display,:TicketListForm:datalist,:growl" onclick="TicketCreateDialog.hide()"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="TicketCreateDialog.hide()"/>
                 </h:panelGroup>
             </h:form>

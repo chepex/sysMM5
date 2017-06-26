@@ -6,11 +6,14 @@
 package com.ticket;
 
 import com.entities.AbstractFacade;
+import com.entities.Usuario;
 import java.math.BigDecimal;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -105,6 +108,26 @@ public class TicketFacade extends AbstractFacade<Ticket> {
         return val;
        
     }      
+    
+    public List<Ticket> findByUsuario(Usuario usuario) {
+        TypedQuery<Ticket> q = null;
+            
+        System.out.println("usuario-->"+usuario.getIdusuario());
+             q = em.createNamedQuery("Ticket.findByUsuario",Ticket.class)               
+                .setParameter("idusuario", usuario.getIdusuario());
+              
+        return q.getResultList();
+    }     
+    
+    public List<Ticket> findByDepto(Depto depto) {
+        TypedQuery<Ticket> q = null;
+     System.out.println("iddepto-->"+depto.getIddepto());
+             q = em.createNamedQuery("Ticket.findByDepto",Ticket.class)               
+                .setParameter("iddepto", depto.getIddepto());
+              
+        return q.getResultList();
+    }     
+            
         
     
     
