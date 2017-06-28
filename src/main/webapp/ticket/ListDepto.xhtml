@@ -24,6 +24,7 @@
                 <div class="Container60   Responsive100  TexAlRight ">                                                                  
                     <p:commandButton id="createButton" icon="fa fa-plus White"   value="Nuevo TIcket" actionListener="#{ticketController.prepareCreate}" update="TicketCreateForm" oncomplete="PF('TicketCreateDialog').show()"/>    
                     <p:commandButton id="filtroButton" icon="fa fa-search White"   value="Filtrar" update="TicketFiltroForm"     oncomplete="PF('TicketFiltroDialog').show()" />
+                    <p:commandButton id="actualizarButton" icon="fa fa-search White"   value="Actualizar" update="@all"      actionListener="#{ticketController.llenarListas()}" />
                </div>
                 </div>
             </div>
@@ -103,8 +104,8 @@
                                  scrollable="true" 
                                  scrollHeight="250"
                                  >
-                        <p:ajax event="rowSelect"  listener="#{ticketController.llenarMensajes()}"  update="TicketListForm2 addMsg btnasignar  btnFinalizar"/>
-                        <p:ajax event="rowUnselect"  listener="#{ticketController.llenarMensajes()}" update="TicketListForm2 addMsg btnasignar btnFinalizar"/>
+                        <p:ajax event="rowSelect"  listener="#{ticketController.llenarListas()}"  update="TicketListForm2 addMsg btnasignar  btnFinalizar"/>
+                        <p:ajax event="rowUnselect"  listener="#{ticketController.llenarListas()}" update="TicketListForm2 addMsg btnasignar btnFinalizar"/>
                         <p:column filterBy="#{item.idticket}">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListTicketTitle_idticket}"/>

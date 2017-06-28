@@ -34,6 +34,15 @@ public class UsuarioFacade extends AbstractFacade<Usuario> {
         TypedQuery<Usuario> q = null;         
              q = em.createNamedQuery("Usuario.findByActivo",Usuario.class) ;   
         return q.getResultList();
+    }    
+    
+  public List<Usuario> findByLogin2(String usuario , String pass) {
+        TypedQuery<Usuario> q = null;
+        q = em.createNamedQuery("Usuario.findByLogin",Usuario.class)
+                .setParameter("usuario", usuario)
+                .setParameter("password", pass);
+
+       return q.getResultList();
     }     
         
     

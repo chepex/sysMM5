@@ -17,70 +17,59 @@
     </h:head>
 
     <h:body styleClass="AquaBack">
-
-        <div class="Wid70 MarAuto">
+         <p:growl id="growl" showDetail="true" sticky="true" /> 
+          <h:form id="loginForm">
+          
+           
+            <div class="Wid70 MarAuto">
             <div class="Wid70 MarAuto WidAutoOnMobile TexAlCenter">
 
                 <div class="Wid70 MarAuto WidAutoOnMobile">
                     <div class="EmptyBox30"></div>
                     <div class="Container50 Responsive50">
-                        <a href="dashboard-supplychain.xhtml" class="DispBlock Fleft FloatNoneOnMobile"><h:graphicImage name="images/logo.svg" library="olympos-layout" style="height:25px;"/></a>
+                        <a href="dashboard-supplychain.xhtml" class="DispBlock Fleft FloatNoneOnMobile">
+                            <h:graphicImage name="images/logo2.png" library="olympos-layout" style="height:25px;"/></a>
                     </div>
-                    <div class="Container50 Responsive50">
-                        <p:commandButton type="button" value="Create Free Account" styleClass="OrangeButton Fright FloatNoneOnMobile"/>
-                    </div>
+                     
                     <div class="EmptyBox10 ShowOnMobile"></div>
 
                     <div class="EmptyBox100 ShowOnDesktop"></div>
                     <div class="EmptyBox20 ShowOnMobile"></div>
 
-                    <div class="Wid100 FontLatoRegular White Fs18">Welcome Back, Please Login Here !</div>
+                    <div class="Wid100 FontLatoRegular White Fs18">Bienvenido a webRVQ !</div>
                     <div class="EmptyBox30"></div>
                     <div class="Card ui-fluid ShadowEffect">
                         <div class="Container100">
-                            <p:inputText placeholder="E-Mail Address" style="padding:15px !important;"/>
+                            <p:inputText   placeholder="E-Mail Address" value="#{loginBean.username}" style="padding:15px !important;"/>
                         </div>
                         <div class="Container100">
-                            <p:password placeholder="Password" style="padding:15px !important;"/>
+                            <p:password placeholder="Password"  value="#{loginBean.password}" style="padding:15px !important;"/>
                         </div>
+                   
                         <div class="Container100 TexAlLeft">
                             <div class="EmptyBox10"></div>
-                            <p:selectManyCheckbox layout="responsive" columns="1">
-                                <f:selectItem itemLabel="Remember Me" itemValue="Remember Me" />
-                            </p:selectManyCheckbox>
+                            
                         </div>
                         <div class="EmptyBox20"></div>
                         <div class="Container100">
-                            <p:commandButton type="button" value="Sign In" styleClass="GreenButton"/>
+                               <p:commandButton actionListener="#{loginBean.login}" value="Sign In" update="@form, :growl"  />
+                            
                         </div>
 
                         <div class="EmptyBox10"></div>
                         <div class="Separator"></div>
                         <div class="EmptyBox10"></div>
 
-                        <span class="DispBlock OvHidden FontLatoBold Fs16 Leaden">Or Sign In</span>
-                        <div class="EmptyBox10"></div>
-                        <div class="Container50 Responsive100">
-                            <p:commandButton type="button" icon="fa fa-facebook Fs16" value="With Facebook" styleClass="NavyButton White"/>
-                        </div>
-                        <div class="Container50 Responsive100">
-                            <p:commandButton type="button" icon="fa fa-twitter Fs16" value="With Twitter" styleClass="BlueButton White"/>
-                        </div>
-                        <div class="Container50 Responsive100">
-                            <p:commandButton type="button" icon="fa fa-google-plus Fs16" value="With Google Plus" styleClass="RedButton White"/>
-                        </div>
-                        <div class="Container50 Responsive100">
-                            <p:commandButton type="button" icon="fa fa-linkedin Fs16" value="With Linkedin" styleClass="AquaButton White"/>
-                        </div>
+                         
                     </div>
 
                     <div class="EmptyBox20"></div>
-                    <div class="Wid100 FontLatoRegular Fs12 TransparentWhite"> <i class="fa fa-copyright DispInlBlock"></i> PrimeFaces Olympos Theme And Layout <br/>All rights reserved.</div>
+                    <div class="Wid100 FontLatoRegular Fs12 TransparentWhite"> <i class="fa fa-copyright DispInlBlock"></i> Grupo RVQ, Departamento IT <br/>All rights reserved.</div>
                     <div class="EmptyBox30"></div>
                 </div>
             </div>
         </div>
-
+            </h:form>
         <style>.ui-button-text, .ui-button-text-only .ui-button-text{padding:15px !important; transition:none !important;}</style>
 
         <h:outputStylesheet name="css/core-layout.css" library="olympos-layout" />

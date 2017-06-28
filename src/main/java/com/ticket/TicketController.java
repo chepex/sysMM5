@@ -34,6 +34,14 @@ public class TicketController implements Serializable {
     private TicketEstadoFacade ticketEstadoFacade;        
     @EJB
     private  com.ejb.SB_ticket  sb_ticket;    
+    @EJB
+    private  com.entities.LoginBean  lb;        
+    
+    private String vuser;
+    private String vicon;
+  
+    
+     
     private List<Ticket> items = null;
     private List<TicketMensaje> lmensaje = new ArrayList<TicketMensaje>();
     private Ticket selected;
@@ -47,10 +55,49 @@ public class TicketController implements Serializable {
     private long asignados;
     private List<Ticket> lticketUsuario = new ArrayList<Ticket>();
     private List<Ticket> lticketDepto = new ArrayList<Ticket>();
+    private List<Ticket> lticketTecnico = new ArrayList<Ticket>();
     
     public TicketController() {
     }
 
+    public String getVuser() {
+        return vuser;
+    }
+
+    public void setVuser(String vuser) {
+        this.vuser = vuser;
+    }
+
+    public String getVicon() {
+        if(vuser.equals("Usuario")){
+            vicon = " fa fa-user White";
+        }else{
+            vicon = " fa fa-users White";
+        }
+        return vicon;
+    }
+
+    public void setVicon(String vicon) {
+        this.vicon = vicon;
+    }
+
+  
+    
+   
+    
+    
+    
+
+    public List<Ticket> getLticketTecnico() {
+        return lticketTecnico;
+    }
+
+    public void setLticketTecnico(List<Ticket> lticketTecnico) {
+        this.lticketTecnico = lticketTecnico;
+    }
+
+    
+    
     public List<Ticket> getLticketUsuario() {
         return lticketUsuario;
     }
@@ -154,7 +201,7 @@ public class TicketController implements Serializable {
     
 
     public Ticket getSelected() {
-        System.out.println("select-->"+selected);
+       
         return selected;
     }
 
@@ -183,15 +230,14 @@ public class TicketController implements Serializable {
     
     @PostConstruct
     public void init() {              
-         llenarListas();         
+         llenarListas();   
+          vuser= "Usuario";
     }
     
     
     public void addMensaje(){
-        Usuario us = new Usuario ();
-        us.setUsuario("root");
-        us.setIdusuario(1);
-        String msg = sb_ticket.addMesage( selected ,   this.msg, us);
+      
+        String msg = sb_ticket.addMesage( selected ,   this.msg, lb.getUser());
         
         if(msg.equals("OK")){
             JsfUtil.addSuccessMessage("Mensaje agregado correctamente");
@@ -227,7 +273,7 @@ public class TicketController implements Serializable {
     public void finalizar(){        
         
         TicketEstado te =ticketEstadoFacade.find(3);
-        this.msg = "Ticket cerrado";
+        this.msg = this.msg+"Ticket cerrado";
         String msg = sb_ticket.addMesage( selected ,   this.msg, selected.getIdusuarioAsignado());         
         selected.setIdestado(te);            
         selected.setFechaFinalizado(new Date());
@@ -243,14 +289,12 @@ public class TicketController implements Serializable {
     public void create() {
          
        
-        Usuario us = new Usuario ();
-        us.setUsuario("root");
-        us.setIdusuario(1);
+     
         TicketEstado te=  new TicketEstado(1);
         
         selected.setFechaCreacion(new Date());
         selected.setIdestado(te);
-        selected.setIdusuario(us);
+        selected.setIdusuario(lb.getUser());
         
        Long b = this.ejbFacade.correlativo( );
        
@@ -263,7 +307,7 @@ public class TicketController implements Serializable {
             items = null;    // Invalidate list of items to trigger re-query.
         }
         
-        sb_ticket.addMesage( selected ,   msg, us);
+        sb_ticket.addMesage( selected ,   msg, lb.getUser());
         this.msg= null;
         llenarListas();
                 
@@ -376,17 +420,29 @@ public class TicketController implements Serializable {
     
     public void llenarListas(){
         
-        Usuario us = new Usuario ();
-        us.setUsuario("root");
-        us.setIdusuario(1);
-        us.setIddepto(new Depto (1));
         
-        lticketUsuario = this.ejbFacade.findByUsuario(us);
-        lticketDepto = this.ejbFacade.findByDepto(us.getIddepto());
+        System.out.println("vuser-->"+vuser);
+        System.out.println("user-->"+lb.getUser());
+        
+       // lticketDepto = this.ejbFacade.findByDepto(lb.getUser().getIddepto());
+        
         creados= this.ejbFacade.totalCreados();
         finalizados= this.ejbFacade.totalFinalizados();
         asignados= this.ejbFacade.totalAsignados();
-        
+        if(vuser==null){
+            vuser="Usuario";        
+        }
+        if(vuser.equals("Todos")){
+            lticketUsuario = this.ejbFacade.findByUsuarioDepto(lb.getUser());
+            lticketTecnico =this.ejbFacade.findByTecnicoDepto(lb.getUser());   
+            
+            System.out.println("depto List-->"+lticketTecnico);
+        }else{
+            lticketUsuario = this.ejbFacade.findByUsuario(lb.getUser());
+            lticketTecnico =this.ejbFacade.findByTecnico(lb.getUser());            
+            System.out.println("tecnico List-->"+lticketTecnico);
+        }
+         
         if (selected!=null){
          this.lmensaje =  ticketMensajeFacade.findByTIcket(selected);
         }
@@ -399,6 +455,16 @@ public class TicketController implements Serializable {
     public String stringfecha( Date d){
         return ManejadorFechas.DateToString2(d);
         
+    }
+    
+    public void cambiarFiltro(){        
+       if(vuser.equals("Todos")){
+            vuser= "Usuario";
+        }else{
+            vuser= "Todos";
+        }
+        
+        llenarListas();
     }
     
     

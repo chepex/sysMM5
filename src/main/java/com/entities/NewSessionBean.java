@@ -5,14 +5,14 @@
  */
 package com.entities;
 
-import javax.ejb.Stateless;
+import javax.ejb.Stateful;
 
 /**
  *
  * @author mmixco
  */
-@Stateless
-public class NewSessionBean implements NewSessionBeanLocal {
+@Stateful
+public class NewSessionBean {
 
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")

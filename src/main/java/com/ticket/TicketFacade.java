@@ -109,21 +109,48 @@ public class TicketFacade extends AbstractFacade<Ticket> {
        
     }      
     
-    public List<Ticket> findByUsuario(Usuario usuario) {
+    public List<Ticket> findByUsuarioDepto(Usuario usuario ) {
         TypedQuery<Ticket> q = null;
             
-        System.out.println("usuario-->"+usuario.getIdusuario());
-             q = em.createNamedQuery("Ticket.findByUsuario",Ticket.class)               
-                .setParameter("idusuario", usuario.getIdusuario());
+        q = em.createNamedQuery("Ticket.findByUsuarioDepto",Ticket.class)               
+       .setParameter("iddepto", usuario.getIddepto().getIddepto());
+                      
+        return q.getResultList();
+    } 
+    
+    public List<Ticket> findByUsuario(Usuario usuario ) {
+        TypedQuery<Ticket> q = null;
+        
+        q = em.createNamedQuery("Ticket.findByUsuario",Ticket.class)               
+        .setParameter("idusuario", usuario.getIdusuario());       
               
         return q.getResultList();
     }     
     
+    
+    public List<Ticket> findByTecnicoDepto(Usuario usuario ) {
+        TypedQuery<Ticket> q = null;
+        
+        q = em.createNamedQuery("Ticket.findByTecnicoDepto",Ticket.class)               
+        .setParameter("iddepto", usuario.getIddepto().getIddepto());
+                      
+        return q.getResultList();
+    } 
+    
+    public List<Ticket> findByTecnico(Usuario usuario ) {
+        TypedQuery<Ticket> q = null;
+                
+        q = em.createNamedQuery("Ticket.findByTecnico",Ticket.class)               
+        .setParameter("idusuario", usuario.getIdusuario());
+                      
+        return q.getResultList();
+    } 
+    
     public List<Ticket> findByDepto(Depto depto) {
         TypedQuery<Ticket> q = null;
-     System.out.println("iddepto-->"+depto.getIddepto());
-             q = em.createNamedQuery("Ticket.findByDepto",Ticket.class)               
-                .setParameter("iddepto", depto.getIddepto());
+     
+        q = em.createNamedQuery("Ticket.findByDepto",Ticket.class)               
+        .setParameter("iddepto", depto.getIddepto());
               
         return q.getResultList();
     }     

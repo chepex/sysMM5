@@ -13,6 +13,16 @@
                 <h:panelGroup id="display">
                     <p:panelGrid style="margin-top:20px">
                         <p:row>
+                            <p:column>
+                                Todos:
+                            </p:column>
+                            <p:column>
+                                
+                            </p:column>
+                            
+                        </p:row>
+                            
+                        <p:row>
                             <p:column colspan="1">
                                 <p:outputLabel value="Estado" for="estado" />
                             </p:column>
@@ -45,11 +55,11 @@
                                 <p:outputLabel value="Fecha Creacion:"  />
                             </p:column>
                             <p:column >
-                                <p:calendar id="fechai"  required="true" value="#{ticketController.fi}" showOn="button" />
+                                <p:calendar id="fechai"  value="#{ticketController.fi}" showOn="button" />
                              
                                 <p:outputLabel value=" Al "  />
                              
-                                <p:calendar id="fechaf"  required="true" value="#{ticketController.ff}" showOn="button" />
+                                <p:calendar id="fechaf"  value="#{ticketController.ff}" showOn="button" />
                             </p:column>
                         </p:row>
                         
@@ -58,7 +68,9 @@
                     </p:panelGrid>
                     <div class="Card TexAlRight">
                         <p:commandButton actionListener="#{ticketController.asignar}" icon="fa fa-search White" value="Consultar" update="display,:TicketListForm:datalist,:growl" onclick="TicketCreateDialog.hide()"/>
-                        <p:commandButton value="#{bundle.Cancel}" onclick="TicketCreateDialog.hide()"/>
+                        
+                             
+                        
                     </div>
                 </h:panelGroup>
             </h:form>

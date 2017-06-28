@@ -68,21 +68,13 @@
     </ul>
 
     <ul class="layout-tab-submenu" id="layout-settings">
-        <li>
-            <a class="TexAlCenter">USER SETTINGS</a>
-            <ul>
-                <div class="EmptyBox20"></div>
-                <li><a href="#" class="menulink TexAlCenter"> <i class="icon-user106 Yellow Fs30 Wid100 Fnone"></i> Account Settings</a></li>
-                <div class="EmptyBox20"></div>
-                <li><a href="#" class="menulink TexAlCenter"> <i class="icon-envelope80 Yellow Fs30 Wid100 Fnone"></i> E-Mail Settings</a></li>
-                <div class="EmptyBox20"></div>
-                <li><a href="#" class="menulink TexAlCenter"> <i class="icon-turn20 Yellow Fs30 Wid100 Fnone"></i> Notification Settings</a></li>
-                <div class="EmptyBox20"></div>
-                <li><a href="#" class="menulink TexAlCenter"> <i class="icon-web-design4 Yellow Fs30 Wid100 Fnone"></i> Screen Settings</a></li>
-                <div class="EmptyBox20"></div>
-                <li><a href="#" class="menulink TexAlCenter"> <i class="icon-updated Yellow Fs30 Wid100 Fnone"></i> Security Settings</a></li>
-            </ul>
-        </li>
+         <h:form>
+            
+           
+            <span class=" Fs16 White"><b>Nombre :</b></span><br/><span  class=" Fs16 White"> #{loginBean.user.usuario }</span><br/><br/>
+            <span class=" Fs16 White"><b>Rol :</b></span><br/><span  class=" Fs16 White"> #{loginBean.user.rolIdrol.nombre} </span><br/><br/>
+            <span class=" Fs16 White"><b>Departamento :</b></span><br/><span  class=" Fs16 White"> #{loginBean.user.iddepto.nombre} </span><br/><br/>
+        </h:form>
     </ul>
 
     <ul class="layout-tab-submenu" id="layout-tasks">

@@ -14,22 +14,25 @@
         <ui:define name="content">
           
                <h:form id="TicketListForm">
-                   
-
-            <div class="Container100">
+          <div class="Container100">
             <div class="Card">
                <div class="Container40">
-                   <h1>Depto TIcket </h1>
+                   <h1>Depto TIcket </h1> 
+                  
+                   
+                    
                </div>
                 <div class="Container60   Responsive100  TexAlRight ">                                                                  
                     <p:commandButton id="createButton" icon="fa fa-plus White"   value="Nuevo TIcket" actionListener="#{ticketController.prepareCreate}" update="TicketCreateForm" oncomplete="PF('TicketCreateDialog').show()"/>    
                     <p:commandButton id="filtroButton" icon="fa fa-search White"   value="Filtrar" update="TicketFiltroForm"     oncomplete="PF('TicketFiltroDialog').show()" />
-                    <p:commandButton id="actualizarButton" icon="fa fa-search White"   value="Actualizar" update="TicketListForm TicketListForm2"      actionListener="#{ticketController.cambiarFiltro()}" />
-                    
+                    <p:commandButton id="filtroButto2n" icon="#{ticketController.vicon}"   value="#{ticketController.vuser}"   actionListener="#{ticketController.cambiarFiltro}" update="TicketListForm TicketListForm2"    />
                </div>
                 </div>
-            </div>
+            </div>        
             <div class="SeparatorFull"></div>  
+            <p:fieldset legend="Resumen" collapsed="true"  toggleable="true" toggleSpeed="500"  >
+     
+         
             
                 <div class="Container100 NoIndent Flex FlexWrap">
                     <div class="Container25 Responsive50 Flex">
@@ -94,12 +97,26 @@
                                 Ultimos 30 dias 
                             </div>     
                         </div>
-                    </div>                    
-                </div>                
+                    </div>     
+                    <div class="Container25    ">
+                        <div class="Container50  Responsive50  "> 
+                           
+                        </div>                
+                        <div class="Container50   Responsive50  "> 
+                           
+                        </div>
+                    </div>
+                    
+                </div>  
+    </p:fieldset>
                    
-                <div class="SeparatorFull"></div>                       
+                         
+                   
+                <div class="SeparatorFull"></div>   
+             
                 <p:panel header="ticket">
-                    <p:dataTable id="datalist" value="#{ticketController.lticketUsuario}" var="item"
+                      
+                    <p:dataTable id="datalist" value="#{ticketController.lticketTecnico}" var="item"
                                  selectionMode="single" selection="#{ticketController.selected}"                           
                                  rowKey="#{item.idticket}"
                                  scrollable="true" 
@@ -173,8 +190,10 @@
                             <p:commandButton id="addMsg"   icon=" fa-commenting-o fa White" value="Agregar Mensaje" update=":msgForm " oncomplete="PF('msgDialog').show()" disabled="#{empty ticketController.selected or ticketController.selected.idestado.idticketEstado ==3}"/>
                           <p:commandButton id="btnasignar"   styleClass="GreenButton" icon=" fa-user-plus fa White" value="Asignar" update=":TicketAsignarForm " oncomplete="PF('TicketAsignarDialog').show()" disabled="#{empty ticketController.selected  or ticketController.selected.idestado.idticketEstado ==3}"/>
                           <p:commandButton id="btnFinalizar"  styleClass="RedButton"  icon="  fa-check-square-o fa White" value="Finalizar" update=":TicketFinalizarForm " oncomplete="PF('TicketFinalizarDialog').show()" disabled="#{empty ticketController.selected  or ticketController.selected.idestado.idticketEstado ==3}"/>
+                            
                         </f:facet>
                     </p:dataTable>
+                    
                 </p:panel>
             </h:form>
               <h:form id="TicketListForm2">
